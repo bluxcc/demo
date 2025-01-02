@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "blux": "file:../kit",
+    "blux": "file:../blux",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },

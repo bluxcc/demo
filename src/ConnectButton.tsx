@@ -3,16 +3,25 @@ import { useBlux } from "blux";
 const ConnectButton = () => {
   const { connect } = useBlux();
 
-  const onClick = () => {
-    connect();
+  const handleClick = async () => {
+    await connect();
   };
 
   return (
-    <div>
-      <button type="button" onClick={onClick}>
-        Click to Connect
-      </button>
-    </div>
+    <button
+      onClick={handleClick}
+      style={{
+        background: "#0d1292",
+        padding: "10px",
+        border: "1px solid transparent",
+        borderRadius: "12px",
+        color: "white",
+        fontSize: "16px",
+        fontWeight: "bold",
+      }}
+    >
+      Connect wallet
+    </button>
   );
 };
 

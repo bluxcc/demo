@@ -1,18 +1,26 @@
 import { BluxProvider } from "blux";
 import ConnectButton from "./ConnectButton";
-import "../../kit/dist/index.esm.css";
+
+import "../../blux/dist/index.esm.css";
 
 function App() {
   return (
-    <BluxProvider
-      config={{
-        appName: "gello",
-        networkPassphrase: "maiaan",
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
       }}
     >
-      <p>hey</p>
-      <ConnectButton />
-    </BluxProvider>
+      <BluxProvider
+        config={{
+          networkPassphrase: "Test SDF Network ; September 2015",
+          appName: "my example app",
+        }}
+      >
+        <ConnectButton />
+      </BluxProvider>
+    </div>
   );
 }
 
