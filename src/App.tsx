@@ -1,8 +1,6 @@
 import { BluxProvider } from "blux";
 import ConnectButton from "./ConnectButton";
 
-import "../../blux/dist/index.esm.css";
-
 function App() {
   return (
     <div
