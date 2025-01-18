@@ -13,7 +13,8 @@ const ConnectButton = () => {
   }, [address]);
 
   const handleClick = async () => {
-    await connect();
+    console.log("aaaa");
+    connect();
   };
 
   const handleDisconnect = async () => {
