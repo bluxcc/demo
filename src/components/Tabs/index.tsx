@@ -14,17 +14,17 @@ type TabsProps = {
 };
 
 const Tabs = ({ tabs }: TabsProps) => {
-  const [activeTab, setActiveTab] = useState(0);
+  const [activeTab, setActiveTab] = useState(3);
 
   return (
     <div className="flex h-full">
-      <div className="flex flex-col pt-4 pb-[17px] border-r border-lightPurple justify-between items-center">
+      <div className="flex flex-col pt-4 pb-[17px] border-r border-lightPurple justify-between items-center text-primary">
         <div className="flex flex-col items-center">
           {tabs.map((tab, index) => (
             <button
               key={index}
               onClick={() => setActiveTab(index)}
-              className="py-2 px-4 flex flex-col items-center font-medium"
+              className="py-2 px-4 flex flex-col items-center font-medium text-[13px]"
               aria-selected={activeTab === index}
               role="tab"
               tabIndex={activeTab === index ? 0 : -1}
