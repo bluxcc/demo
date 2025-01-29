@@ -2,16 +2,16 @@ import Tabs from "../../components/Tabs";
 
 // inActive assets
 import auth from "/images/tabs/inActive/auth.svg";
-import browse from "/images/tabs/inActive/browse.svg";
+import layout from "/images/tabs/inActive/layout.svg";
 import palette from "/images/tabs/inActive/palette.svg";
 import puzzle from "/images/tabs/inActive/puzzle.svg";
-import language from "/images/tabs/inActive/language.svg";
+import globe from "/images/tabs/inActive/globe.svg";
 
 // active assets
 import activeAuth from "/images/tabs/active/auth.svg";
-// import activeBrowse from "/images/tabs/active/browse.svg";
+import activeLayout from "/images/tabs/active/layout.svg";
 import activePuzzle from "/images/tabs/active/puzzle.svg";
-// import activeLanguage from "/images/tabs/active/language.svg";
+import activeGlobe from "/images/tabs/active/globe.svg";
 import activePalette from "/images/tabs/active/palette.svg";
 
 const TabsContainer = () => {
@@ -30,8 +30,8 @@ const TabsContainer = () => {
     },
     {
       label: "Layout",
-      inActiveImg: browse,
-      activeImg: browse,
+      inActiveImg: layout,
+      activeImg: activeLayout,
       content: <div>Content for Tab 3</div>,
     },
     {
@@ -42,8 +42,8 @@ const TabsContainer = () => {
     },
     {
       label: "Social",
-      inActiveImg: language,
-      activeImg: language,
+      inActiveImg: globe,
+      activeImg: activeGlobe,
       content: <div>Content for Tab 3</div>,
     },
   ];

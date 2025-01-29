@@ -1,10 +1,9 @@
 import { BluxProvider } from "blux";
 
 import "./style/index.css";
-// import "../../blux/dist/index.esm.css";
 
 import Header from "./components/header";
-import ConnectButton from "./components/ConnectButton";
+import OpenModal from "./components/OpenModal";
 
 import redo from "/images/redo.svg";
 import TabsContainer from "./containers/tabsContainer";
@@ -25,7 +24,7 @@ function App() {
                   appName: "my example app",
                 }}
               >
-                <ConnectButton />
+                <OpenModal />
               </BluxProvider>
             </div>
             <div className="">

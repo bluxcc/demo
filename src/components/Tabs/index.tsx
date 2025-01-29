@@ -38,7 +38,7 @@ const Tabs = ({ tabs }: TabsProps) => {
                   <img
                     src={tab.activeImg}
                     alt={tab.label}
-                    className="!fill-red-700"
+                    className="w-6 h-6"
                   />
                 </div>
               ) : (
@@ -46,7 +46,7 @@ const Tabs = ({ tabs }: TabsProps) => {
                   <img
                     src={tab.inActiveImg}
                     alt={tab.label}
-                    className="!fill-red-700"
+                    className="w-6 h-6"
                   />
                 </div>
               )}

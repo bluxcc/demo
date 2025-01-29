@@ -1,22 +1,13 @@
 import { useEffect, useState } from "react";
 import { useBlux } from "blux";
 
-const ConnectButton = () => {
+const OpenModal = () => {
   const { user, isAuthenticated, isReady, openDemo, disconnect } = useBlux();
   const [userAddress, setUserAddress] = useState("");
 
   useEffect(() => {
     openDemo();
-    if (isAuthenticated) {
-      setTimeout(() => {
-        disconnect();
-      }, 100);
-
-      setTimeout(() => {
-        openDemo();
-      }, 300);
-    }
-  }, [disconnect, isAuthenticated]);
+  }, []);
 
   useEffect(() => {
     if (user?.wallet?.address) {
@@ -24,11 +15,22 @@ const ConnectButton = () => {
     }
   }, [user?.wallet?.address]);
 
+  const handleDisconnect = async () => {
+    await disconnect();
+  };
+
   if (!isReady) return <div>Loading...</div>;
   if (isAuthenticated) {
-    return <div>Connected: {userAddress}</div>;
+    return (
+      <button
+        className="center bg-primary h-12 p-4 text-white"
+        onClick={handleDisconnect}
+      >
+        {userAddress}
+      </button>
+    );
   }
   return null;
 };
 
-export default ConnectButton;
+export default OpenModal;
