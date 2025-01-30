@@ -3,7 +3,7 @@ name: GitHub to Telegram
 on:
   push:
     branches:
-      - master
+      - main
   issues:
     types: [opened, closed]
   release:
