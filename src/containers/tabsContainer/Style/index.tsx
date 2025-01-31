@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Button from "../../../components/Button";
-import { ColorPicker } from "../../../components/ColorPicker.tsx";
+import { ColorPicker } from "../../../components/ColorPicker";
 import {
   BackgroundColor,
   AccentColor,
