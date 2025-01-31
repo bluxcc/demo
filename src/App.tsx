@@ -2,8 +2,8 @@ import { BluxProvider } from "blux";
 
 import "./style/index.css";
 
-import Header from "./components/header";
-import OpenModal from "./components/OpenModal";
+import Header from "./components/Header";
+import OpenModal from "./containers/OpenModal";
 
 import redo from "/images/redo.svg";
 import TabsContainer from "./containers/tabsContainer";

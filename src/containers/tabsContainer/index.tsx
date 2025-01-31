@@ -14,37 +14,44 @@ import activePuzzle from "/images/tabs/active/puzzle.svg";
 import activeGlobe from "/images/tabs/active/globe.svg";
 import activePalette from "/images/tabs/active/palette.svg";
 
+// pages
+import Auth from "./Auth";
+import Features from "./Features";
+import Layout from "./Layout";
+import Style from "./Style";
+import Social from "./Social";
+
 const TabsContainer = () => {
   const tabsContent = [
     {
       label: "Auth",
       inActiveImg: auth,
       activeImg: activeAuth,
-      content: <div>Content for Tab 1</div>,
+      content: <Auth />,
     },
     {
-      label: "Feature",
+      label: "Features",
       inActiveImg: puzzle,
       activeImg: activePuzzle,
-      content: <div>Content for Tab 2</div>,
+      content: <Features />,
     },
     {
       label: "Layout",
       inActiveImg: layout,
       activeImg: activeLayout,
-      content: <div>Content for Tab 3</div>,
+      content: <Layout />,
     },
     {
       label: "Style",
       inActiveImg: palette,
       activeImg: activePalette,
-      content: <div>Content for Tab 3</div>,
+      content: <Style />,
     },
     {
       label: "Social",
       inActiveImg: globe,
       activeImg: activeGlobe,
-      content: <div>Content for Tab 3</div>,
+      content: <Social />,
     },
   ];
 
