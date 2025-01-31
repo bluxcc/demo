@@ -1,10 +1,10 @@
 import React from "react";
 import clsx from "clsx";
 
-import { RadiosValues } from "../../constants";
+import { RadiusValues } from "../../constants";
 
 type ButtonProps = {
-  rounded?: RadiosValues;
+  rounded?: RadiusValues;
   children?: React.ReactNode;
   className?: string;
   onClick?: () => void;

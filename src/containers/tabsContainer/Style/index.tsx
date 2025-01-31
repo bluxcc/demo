@@ -8,15 +8,15 @@ import {
   COLORS,
   CUSTOM_GRADIENT,
   CornerButtons,
-  RadiosValues,
+  RadiusValues,
 } from "../../../constants";
 import ToggleSwitch from "../../../components/ToggleSwitch";
 
 const Style = () => {
   const [mode, setMode] = useState<"light" | "dark">("light");
-  const [corner, setCorner] = useState<{ name: string; radios: RadiosValues }>({
+  const [corner, setCorner] = useState<{ name: string; radius: RadiusValues }>({
     name: "none",
-    radios: "none",
+    radius: "none",
   });
   const [isOn, setIsOn] = useState(false);
 
@@ -110,18 +110,18 @@ const Style = () => {
       <hr className="border border-dashed border-lightPurple" />
 
       <div className="flex flex-col space-y-4">
-        <p>Corner radios</p>
+        <p>Corner radius</p>
         <div className="w-full flex items-center gap-2">
           {CornerButtons.map((m) => (
             <Button
               key={m.name}
-              rounded={m.radios as RadiosValues}
+              rounded={m.radius as RadiusValues}
               className="w-12 h-12 text-sm"
               active={corner.name === m.name}
               onClick={() =>
                 setCorner({
                   name: m.name,
-                  radios: m.radios as RadiosValues,
+                  radius: m.radius as RadiusValues,
                 })
               }
             >

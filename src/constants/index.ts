@@ -28,23 +28,23 @@ export const COLORS = {
 export const CornerButtons = [
   {
     name: "none",
-    radios: "none",
+    radius: "none",
   },
   {
     name: "1",
-    radios: "sm",
+    radius: "sm",
   },
   {
     name: "2",
-    radios: "md",
+    radius: "md",
   },
   {
     name: "3",
-    radios: "lg",
+    radius: "lg",
   },
   {
     name: "4",
-    radios: "full",
+    radius: "full",
   },
 ];
 
@@ -54,4 +54,4 @@ export type AccentColor = (typeof COLORS.accent)[number]["name"];
 export type TextColor = (typeof COLORS.text)[number]["name"];
 export const CUSTOM_GRADIENT =
   "conic-gradient(from 180deg at 50% 50%, #0D1292 0deg, #53E5FF 100.8deg, #FFFFFF 243deg, #0D1292 360deg)";
-export type RadiosValues = "sm" | "md" | "lg" | "none" | "full";
+export type RadiusValues = "sm" | "md" | "lg" | "none" | "full";
