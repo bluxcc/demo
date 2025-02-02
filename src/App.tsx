@@ -7,8 +7,11 @@ import OpenModal from "./containers/OpenModal";
 
 import redo from "/images/redo.svg";
 import TabsContainer from "./containers/tabsContainer";
+import { useAppearance } from "./hooks/useAppearanceContext";
 
 function App() {
+  const { appearance } = useAppearance();
+
   return (
     <div className="flex-col h-screen w-screen">
       <Header />
@@ -19,6 +22,8 @@ function App() {
             <div />
             <div className="relative w-full center">
               <BluxProvider
+                key={JSON.stringify(appearance)}
+                appearance={appearance}
                 config={{
                   networkPassphrase: "Test SDF Network ; September 2015",
                   appName: "my example app",

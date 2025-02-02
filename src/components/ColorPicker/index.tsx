@@ -7,7 +7,7 @@ type ColorPickerProps = {
   colors: typeof COLORS.background | typeof COLORS.accent | typeof COLORS.text;
   activeColor: string;
   customColor: string;
-  onColorChange: (name: string) => void;
+  onColorChange: (color: string) => void;
   onCustomColorChange: (color: string) => void;
 };
 
@@ -21,11 +21,11 @@ export const ColorPicker = ({
 }: ColorPickerProps) => {
   const pickerRef = useRef<HTMLInputElement>(null);
 
-  const handleColorClick = (name: string) => {
+  const handleColorClick = (name: string, color: string) => {
     if (name === "custom") {
       pickerRef.current?.click();
     }
-    onColorChange(name);
+    onColorChange(color);
   };
 
   return (
@@ -37,8 +37,8 @@ export const ColorPicker = ({
             key={name}
             className="size-7 center"
             rounded="full"
-            active={activeColor === name}
-            onClick={() => handleColorClick(name)}
+            active={activeColor === color}
+            onClick={() => handleColorClick(name, color)}
           >
             <div
               className={`size-[15.75px] rounded-full ${
@@ -54,7 +54,7 @@ export const ColorPicker = ({
           ref={pickerRef}
           type="color"
           className="hidden"
-          value={activeColor === "custom" ? customColor : ""}
+          value={customColor}
           onChange={(e) => onCustomColorChange(e.target.value)}
         />
       </div>

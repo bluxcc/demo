@@ -25,7 +25,7 @@ export const COLORS = {
   ] as const,
 };
 
-export const CornerButtons = [
+export const CornerButtons: { name: string; radius: RadiusValues }[] = [
   {
     name: "none",
     radius: "none",
@@ -47,6 +47,12 @@ export const CornerButtons = [
     radius: "full",
   },
 ];
+
+export type SupportedFonts =
+  | "Manrope"
+  | "Inter"
+  | "JetBrains Mono"
+  | "PP Editorial Sans";
 
 export type ColorType = "background" | "accent" | "text";
 export type BackgroundColor = (typeof COLORS.background)[number]["name"];
