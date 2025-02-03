@@ -22,7 +22,7 @@ function App() {
             <div />
             <div className="relative w-full center">
               <BluxProvider
-                key={JSON.stringify(appearance)}
+                isDemo
                 appearance={appearance}
                 config={{
                   networkPassphrase: "Test SDF Network ; September 2015",
@@ -32,7 +32,7 @@ function App() {
                 <OpenModal />
               </BluxProvider>
             </div>
-            <div className="">
+            <div>
               <button className="inline-flex gap-2 justify-center items-center text-primary border-primary border-2 border-dashed h-12 w-[120px] ">
                 <img src={redo} alt="redo" />
                 Reset
