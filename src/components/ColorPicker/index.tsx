@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import Button from "../Button";
-import { COLORS, ColorType } from "../../constants";
+import { COLORS, ColorType, CUSTOM_GRADIENT } from "../../constants";
 
 type ColorPickerProps = {
   type: ColorType;
@@ -30,14 +30,14 @@ export const ColorPicker = ({
 
   return (
     <div className="flex flex-col space-y-4">
-      <p className="capitalize">{type}</p>
-      <div className="w-full flex flex-wrap gap-2">
+      <p className="capitalize text-sm">{type}</p>
+      <div className="w-full flex flex-wrap gap-2 relative">
         {colors.map(({ name, color }) => (
           <Button
             key={name}
             className="size-7 center"
             rounded="full"
-            active={activeColor === color}
+            active={activeColor === color || activeColor === name}
             onClick={() => handleColorClick(name, color)}
           >
             <div
@@ -45,7 +45,8 @@ export const ColorPicker = ({
                 name === "white" && "border-2 border-lightPurple"
               }`}
               style={{
-                background: name === "custom" ? customColor : color,
+                background:
+                  name === "custom" ? CUSTOM_GRADIENT || customColor : color,
               }}
             />
           </Button>
@@ -53,7 +54,7 @@ export const ColorPicker = ({
         <input
           ref={pickerRef}
           type="color"
-          className="hidden"
+          className="absolute top-3 opacity-0 w-[20px] h-[20px] cursor-pointer"
           value={customColor}
           onChange={(e) => onCustomColorChange(e.target.value)}
         />

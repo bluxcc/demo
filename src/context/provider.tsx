@@ -17,7 +17,7 @@ export const AppearanceProvider = ({ children }: { children: ReactNode }) => {
   const [appearance, setAppearance] = useState<IAppearance>({
     theme: "light",
     background: "white",
-    accent: "#0D1292",
+    accent: "#3E72FF",
     textColor: "black",
     font: "Inter",
     cornerRadius: "lg",
