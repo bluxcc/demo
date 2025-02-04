@@ -1,59 +1,26 @@
-import { useState } from "react";
+import { useAppearance } from "../../../hooks/useAppearanceContext";
 import Button from "../../../components/Button";
 import { ColorPicker } from "../../../components/ColorPicker";
-import {
-  BackgroundColor,
-  AccentColor,
-  TextColor,
-  COLORS,
-  CUSTOM_GRADIENT,
-  CornerButtons,
-  RadiosValues,
-} from "../../../constants";
+import { CornerButtons, COLORS, Fonts } from "../../../constants";
 import ToggleSwitch from "../../../components/ToggleSwitch";
 
 const Style = () => {
-  const [mode, setMode] = useState<"light" | "dark">("light");
-  const [corner, setCorner] = useState<{ name: string; radios: RadiosValues }>({
-    name: "none",
-    radios: "none",
-  });
-  const [isOn, setIsOn] = useState(false);
-
-  const [background, setBackground] = useState<{
-    active: BackgroundColor;
-    custom: string;
-  }>({
-    active: "white",
-    custom: CUSTOM_GRADIENT,
-  });
-  const [accent, setAccent] = useState<{
-    active: AccentColor;
-    custom: string;
-  }>({
-    active: "red",
-    custom: CUSTOM_GRADIENT,
-  });
-  const [text, setText] = useState<{
-    active: TextColor;
-    custom: string;
-  }>({
-    active: "black",
-    custom: CUSTOM_GRADIENT,
-  });
+  const { appearance, updateAppearance } = useAppearance();
 
   return (
     <div className="flex flex-col text-primary space-y-3">
       {/* Mode Selection */}
       <div className="flex flex-col space-y-4">
-        <p>Mode</p>
+        <p className="text-sm">Mode</p>
         <div className="w-full flex items-center gap-2">
           {["light", "dark"].map((m) => (
             <Button
               key={m}
-              className="w-[120px] h-8"
-              active={mode === m}
-              onClick={() => setMode(m as "light" | "dark")}
+              className={`w-[120px] h-8 ${
+                appearance.theme === m && "font-medium"
+              }`}
+              active={appearance.theme === m}
+              onClick={() => updateAppearance("theme", m)}
             >
               {m.charAt(0).toUpperCase() + m.slice(1)}
             </Button>
@@ -67,63 +34,63 @@ const Style = () => {
       <ColorPicker
         type="background"
         colors={COLORS.background}
-        activeColor={background.active}
-        customColor={background.custom}
-        onColorChange={(name) =>
-          setBackground((prev) => ({
-            ...prev,
-            active: name as BackgroundColor,
-          }))
-        }
-        onCustomColorChange={(color) =>
-          setBackground({ active: "custom", custom: color })
-        }
+        activeColor={appearance.background}
+        customColor={appearance.background}
+        onColorChange={(color) => updateAppearance("background", color)}
+        onCustomColorChange={(color) => updateAppearance("background", color)}
       />
 
       <ColorPicker
         type="accent"
         colors={COLORS.accent}
-        activeColor={accent.active}
-        customColor={accent.custom}
-        onColorChange={(name) =>
-          setAccent((prev) => ({ ...prev, active: name as AccentColor }))
-        }
-        onCustomColorChange={(color) =>
-          setAccent({ active: "custom", custom: color })
-        }
+        activeColor={appearance.accent}
+        customColor={appearance.accent}
+        onColorChange={(color) => updateAppearance("accent", color)}
+        onCustomColorChange={(color) => updateAppearance("accent", color)}
       />
 
       <hr className="border border-dashed border-lightPurple" />
+
+      <div className="flex flex-col space-y-4">
+        <p className="text-sm">Font</p>
+        <div className="w-full flex flex-wrap gap-2 items-center">
+          {Fonts.map((m) => (
+            <Button
+              key={m.name}
+              className={`w-[120px] h-8 ${
+                appearance.font === m.value && "font-medium"
+              }`}
+              active={appearance.font === m.value}
+              onClick={() => updateAppearance("font", m.value)}
+            >
+              {m.name.charAt(0).toUpperCase() + m.name.slice(1)}
+            </Button>
+          ))}
+        </div>
+      </div>
 
       <ColorPicker
         type="text"
         colors={COLORS.text}
-        activeColor={text.active}
-        customColor={text.custom}
-        onColorChange={(name) =>
-          setText((prev) => ({ ...prev, active: name as TextColor }))
-        }
-        onCustomColorChange={(color) =>
-          setText({ active: "custom", custom: color })
-        }
+        activeColor={appearance.textColor}
+        customColor={appearance.textColor}
+        onColorChange={(color) => updateAppearance("textColor", color)}
+        onCustomColorChange={(color) => updateAppearance("textColor", color)}
       />
+
       <hr className="border border-dashed border-lightPurple" />
 
+      {/* Corner radius buttons */}
       <div className="flex flex-col space-y-4">
-        <p>Corner radios</p>
+        <p className="text-sm">Corner radius</p>
         <div className="w-full flex items-center gap-2">
           {CornerButtons.map((m) => (
             <Button
               key={m.name}
-              rounded={m.radios as RadiosValues}
-              className="w-12 h-12 text-sm"
-              active={corner.name === m.name}
-              onClick={() =>
-                setCorner({
-                  name: m.name,
-                  radios: m.radios as RadiosValues,
-                })
-              }
+              rounded={m.radius}
+              className="w-12 h-12 text-sm font-medium"
+              active={appearance.cornerRadius === m.radius}
+              onClick={() => updateAppearance("cornerRadius", m.radius)}
             >
               {m.name.charAt(0).toUpperCase() + m.name.slice(1)}
             </Button>
@@ -133,14 +100,16 @@ const Style = () => {
 
       <hr className="border border-dashed border-lightPurple" />
 
+      {/* Cover toggle */}
       <div className="w-full flex items-center justify-between pr-2">
-        <span>Add a cover</span>
+        <p className="text-sm">Add a cover</p>
         <ToggleSwitch
-          checked={isOn}
-          onChange={() => setIsOn((prev) => !prev)}
+          checked={appearance.cover !== ""}
+          onChange={() => updateAppearance("cover", appearance.cover)}
         />
       </div>
     </div>
   );
 };
+
 export default Style;

@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { useBlux } from "blux";
 
 const OpenModal = () => {
-  const { user, isAuthenticated, isReady, openDemo, disconnect } = useBlux();
+  const { user, isAuthenticated, isReady, connect, disconnect } = useBlux();
   const [userAddress, setUserAddress] = useState("");
 
   useEffect(() => {
-    openDemo();
+    connect();
   }, []);
 
   useEffect(() => {

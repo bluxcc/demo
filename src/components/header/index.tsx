@@ -3,7 +3,7 @@ import barChart from "/images/barChart.svg";
 
 const Header = () => {
   return (
-    <div className="w-full h-[72px] border border-b-lightPurple between px-4">
+    <div className="w-full h-[72px] border border-b-lightPurple between px-4 font-jetbrains">
       <div>
         <img src={logo} alt="Logo" />
       </div>
