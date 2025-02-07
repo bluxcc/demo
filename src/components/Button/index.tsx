@@ -27,10 +27,10 @@ const Button = ({
           "border-primary": active,
           "border-lightPurple": !active,
           "rounded-none": rounded === "none",
-          "rounded-[3.43px]": rounded === "sm",
+          "rounded-[4px]": rounded === "sm",
           "rounded-lg": rounded === "md",
           "rounded-xl": rounded === "lg",
-          "rounded-full": rounded === "full",
+          "rounded-[32px]": rounded === "full",
         },
         "border-2",
         className

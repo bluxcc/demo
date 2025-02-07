@@ -27,6 +27,7 @@ function App() {
                 isDemo
                 appearance={appearance}
                 config={{
+                  network: "testnet",
                   networkPassphrase: "Test SDF Network ; September 2015",
                   appName: "my example app",
                 }}
