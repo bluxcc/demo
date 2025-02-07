@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@bluxcc/react": "^0.1.0",
     "blux": "file:../blux",
     "clsx": "^2.1.1",
     "react": "^19.0.0",
