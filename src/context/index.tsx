@@ -1,10 +1,15 @@
 import { createContext } from "react";
 import { IAppearance } from "./provider";
 
+interface AppearanceContextValue {
+  appearance: IAppearance;
+  updateAppearance: (
+    property: keyof IAppearance,
+    value: IAppearance[keyof IAppearance]
+  ) => void;
+  resetAppearance: () => void;
+}
+
 export const AppearanceContext = createContext<
-  | {
-      appearance: IAppearance;
-      updateAppearance: (property: keyof IAppearance, value: string) => void;
-    }
-  | undefined
+  AppearanceContextValue | undefined
 >(undefined);
