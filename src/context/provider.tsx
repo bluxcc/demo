@@ -1,6 +1,7 @@
 import { useState, ReactNode } from "react";
 import { SupportedFonts, RadiusValues } from "../constants";
 import { AppearanceContext } from "./index";
+import { defaultAppearance } from "../../../blux";
 
 export interface IAppearance {
   theme: "light" | "dark";
@@ -12,18 +13,8 @@ export interface IAppearance {
   cover: string;
 }
 
-const DEFAULT_APPEARANCE: IAppearance = {
-  theme: "light",
-  background: "white",
-  accent: "#3E72FF",
-  textColor: "black",
-  font: "Inter",
-  cornerRadius: "lg",
-  cover: "",
-};
-
 export const AppearanceProvider = ({ children }: { children: ReactNode }) => {
-  const [appearance, setAppearance] = useState<IAppearance>(DEFAULT_APPEARANCE);
+  const [appearance, setAppearance] = useState<IAppearance>(defaultAppearance);
 
   const updateAppearance = (property: keyof IAppearance, value: string) => {
     setAppearance((prev) => ({
@@ -33,7 +24,7 @@ export const AppearanceProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const resetAppearance = () => {
-    setAppearance(DEFAULT_APPEARANCE);
+    setAppearance(defaultAppearance);
   };
 
   return (
