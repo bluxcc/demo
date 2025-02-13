@@ -1,19 +1,17 @@
 export const COLORS = {
   background: [
     { name: "white", color: "#ffffff" },
-    { name: "lightGray", color: "#E4E4E4" },
-    { name: "gray", color: "#A9A9A9" },
-    { name: "darkGray", color: "#6C6C6C" },
-    { name: "charcoalGray", color: "#363636" },
+    { name: "lightGray", color: "#F2F2F2" },
+    { name: "gray", color: "#CCCCCC" },
+    { name: "darkGray", color: "#999999" },
+    { name: "charcoalGray", color: "#666666" },
     { name: "custom", color: "custom" },
   ] as const,
 
   accent: [
     { name: "pink", color: "#FFCDCD" },
-    { name: "orange", color: "#FFA23F" },
-    { name: "red", color: "#FF4D3E" },
+    { name: "blue", color: "#0C1083" },
     { name: "lightBlue", color: "#53E5FF" },
-    { name: "blue", color: "#3E72FF" },
     { name: "custom", color: "custom" },
   ] as const,
 
@@ -62,5 +60,5 @@ export type BackgroundColor = (typeof COLORS.background)[number]["name"];
 export type AccentColor = (typeof COLORS.accent)[number]["name"];
 export type TextColor = (typeof COLORS.text)[number]["name"];
 export const CUSTOM_GRADIENT =
-  "conic-gradient(from 180deg at 50% 50%, #0D1292 0deg, #53E5FF 100.8deg, #FFFFFF 243deg, #0D1292 360deg)";
+  "conic-gradient(from 180deg at 50% 50%, #0D1292 0deg, #FFCDCD 180deg, #53E5FF 360deg)";
 export type RadiusValues = "sm" | "md" | "lg" | "none" | "full";
