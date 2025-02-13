@@ -52,10 +52,10 @@ export const Fonts: { name: string; value: SupportedFonts }[] = [
   { name: "Manrope", value: "Manrope" },
   { name: "Inter", value: "Inter" },
   { name: "JetBrains", value: "JetBrains Mono" },
-  { name: "Roboto", value: "Roboto" },
+  { name: "Lora", value: "Lora" },
 ];
 
-export type SupportedFonts = "Manrope" | "Inter" | "JetBrains Mono" | "Roboto";
+export type SupportedFonts = "Manrope" | "Inter" | "JetBrains Mono" | "Lora";
 
 export type ColorType = "background" | "accent" | "text";
 export type BackgroundColor = (typeof COLORS.background)[number]["name"];

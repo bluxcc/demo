@@ -18,7 +18,7 @@ const Tabs = ({ tabs }: TabsProps) => {
 
   return (
     <div className="flex h-full">
-      <div className="flex !w-[81px] flex-col pt-4 pb-[17px] border-r border-lightPurple justify-between items-center text-primary">
+      <div className="flex !w-[81px] font-jetbrains flex-col pt-4 pb-[17px] border-r border-lightPurple justify-between items-center text-primary">
         <div className="flex flex-col items-center">
           {tabs.map((tab, index) => (
             <button
