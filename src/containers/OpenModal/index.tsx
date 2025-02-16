@@ -2,7 +2,8 @@ import { useEffect } from "react";
 import { useBlux } from "blux";
 
 const OpenModal = () => {
-  const { isReady, connect, profile, isAuthenticated, user } = useBlux();
+  const { isReady, connect, isAuthenticated, user, signTransaction } =
+    useBlux();
 
   useEffect(() => {
     connect();
@@ -10,7 +11,7 @@ const OpenModal = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      profile();
+      signTransaction();
     }
   }, [isAuthenticated]);
 
