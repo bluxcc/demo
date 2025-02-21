@@ -1,7 +1,7 @@
 import { createContext } from "react";
 import { IAppearance } from "./provider";
 
-interface AppearanceContextValue {
+interface IAppearanceContext {
   appearance: IAppearance;
   updateAppearance: (
     property: keyof IAppearance,
@@ -10,6 +10,6 @@ interface AppearanceContextValue {
   resetAppearance: () => void;
 }
 
-export const AppearanceContext = createContext<
-  AppearanceContextValue | undefined
->(undefined);
+export const AppearanceContext = createContext<IAppearanceContext | undefined>(
+  undefined
+);
