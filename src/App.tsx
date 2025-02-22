@@ -10,7 +10,7 @@ import TabsContainer from "./containers/tabsContainer";
 import { useAppearance } from "./hooks/useAppearanceContext";
 
 function App() {
-  const { appearance } = useAppearance();
+  const { appearance, resetAppearance } = useAppearance();
 
   return (
     <div className="flex-col h-screen w-screen">
@@ -27,15 +27,19 @@ function App() {
                 isDemo
                 appearance={appearance}
                 config={{
+                  network: "testnet",
                   networkPassphrase: "Test SDF Network ; September 2015",
-                  appName: "my example app",
+                  appName: "demo",
                 }}
               >
                 <OpenModal />
               </BluxProvider>
             </div>
             <div>
-              <button className="inline-flex font-jetbrains gap-2 justify-center items-center text-primary border-primary border-2 border-dashed h-12 w-[120px] ">
+              <button
+                onClick={resetAppearance}
+                className="inline-flex font-jetbrains gap-2 justify-center items-center text-primary border-primary border-2 border-dashed h-12 w-[120px] "
+              >
                 <img src={redo} alt="redo" />
                 Reset
               </button>

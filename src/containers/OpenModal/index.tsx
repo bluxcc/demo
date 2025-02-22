@@ -1,35 +1,26 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useBlux } from "blux";
 
 const OpenModal = () => {
-  const { user, isAuthenticated, isReady, connect, disconnect } = useBlux();
-  const [userAddress, setUserAddress] = useState("");
+  const { isReady, connect, isAuthenticated, user, profile, signTransaction } =
+    useBlux();
 
   useEffect(() => {
     connect();
-  }, []);
+  }, [user.wallet?.address]);
+
+  // const testXDR =
+  //   "AAAAAgAAAACvHdEb2ysDUZgEF5ubGsYG6W90u9ATDlRwGQbnpAS4PgExLQAACrlQAAQYigAAAAAAAAAAAAAABAAAAAAAAAADAAAAAVVTRFoAAAAAp/Q3brtI8PfLSsRX14/5KPHcQhj9kjVc9WzbvwDP8BUAAAABWkFSWgAAAAApozLF7XY2V/DCWNrgdjhKvyE3wYRaSrGfFPuyKyUWZwAAAAJUC+QAAAQXRwBMS0AAAAAAAAA9xQAAAAAAAAADAAAAAVpBUloAAAAAKaMyxe12Nlfwwlja4HY4Sr8hN8GEWkqxnxT7sislFmcAAAABVVNEWgAAAACn9Dduu0jw98tKxFfXj/ko8dxCGP2SNVz1bNu/AM/wFQAAAAJUC+QABZTqlQBMS0AAAAAAAAA9xgAAAAAAAAADAAAAAVVTRFoAAAAAp/Q3brtI8PfLSsRX14/5KPHcQhj9kjVc9WzbvwDP8BUAAAABWkFSWgAAAAApozLF7XY2V/DCWNrgdjhKvyE3wYRaSrGfFPuyKyUWZwAAAAJUC+QAAABUdQAGGoAAAAAAAAA9xwAAAAAAAAADAAAAAVpBUloAAAAAKaMyxe12Nlfwwlja4HY4Sr8hN8GEWkqxnxT7sislFmcAAAABVVNEWgAAAACn9Dduu0jw98tKxFfXj/ko8dxCGP2SNVz1bNu/AM/wFQAAAAJUC+QAAj5sqQAehIAAAAAAAAA9yAAAAAAAAAABpAS4PgAAAEAlPQOSpg84eWurg3dbfP6z0rasrx973wf0CLKjmnLZbDN5bGVI38A7/x32uJhQEZ+9Sy3i/w9Whqohmzk1JAsH";
 
   useEffect(() => {
-    if (user?.wallet?.address) {
-      setUserAddress(user.wallet.address);
+    if (isAuthenticated) {
+      // signTransaction(testXDR)
+      profile();
     }
-  }, [user?.wallet?.address]);
-
-  const handleDisconnect = async () => {
-    await disconnect();
-  };
+  }, [isAuthenticated]);
 
   if (!isReady) return <div>Loading...</div>;
-  if (isAuthenticated) {
-    return (
-      <button
-        className="center bg-primary h-12 p-4 text-white"
-        onClick={handleDisconnect}
-      >
-        {userAddress}
-      </button>
-    );
-  }
+
   return null;
 };
 

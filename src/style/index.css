@@ -2,12 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-.font-jetbrains {
-  font-family: "JetBrains Mono", serif;
-  font-optical-sizing: auto;
-  font-style: normal;
-}
-
 .center {
   display: flex;
   justify-content: center;

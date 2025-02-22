@@ -6,6 +6,12 @@ import ToggleSwitch from "../../../components/ToggleSwitch";
 
 const Style = () => {
   const { appearance, updateAppearance } = useAppearance();
+  const fontClasses: Record<string, string> = {
+    inter: "font-inter",
+    jetbrains: "font-jetbrains",
+    lora: "font-lora",
+    manrope: "font-manrope",
+  };
 
   return (
     <div className="flex flex-col text-primary space-y-3">
@@ -58,8 +64,8 @@ const Style = () => {
             <Button
               key={m.name}
               className={`w-[120px] h-8 ${
-                appearance.font === m.value && "font-medium"
-              }`}
+                fontClasses[m.name.toLowerCase()] || ""
+              } ${appearance.font === m.value ? "font-medium" : ""}`}
               active={appearance.font === m.value}
               onClick={() => updateAppearance("font", m.value)}
             >

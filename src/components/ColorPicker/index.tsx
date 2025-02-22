@@ -54,7 +54,7 @@ export const ColorPicker = ({
         <input
           ref={pickerRef}
           type="color"
-          className="absolute top-3 opacity-0 w-[20px] h-[20px] cursor-pointer"
+          className="absolute top-3 opacity-0 w-[20px] h-[20px] pointer-events-none"
           value={customColor}
           onChange={(e) => onCustomColorChange(e.target.value)}
         />
