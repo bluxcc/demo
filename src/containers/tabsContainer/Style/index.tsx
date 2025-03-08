@@ -1,11 +1,14 @@
-import { useAppearance } from "../../../hooks/useAppearanceContext";
 import Button from "../../../components/Button";
 import { ColorPicker } from "../../../components/ColorPicker";
+
 import { CornerButtons, COLORS, Fonts } from "../../../constants";
-import ToggleSwitch from "../../../components/ToggleSwitch";
+import { useAppearance } from "../../../hooks/useAppearanceContext";
+
+// import ToggleSwitch from "../../../components/ToggleSwitch";
 
 const Style = () => {
   const { appearance, updateAppearance } = useAppearance();
+
   const fontClasses: Record<string, string> = {
     inter: "font-inter",
     jetbrains: "font-jetbrains",
@@ -104,16 +107,17 @@ const Style = () => {
         </div>
       </div>
 
-      <hr className="border border-dashed border-lightPurple" />
-
       {/* Cover toggle */}
-      <div className="w-full flex items-center justify-between pr-2">
+
+      {/* <hr className="border border-dashed border-lightPurple" /> */}
+
+      {/* <div className="w-full flex items-center justify-between pr-2">
         <p className="text-sm">Add a cover</p>
         <ToggleSwitch
           checked={appearance.cover !== ""}
           onChange={() => updateAppearance("cover", appearance.cover)}
         />
-      </div>
+      </div> */}
     </div>
   );
 };

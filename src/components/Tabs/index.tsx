@@ -15,45 +15,54 @@ type TabsProps = {
 
 const Tabs = ({ tabs }: TabsProps) => {
   const [activeTab, setActiveTab] = useState(3);
+  const [hoveredTab, setHoveredTab] = useState<number | null>(null);
 
   return (
     <div className="flex h-full">
       <div className="flex !w-[81px] font-jetbrains flex-col pt-4 pb-[17px] border-r border-lightPurple justify-between items-center text-primary">
         <div className="flex flex-col items-center">
-          {tabs.map((tab, index) => (
-            <button
-              key={index}
-              onClick={() => setActiveTab(index)}
-              className="py-2 px-4 flex flex-col items-center font-normal text-[13px]"
-              aria-selected={activeTab === index}
-              role="tab"
-              tabIndex={activeTab === index ? 0 : -1}
-            >
-              {activeTab === index ? (
-                <div
-                  className={`
-                 center w-10 h-7 
-                ${activeTab === index && "bg-[#E4E4E4] rounded-full border"}`}
-                >
-                  <img
-                    src={tab.activeImg}
-                    alt={tab.label}
-                    className="w-6 h-6"
-                  />
-                </div>
-              ) : (
-                <div className="center w-10 h-7 ">
-                  <img
-                    src={tab.inActiveImg}
-                    alt={tab.label}
-                    className="w-6 h-6"
-                  />
-                </div>
-              )}
+          {tabs.map((tab, index) => {
+            const isActive = activeTab === index;
+            const isHovered = hoveredTab === index;
 
-              {tab.label}
-            </button>
-          ))}
+            return (
+              <button
+                key={index}
+                onClick={() => setActiveTab(index)}
+                className="py-2 px-4 flex flex-col items-center font-normal text-[13px]"
+                aria-selected={activeTab === index}
+                role="tab"
+                tabIndex={activeTab === index ? 0 : -1}
+              >
+                <div
+                  className="center w-16 h-8 relative"
+                  onMouseEnter={() => setHoveredTab(index)}
+                  onMouseLeave={() => setHoveredTab(null)}
+                >
+                  <div
+                    className={`absolute inset-0 rounded-full transition-colors 
+                      ${
+                        isActive
+                          ? "bg-[#FFCDCD]"
+                          : isHovered
+                          ? "bg-[#E4E4E4]"
+                          : "bg-transparent"
+                      }
+                    `}
+                  />
+                  <img
+                    src={
+                      isActive || isHovered ? tab.activeImg : tab.inActiveImg
+                    }
+                    alt={tab.label}
+                    className="w-6 h-6 relative z-10 transition-all duration-150"
+                  />
+                </div>
+
+                {tab.label}
+              </button>
+            );
+          })}
         </div>
         <div>
           <button className="w-12 center h-12 bg-lightGray">
@@ -63,7 +72,7 @@ const Tabs = ({ tabs }: TabsProps) => {
       </div>
 
       <div
-        className="w-[310px] p-4 border-r border-lightPurple"
+        className="w-[310px] text-primary p-4 border-r border-lightPurple"
         role="tabpanel"
         aria-labelledby={`tab-${activeTab}`}
       >
