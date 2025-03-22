@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import settings from "/images/settings.svg";
+// import settings from "/images/settings.svg";
 
 type Tab = {
   label: string;
@@ -65,9 +65,9 @@ const Tabs = ({ tabs }: TabsProps) => {
           })}
         </div>
         <div>
-          <button className="w-12 center h-12 bg-lightGray">
+          {/* <button className="w-12 center h-12 bg-lightGray">
             <img src={settings} alt="settings" />
-          </button>
+          </button> */}
         </div>
       </div>
 

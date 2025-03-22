@@ -1,5 +1,5 @@
 import logo from "/images/logo.svg";
-import barChart from "/images/barChart.svg";
+// import barChart from "/images/barChart.svg";
 
 type HeaderProps = {
   onOpenCode: () => void;
@@ -12,9 +12,9 @@ const Header = ({ onOpenCode }: HeaderProps) => {
         <img src={logo} alt="Logo" />
       </div>
       <div className="inline-flex gap-2">
-        <button className="center border border-primary w-10 h-10">
+        {/* <button className="center border border-primary w-10 h-10">
           <img src={barChart} alt="barChart" />
-        </button>
+        </button> */}
         <button
           className="bg-primary w-[120px] h-10 text-white"
           onClick={onOpenCode}
