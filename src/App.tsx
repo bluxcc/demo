@@ -5,7 +5,7 @@ import { Highlight, themes } from "prism-react-renderer";
 
 import "./style/index.css";
 
-import Header from "./components/Header";
+import Header from "./components/X";
 import OpenModal from "./containers/OpenModal";
 
 import redo from "/images/redo.svg";
