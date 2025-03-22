@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BluxProvider } from "blux";
+import { BluxProvider, networks } from "blux";
 
 import { Highlight, themes } from "prism-react-renderer";
 
@@ -18,7 +18,7 @@ function App() {
 
   const handleOpenCode = () => setIsCodeOpen(!isCodeOpen);
 
-  const codeBlock = `import { BluxProvider, useBlux } from "@bluxcc/react";
+  const codeBlock = `import { BluxProvider, useBlux, networks } from "@bluxcc/react";
 
 const App = () => {
   const { connect } = useBlux();
@@ -26,8 +26,7 @@ const App = () => {
     <BluxProvider
       config={{
         "appName": "app",
-        "network": "testnet",
-        "networkPassphrase": "Test SDF Network ; September 2015"
+        "network": [networks.mainnet],
       }}
       appearance={${JSON.stringify(appearance, null, 8)
         .replace(/^{/, "{ ")
@@ -44,7 +43,7 @@ export default App;`;
     <div className="flex-col h-screen w-screen">
       <Header onOpenCode={handleOpenCode} />
       <div className="h-[calc(100vh-72px)] flex  transition-all duration-300">
-        <div className="font-jetbrains">
+        <div className="font-jetbrains ">
           <TabsContainer />
         </div>
         <div className="w-full relative h-full overflow-hidden">
@@ -56,8 +55,7 @@ export default App;`;
                 appearance={appearance}
                 config={{
                   appName: "demo",
-                  network: "testnet",
-                  networkPassphrase: "Test SDF Network ; September 2015",
+                  networks: [networks.mainnet],
                 }}
               >
                 <OpenModal />
