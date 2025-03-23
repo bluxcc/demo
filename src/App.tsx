@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BluxProvider, networks } from "blux";
+import { BluxProvider, networks } from "@bluxcc/react";
 import { Highlight, themes } from "prism-react-renderer";
 
 import redo from "/images/redo.svg";

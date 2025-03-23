@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useBlux } from "blux";
+import { useBlux } from "@bluxcc/react";
 
 const OpenModal = () => {
   const { isReady, connect, isAuthenticated, user, profile } = useBlux();
