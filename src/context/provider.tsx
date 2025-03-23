@@ -1,7 +1,7 @@
 import { useState, ReactNode } from "react";
 import { SupportedFonts, RadiusValues } from "../constants";
 import { AppearanceContext } from "./index";
-import { defaultAppearance } from "../../../blux";
+import { defaultAppearance } from "@bluxcc/react";
 
 export interface IAppearance {
   theme: "light" | "dark";
