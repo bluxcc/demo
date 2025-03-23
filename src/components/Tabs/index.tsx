@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import settings from "/images/settings.svg";
+// import settings from "/images/settings.svg";
 
 type Tab = {
   label: string;
@@ -14,7 +14,7 @@ type TabsProps = {
 };
 
 const Tabs = ({ tabs }: TabsProps) => {
-  const [activeTab, setActiveTab] = useState(3);
+  const [activeTab, setActiveTab] = useState(2);
   const [hoveredTab, setHoveredTab] = useState<number | null>(null);
 
   return (
@@ -65,9 +65,9 @@ const Tabs = ({ tabs }: TabsProps) => {
           })}
         </div>
         <div>
-          <button className="w-12 center h-12 bg-lightGray">
+          {/* <button className="w-12 center h-12 bg-lightGray">
             <img src={settings} alt="settings" />
-          </button>
+          </button> */}
         </div>
       </div>
 
