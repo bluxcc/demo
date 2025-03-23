@@ -1,16 +1,14 @@
 import { useState } from "react";
 import { BluxProvider, networks } from "blux";
-
 import { Highlight, themes } from "prism-react-renderer";
 
-import "./style/index.css";
-
+import redo from "/images/redo.svg";
 import Header from "./components/Header";
 import OpenModal from "./containers/OpenModal";
-
-import redo from "/images/redo.svg";
 import TabsContainer from "./containers/tabsContainer";
 import { useAppearance } from "./hooks/useAppearanceContext";
+
+import "./style/index.css";
 
 function App() {
   const { appearance, resetAppearance } = useAppearance();
@@ -22,15 +20,22 @@ function App() {
 
 const App = () => {
   const { connect } = useBlux();
+
   return (
     <BluxProvider
       config={{
-        "appName": "app",
-        "network": [networks.mainnet],
+        appName: "Blux Demo",
+        networks: [networks.mainnet],
+        appearance: {
+          theme: "${appearance.theme}",
+          background: "${appearance.background}",
+          accent: "${appearance.accent}",
+          textColor: "${appearance.textColor}",
+          font: "${appearance.font}",
+          cornerRadius: "${appearance.cornerRadius}",
+          cover: "${appearance.cover}"
+        }
       }}
-      appearance={${JSON.stringify(appearance, null, 8)
-        .replace(/^{/, "{ ")
-        .replace(/}$/, "      }")}}
     >
       <button onClick={connect}>Connect Wallet</button>
     </BluxProvider>
@@ -52,10 +57,11 @@ export default App;`;
             <div className="relative w-full center">
               <BluxProvider
                 isDemo
-                appearance={appearance}
                 config={{
+                  appearance,
                   appName: "demo",
                   networks: [networks.mainnet],
+                  loginMethods: ['wallet', 'email', 'passkey'],
                 }}
               >
                 <OpenModal />

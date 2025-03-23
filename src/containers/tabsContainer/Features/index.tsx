@@ -1,7 +1,5 @@
-import React from "react";
-
 const Features = () => {
-  return <div>content for Features</div>;
+  return <div>Coming soon!</div>;
 };
 
 export default Features;
