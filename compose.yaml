@@ -1,0 +1,9 @@
+version: "3"
+
+services:
+  blux-demo:
+    build: .
+    pull_policy: never
+    restart: on-failure
+    ports:
+      - "127.0.0.1:3011:3000"
