@@ -23,14 +23,14 @@ const Header = ({
       </div>
 
       <div className="font-manrope desktop:flex hidden relative">
-        {/* Container for smooth left-to-right animation */}
+        {/* Container for smooth right-to-left animation */}
         <div className="relative w-[500px] overflow-hidden">
-          {/* Code Open State */}
+          {/* Code Open State (Right to Left Animation) */}
           <div
-            className={`flex w-full px-4 items-center justify-between border-l border-l-lightPurple absolute top-0 left-0 transition-transform duration-500 ${
+            className={`flex w-full px-4 items-center justify-between border-l border-l-lightPurple absolute top-0 right-0 transition-transform duration-500 ${
               isCodeOpen
                 ? "translate-x-0 opacity-100 h-full"
-                : "-translate-x-full opacity-0"
+                : "translate-x-full opacity-0"
             }`}
           >
             <button
@@ -51,7 +51,7 @@ const Header = ({
           <div
             className={`absolute top-0 right-4 flex items-center justify-end transition-transform duration-500 h-full w-full ${
               isCodeOpen
-                ? "translate-x-full opacity-0"
+                ? "-translate-x-full opacity-0"
                 : "translate-x-0 opacity-100"
             }`}
           >
