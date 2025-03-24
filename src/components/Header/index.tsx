@@ -7,7 +7,7 @@ type HeaderProps = {
 
 const Header = ({ onOpenCode }: HeaderProps) => {
   return (
-    <div className="w-full h-[72px] border border-b-lightPurple between px-4 font-jetbrains">
+    <div className="w-full h-[72px] desktop:border-b border-b border-b-lightPurple between px-4 font-jetbrains">
       <div>
         <img src={logo} alt="Logo" />
       </div>
@@ -16,7 +16,7 @@ const Header = ({ onOpenCode }: HeaderProps) => {
           <img src={barChart} alt="barChart" />
         </button> */}
         <button
-          className="bg-primary w-[120px] h-10 text-white"
+          className="bg-primary w-[120px] h-10 text-white tablet:hidden mobile:hidden "
           onClick={onOpenCode}
         >
           Code

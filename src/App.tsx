@@ -44,33 +44,42 @@ const App = () => {
 
 export default App;`;
 
+  const BluxContainer = () => {
+    return (
+      <BluxProvider
+        isDemo
+        config={{
+          appearance,
+          appName: "demo",
+          networks: [networks.mainnet],
+          loginMethods: ["wallet", "email", "passkey"],
+        }}
+      >
+        <OpenModal />
+      </BluxProvider>
+    );
+  };
+
   return (
     <div className="flex-col h-screen w-screen">
       <Header onOpenCode={handleOpenCode} />
-      <div className="h-[calc(100vh-72px)] flex  transition-all duration-300">
-        <div className="font-jetbrains ">
+      <div className="h-[calc(100vh-72px)] flex transition-all duration-300 tablet:relative mobile:relative ">
+        <div className="font-jetbrains tablet:w-full mobile:w-full ">
           <TabsContainer />
+          <div className="block desktop:hidden">
+            <BluxContainer />
+          </div>
         </div>
-        <div className="w-full relative h-full overflow-hidden">
+        <div className="w-full relative h-full overflow-hidden tablet:hidden mobile:hidden ">
           <div className="absolute py-6 flex flex-col justify-between items-center inset-0 h-full w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
             <div />
             <div className="relative w-full center">
-              <BluxProvider
-                isDemo
-                config={{
-                  appearance,
-                  appName: "demo",
-                  networks: [networks.mainnet],
-                  loginMethods: ['wallet', 'email', 'passkey'],
-                }}
-              >
-                <OpenModal />
-              </BluxProvider>
+              <BluxContainer />
             </div>
             <div>
               <button
                 onClick={resetAppearance}
-                className="inline-flex font-jetbrains gap-2 justify-center items-center text-primary border-primary border-2 border-dashed h-12 w-[120px]"
+                className="inline-flex tablet:hidden mobile:hidden  font-jetbrains gap-2 justify-center items-center text-primary border-primary border-2 border-dashed h-12 w-[120px]"
               >
                 <img src={redo} alt="redo" />
                 Reset
@@ -79,7 +88,7 @@ export default App;`;
           </div>
         </div>
         <div
-          className={`h-full border-l border-lightPurple transition-all duration-300 overflow-hidden ${
+          className={`h-full border-l border-lightPurple transition-all duration-300 overflow-hidden tablet:hidden mobile:hidden ${
             isCodeOpen ? "w-full opacity-100" : "w-0 opacity-0"
           }`}
         >

@@ -3,9 +3,10 @@ import { useBlux } from "@bluxcc/react";
 
 const OpenModal = () => {
   const { isReady, connect, isAuthenticated, user, profile } = useBlux();
+  const isMobile = window.innerWidth < 768;
 
   useEffect(() => {
-    if (isReady) {
+    if (isReady && !isMobile) {
       setInterval(() => {
         try {
           connect();
@@ -26,7 +27,14 @@ const OpenModal = () => {
 
   if (!isReady) return <div>Loading...</div>;
 
-  return null;
+  return isMobile ? (
+    <div
+      className="absolute center bottom-0 h-16 w-full bg-primary text-white"
+      onClick={connect}
+    >
+      Launch Blux
+    </div>
+  ) : null;
 };
 
 export default OpenModal;
