@@ -15,6 +15,10 @@ function App() {
   const [isCodeOpen, setIsCodeOpen] = useState(false);
 
   const handleOpenCode = () => setIsCodeOpen(!isCodeOpen);
+  const handleCopyCode = () => {
+    navigator.clipboard.writeText(codeBlock);
+  };
+  const handleCloseCode = () => setIsCodeOpen(false);
 
   const codeBlock = `import { BluxProvider, useBlux, networks } from "@bluxcc/react";
 
@@ -46,7 +50,12 @@ export default App;`;
 
   return (
     <div className="flex-col h-screen w-screen overflow-hidden">
-      <Header onOpenCode={handleOpenCode} />
+      <Header
+        onOpenCode={handleOpenCode}
+        isCodeOpen={isCodeOpen}
+        handleCopyCode={handleCopyCode}
+        handleCloseCode={handleCloseCode}
+      />
       <div className="h-[calc(100vh-72px)] flex transition-all duration-300 mobile:relative ">
         <div className="font-jetbrains mobile:w-full ">
           <TabsContainer />
@@ -92,7 +101,7 @@ export default App;`;
           </div>
         </div>
         <div
-          className={`h-full border-l border-lightPurple transition-all duration-300 overflow-hidden mobile:hidden ${
+          className={`h-full border-l border-lightPurple transition-all duration-700 overflow-hidden mobile:hidden ${
             isCodeOpen ? "w-full opacity-100" : "w-0 opacity-0"
           }`}
         >
