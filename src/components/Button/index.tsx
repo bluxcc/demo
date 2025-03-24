@@ -9,6 +9,7 @@ type ButtonProps = {
   className?: string;
   onClick?: () => void;
   active?: boolean;
+  disabled?: boolean;
 };
 
 const Button = ({
@@ -17,15 +18,18 @@ const Button = ({
   className,
   active,
   onClick,
+  disabled,
 }: ButtonProps) => {
   return (
     <button
-      onClick={onClick}
+      disabled={disabled}
+      onClick={disabled ? undefined : onClick}
       className={clsx(
         "bg-white text-primary transition-colors",
         {
           "border-primary": active,
           "border-lightPurple": !active,
+          "text-[#999999] border-[#B3B3B3]": disabled,
           "rounded-none": rounded === "none",
           "rounded-[4px]": rounded === "sm",
           "rounded-lg": rounded === "md",

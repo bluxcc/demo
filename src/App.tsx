@@ -51,12 +51,12 @@ export default App;`;
   return (
     <div className="flex-col h-screen w-screen overflow-hidden">
       <Header
-        onOpenCode={handleOpenCode}
         isCodeOpen={isCodeOpen}
+        onOpenCode={handleOpenCode}
         handleCopyCode={handleCopyCode}
         handleCloseCode={handleCloseCode}
       />
-      <div className="h-[calc(100vh-72px)] flex transition-all duration-300 mobile:relative ">
+      <div className="h-[calc(100vh-72px)] w-full flex transition-all duration-300 mobile:relative ">
         <div className="font-jetbrains mobile:w-full ">
           <TabsContainer />
           <div className="mobile:block hidden">
@@ -70,10 +70,14 @@ export default App;`;
               }}
             >
               <OpenModal />
-            </BluxProvider>{" "}
+            </BluxProvider>
           </div>
         </div>
-        <div className="w-full relative h-full overflow-hidden mobile:hidden">
+        <div
+          className={`${
+            isCodeOpen && "desktop:mr-[26vw]"
+          } relative h-full overflow-hidden mobile:hidden w-full transition-all duration-500`}
+        >
           <div className="absolute py-6 flex flex-col justify-between items-center inset-0 h-full w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
             <div />
             <div className="relative w-full center">
@@ -87,12 +91,12 @@ export default App;`;
                 }}
               >
                 <OpenModal />
-              </BluxProvider>{" "}
+              </BluxProvider>
             </div>
             <div>
               <button
                 onClick={resetAppearance}
-                className="inline-flex mobile:hidden  font-jetbrains gap-2 justify-center items-center text-primary border-primary border-2 border-dashed h-12 w-[120px]"
+                className="inline-flex mobile:hidden font-jetbrains gap-2 justify-center items-center text-primary border-primary border-2 border-dashed h-12 w-[120px]"
               >
                 <img src={redo} alt="redo" />
                 Reset
@@ -101,11 +105,13 @@ export default App;`;
           </div>
         </div>
         <div
-          className={`h-full border-l border-lightPurple transition-all duration-700 overflow-hidden mobile:hidden ${
-            isCodeOpen ? "w-full opacity-100" : "w-0 opacity-0"
+          className={`h-full fixed !w-[500px] border-l border-lightPurple transition-all duration-500 overflow-hidden mobile:hidden tablet:hidden ${
+            isCodeOpen
+              ? "right-0 opacity-100 !bg-white"
+              : "right-[-500px] opacity-0"
           }`}
         >
-          <div className="border border-lightPurple m-4">
+          <div className="border  border-lightPurple m-4">
             <Highlight language="tsx" code={codeBlock} theme={themes.vsLight}>
               {({ className, style, tokens, getLineProps, getTokenProps }) => (
                 <pre

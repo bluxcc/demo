@@ -28,6 +28,7 @@ const Style = () => {
               className={`w-[120px] h-8 ${
                 appearance.theme === m && "font-medium"
               }`}
+              disabled={m === "dark"}
               active={appearance.theme === m}
               onClick={() => updateAppearance("theme", m)}
             >
