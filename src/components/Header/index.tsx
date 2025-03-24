@@ -16,7 +16,7 @@ const Header = ({ onOpenCode }: HeaderProps) => {
           <img src={barChart} alt="barChart" />
         </button> */}
         <button
-          className="bg-primary w-[120px] h-10 text-white tablet:hidden mobile:hidden "
+          className="bg-primary w-[120px] h-10 text-white desktop:block hidden"
           onClick={onOpenCode}
         >
           Code
