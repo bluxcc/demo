@@ -44,22 +44,6 @@ const App = () => {
 
 export default App;`;
 
-  const BluxContainer = () => {
-    return (
-      <BluxProvider
-        isDemo
-        config={{
-          appearance,
-          appName: "demo",
-          networks: [networks.mainnet],
-          loginMethods: ["wallet", "email", "passkey"],
-        }}
-      >
-        <OpenModal />
-      </BluxProvider>
-    );
-  };
-
   return (
     <div className="flex-col h-screen w-screen overflow-hidden">
       <Header onOpenCode={handleOpenCode} />
@@ -67,14 +51,34 @@ export default App;`;
         <div className="font-jetbrains mobile:w-full ">
           <TabsContainer />
           <div className="mobile:block hidden">
-            <BluxContainer />
+            <BluxProvider
+              isDemo
+              config={{
+                appearance,
+                appName: "demo",
+                networks: [networks.mainnet],
+                loginMethods: ["wallet", "email", "passkey"],
+              }}
+            >
+              <OpenModal />
+            </BluxProvider>{" "}
           </div>
         </div>
         <div className="w-full relative h-full overflow-hidden mobile:hidden">
           <div className="absolute py-6 flex flex-col justify-between items-center inset-0 h-full w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
             <div />
             <div className="relative w-full center">
-              <BluxContainer />
+              <BluxProvider
+                isDemo
+                config={{
+                  appearance,
+                  appName: "demo",
+                  networks: [networks.mainnet],
+                  loginMethods: ["wallet", "email", "passkey"],
+                }}
+              >
+                <OpenModal />
+              </BluxProvider>{" "}
             </div>
             <div>
               <button
