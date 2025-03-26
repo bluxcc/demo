@@ -53,6 +53,17 @@ export const Fonts: { name: string; value: SupportedFonts }[] = [
   { name: "Lora", value: "Lora" },
 ];
 
+export type LoginMethodType = Array<
+  | "wallet"
+  | "email"
+  | "sms"
+  | "google"
+  | "twitter"
+  | "discord"
+  | "github"
+  | "passkey"
+>;
+
 export type SupportedFonts = "Manrope" | "Inter" | "JetBrains Mono" | "Lora";
 
 export type ColorType = "background" | "accent" | "text";

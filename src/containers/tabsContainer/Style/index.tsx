@@ -2,12 +2,12 @@ import Button from "../../../components/Button";
 import { ColorPicker } from "../../../components/ColorPicker";
 
 import { CornerButtons, COLORS, Fonts } from "../../../constants";
-import { useAppearance } from "../../../hooks/useAppearanceContext";
+import { useConfigContext } from "../../../hooks/useConfigContext";
 
 // import ToggleSwitch from "../../../components/ToggleSwitch";
 
 const Style = () => {
-  const { appearance, updateAppearance } = useAppearance();
+  const { appearance, updateAppearance } = useConfigContext();
 
   const fontClasses: Record<string, string> = {
     inter: "font-inter",

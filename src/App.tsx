@@ -6,14 +6,14 @@ import redo from "/images/redo.svg";
 import Header from "./components/Header";
 import OpenModal from "./containers/OpenModal";
 import TabsContainer from "./containers/tabsContainer";
-import { useAppearance } from "./hooks/useAppearanceContext";
+import { useConfigContext } from "./hooks/useConfigContext";
 
 import "./style/index.css";
 
 function App() {
-  const { appearance, resetAppearance } = useAppearance();
+  const { appearance, resetAppearance, loginMethods } = useConfigContext();
   const [isCodeOpen, setIsCodeOpen] = useState(false);
-
+  console.log(loginMethods);
   const handleOpenCode = () => setIsCodeOpen(!isCodeOpen);
   const handleCopyCode = () => {
     navigator.clipboard.writeText(codeBlock);
@@ -37,8 +37,8 @@ const App = () => {
           textColor: "${appearance.textColor}",
           font: "${appearance.font}",
           cornerRadius: "${appearance.cornerRadius}",
-          cover: "${appearance.cover}"
         }
+        loginMethods: [${loginMethods}]
       }}
     >
       <button onClick={connect}>Connect Wallet</button>
@@ -66,7 +66,7 @@ export default App;`;
                 appearance,
                 appName: "demo",
                 networks: [networks.mainnet],
-                loginMethods: ["wallet", "email", "passkey"],
+                loginMethods: loginMethods,
               }}
             >
               <OpenModal />
@@ -87,7 +87,7 @@ export default App;`;
                   appearance,
                   appName: "demo",
                   networks: [networks.mainnet],
-                  loginMethods: ["wallet", "email", "passkey"],
+                  loginMethods: loginMethods,
                 }}
               >
                 <OpenModal />

@@ -29,7 +29,7 @@ const Button = ({
         {
           "border-primary": active,
           "border-lightPurple": !active,
-          "text-[#999999] border-[#B3B3B3]": disabled,
+          "!text-[#999999] !border-[#B3B3B3]": disabled,
           "rounded-none": rounded === "none",
           "rounded-[4px]": rounded === "sm",
           "rounded-lg": rounded === "md",

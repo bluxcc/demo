@@ -3,7 +3,7 @@ import { CSS } from "@dnd-kit/utilities";
 
 type SortableItemProps = {
   id: string;
-  title: string;
+  title?: string;
   children: React.ReactNode;
 };
 
@@ -26,7 +26,7 @@ const SortableItem = ({ id, title, children }: SortableItemProps) => {
     >
       <span className="text-sm flex items-center py-2 mb-3">
         <img className="mr-2" src="/images/dragHandle.svg" alt="Drag Handle" />
-        {title}
+        {title && title}
       </span>
       <div
         className="flex flex-col gap-2"

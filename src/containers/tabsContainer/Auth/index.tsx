@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { DndContext, DragEndEvent, closestCenter } from "@dnd-kit/core";
 import {
   SortableContext,
@@ -7,25 +7,69 @@ import {
 } from "@dnd-kit/sortable";
 import SortableItem from "./SortableItem";
 import CheckBoxItem from "../../../components/CheckBoxItem";
+import { useConfigContext } from "../../../hooks/useConfigContext";
+import { LoginMethodType } from "../../../constants";
 
 const Auth = () => {
+  const { updateLoginMethods, loginMethods } = useConfigContext();
+
   const [sections, setSections] = useState([
     {
       id: "wallet",
       title: "Wallet",
       items: [
-        { id: "stellar-wallets", title: "Stellar Wallets", checked: true },
+        {
+          id: "wallet",
+          title: "Stellar Wallets",
+          checked: loginMethods.includes("wallet"),
+          disabled: true,
+        },
       ],
     },
     {
-      id: "login-option",
-      title: "Login Option",
+      id: "email-or-phone",
+      title: "Email or Phone",
       items: [
-        { id: "email", title: "Email", checked: false },
-        { id: "phone", title: "Phone", checked: false },
+        {
+          id: "email",
+          title: "Email",
+          checked: loginMethods.includes("email"),
+          disabled: false,
+        },
+        {
+          id: "sms",
+          title: "Phone",
+          checked: loginMethods.includes("sms"),
+          disabled: false,
+        },
       ],
     },
   ]);
+
+  const [passkeyChecked, setPasskeyChecked] = useState(
+    loginMethods.includes("passkey")
+  );
+
+  useEffect(() => {
+    setPasskeyChecked(loginMethods.includes("passkey"));
+  }, [loginMethods]);
+
+  const updateCheckedValues = () => {
+    const checkedItems = sections
+      .flatMap((section) => section.items)
+      .filter((item) => item.checked)
+      .map((item) => item.id);
+
+    if (passkeyChecked) {
+      checkedItems.push("passkey");
+    }
+
+    updateLoginMethods(checkedItems as LoginMethodType);
+  };
+
+  useEffect(() => {
+    updateCheckedValues();
+  }, [sections, passkeyChecked]);
 
   const onDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
@@ -40,7 +84,13 @@ const Auth = () => {
       return arrayMove(prevSections, oldIndex, newIndex);
     });
   };
+
   const handleItemChange = (title: string, checked: boolean) => {
+    if (title === "PassKey") {
+      setPasskeyChecked(checked);
+      return;
+    }
+
     setSections((prevSections) =>
       prevSections.map((section) => ({
         ...section,
@@ -49,14 +99,12 @@ const Auth = () => {
         ),
       }))
     );
-    console.log(sections);
-    console.log("Item changed:", title, checked);
   };
 
   return (
     <DndContext collisionDetection={closestCenter} onDragEnd={onDragEnd}>
       <div className="flex flex-col text-primary space-y-3">
-        <p className="font-manrope font-medium text-lg">Connect Options</p>
+        <p className="font-manrope font-medium text-lg">Login Methods</p>
 
         <SortableContext
           items={sections}
@@ -68,17 +116,17 @@ const Auth = () => {
                 {section.items.map((item) => (
                   <CheckBoxItem
                     key={item.id}
+                    disabled={item.disabled}
                     title={item.title}
-                    checked={item.checked ?? false}
+                    checked={loginMethods.includes(
+                      item.id as (typeof loginMethods)[number]
+                    )}
                     onChange={handleItemChange}
                   />
                 ))}
               </SortableItem>
               {index !== sections.length - 1 && (
-                <hr
-                  key={`hr-${section.id}`}
-                  className="border border-dashed border-lightPurple mt-4"
-                />
+                <hr className="border border-dashed border-lightPurple mt-4" />
               )}
             </div>
           ))}
@@ -87,8 +135,8 @@ const Auth = () => {
         <hr className="border border-dashed border-lightPurple my-2" />
         <CheckBoxItem
           title="PassKey"
-          checked={true}
-          onChange={handleItemChange}
+          checked={passkeyChecked}
+          onChange={() => setPasskeyChecked((prev) => !prev)}
         />
       </div>
     </DndContext>

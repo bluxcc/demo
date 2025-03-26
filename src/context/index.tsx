@@ -1,15 +1,18 @@
 import { createContext } from "react";
 import { IAppearance } from "./provider";
+import { LoginMethodType } from "../constants";
 
-interface IAppearanceContext {
+interface IConfigContext {
   appearance: IAppearance;
+  loginMethods: LoginMethodType;
   updateAppearance: (
     property: keyof IAppearance,
     value: IAppearance[keyof IAppearance]
   ) => void;
   resetAppearance: () => void;
+  updateLoginMethods: (methods: LoginMethodType) => void;
 }
 
-export const AppearanceContext = createContext<IAppearanceContext | undefined>(
+export const ConfigContext = createContext<IConfigContext | undefined>(
   undefined
 );

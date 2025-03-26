@@ -8,6 +8,7 @@ type CheckBoxItemProps = {
   checked: boolean;
   startIcon?: React.ReactNode;
   onChange: (title: string, checked: boolean) => void;
+  disabled?: boolean;
   // draggable?: boolean;
 };
 
@@ -16,6 +17,7 @@ const CheckBoxItem = ({
   title,
   onChange,
   checked,
+  disabled,
 }: // draggable,
 CheckBoxItemProps) => {
   const toggleChecked = () => {
@@ -41,10 +43,16 @@ CheckBoxItemProps) => {
       </div>
 
       {/* Custom checkbox */}
-      <input type="checkbox" className="hidden" checked={checked} />
+      <input
+        type="checkbox"
+        className="hidden"
+        checked={checked}
+        onChange={!disabled ? toggleChecked : undefined}
+        disabled={disabled}
+      />
 
       <div
-        onClick={toggleChecked}
+        onClick={!disabled ? toggleChecked : undefined}
         className={`flex size-5 border-2 border-primary items-center justify-center cursor-pointer transition duration-100 ease-in-out transform ${
           checked ? "bg-primary" : "bg-transparent"
         }`}
