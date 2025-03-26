@@ -125,7 +125,7 @@ export default App;`;
                   {tokens.map((line, i) => (
                     <div
                       key={i}
-                      {...getLineProps({ line, key: i })}
+                      {...getLineProps({ line })}
                       className="flex items-start"
                     >
                       <span
@@ -136,7 +136,7 @@ export default App;`;
                       </span>
                       <span className="break-all">
                         {line.map((token, key) => (
-                          <span key={key} {...getTokenProps({ token, key })} />
+                          <span key={key} {...getTokenProps({ token })} />
                         ))}
                       </span>
                     </div>
