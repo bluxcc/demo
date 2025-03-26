@@ -7,7 +7,9 @@ const Auth = () => {
     {
       id: "wallet",
       title: "Wallet",
-      items: [{ id: "stellar-wallets", title: "Stellar Wallets" }],
+      items: [
+        { id: "stellar-wallets", title: "Stellar Wallets", draggable: false },
+      ],
     },
     {
       id: "login-option",
@@ -19,8 +21,10 @@ const Auth = () => {
     },
   ]);
 
+  const [draggedItemId, setDraggedItemId] = useState<string | null>(null);
   const [draggedSectionId, setDraggedSectionId] = useState<string | null>(null);
 
+  // Handle section drag start
   const handleSectionDragStart = (
     event: React.DragEvent<HTMLDivElement>,
     id: string
@@ -29,6 +33,7 @@ const Auth = () => {
     event.dataTransfer.effectAllowed = "move";
   };
 
+  // Handle section drop
   const handleSectionDrop = (
     event: React.DragEvent<HTMLDivElement>,
     targetId: string
@@ -54,12 +59,54 @@ const Auth = () => {
     setDraggedSectionId(null);
   };
 
+  // Handle item drag start (for email and phone)
+  const handleItemDragStart = (
+    event: React.DragEvent<HTMLDivElement>,
+    id: string
+  ) => {
+    setDraggedItemId(id);
+    event.dataTransfer.effectAllowed = "move";
+  };
+
+  // Handle item drop (within the login-option section)
+  const handleItemDrop = (
+    event: React.DragEvent<HTMLDivElement>,
+    targetId: string
+  ) => {
+    event.preventDefault();
+
+    if (!draggedItemId || draggedItemId === targetId) return;
+
+    const newSections = [...sections];
+    const sectionIndex = newSections.findIndex(
+      (section) => section.id === "login-option"
+    );
+
+    if (sectionIndex !== -1) {
+      const section = newSections[sectionIndex];
+      const draggedIndex = section.items.findIndex(
+        (item) => item.id === draggedItemId
+      );
+      const targetIndex = section.items.findIndex(
+        (item) => item.id === targetId
+      );
+
+      if (draggedIndex !== -1 && targetIndex !== -1) {
+        const [movedItem] = section.items.splice(draggedIndex, 1);
+        section.items.splice(targetIndex, 0, movedItem);
+        setSections(newSections);
+      }
+    }
+
+    setDraggedItemId(null);
+  };
+
   return (
     <div className="flex flex-col text-primary space-y-3">
       <p className="font-manrope font-medium text-lg">Connect options</p>
 
       {sections.map((section, index) => (
-        <div key={section.id}>
+        <div key={section.id} className=" transition-all duration-1000">
           {/* Draggable Section */}
           <div
             className="flex flex-col"
@@ -68,7 +115,7 @@ const Auth = () => {
             onDragOver={(e) => e.preventDefault()}
             onDrop={(e) => handleSectionDrop(e, section.id)}
           >
-            <span className="text-sm flex items-center p-2 mb-3">
+            <span className="text-sm flex items-center py-2 mb-3">
               <img
                 className="mr-2 cursor-grab"
                 src={dragHandle}
@@ -76,18 +123,21 @@ const Auth = () => {
               />
               {section.title}
             </span>
-            <div className="w-full flex items-center gap-2 flex-col">
+            <div className="w-full flex items-center gap-2 flex-col  transition-all duration-1000">
               {section.items.map((item) => (
                 <CheckBoxItem
                   key={item.id}
                   title={item.title}
                   draggable={item.draggable}
+                  onDragStart={(e) => handleItemDragStart(e, item.id)}
+                  onDragOver={(e) => e.preventDefault()}
+                  onDrop={(e) => handleItemDrop(e, item.id)}
                 />
               ))}
             </div>
           </div>
 
-          {/* Divider*/}
+          {/* Divider */}
           {index !== sections.length - 1 && (
             <hr className="border border-dashed border-lightPurple mt-4" />
           )}
