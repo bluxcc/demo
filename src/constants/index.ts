@@ -29,19 +29,19 @@ export const CornerButtons: { name: string; radius: RadiusValues }[] = [
     radius: "none",
   },
   {
-    name: "1",
+    name: "sm",
     radius: "sm",
   },
   {
-    name: "2",
+    name: "md",
     radius: "md",
   },
   {
-    name: "3",
+    name: "lg",
     radius: "lg",
   },
   {
-    name: "4",
+    name: "full",
     radius: "full",
   },
 ];

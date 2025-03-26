@@ -21,11 +21,11 @@ const Style = () => {
       {/* Mode Selection */}
       <div className="flex flex-col space-y-4">
         <p className="text-sm">Mode</p>
-        <div className="w-full flex items-center gap-2">
+        <div className="w-full flex items-center justify-center px-3 gap-2">
           {["light", "dark"].map((m) => (
             <Button
               key={m}
-              className={`w-[120px] h-8 ${
+              className={`w-full h-8 font-manrope ${
                 appearance.theme === m && "font-medium"
               }`}
               disabled={m === "dark"}
@@ -63,11 +63,11 @@ const Style = () => {
 
       <div className="flex flex-col space-y-4">
         <p className="text-sm">Font</p>
-        <div className="w-full flex flex-wrap gap-2 items-center">
+        <div className="w-full grid grid-cols-2 gap-2 px-3">
           {Fonts.map((m) => (
             <Button
               key={m.name}
-              className={`w-[120px] h-8 ${
+              className={`w-full h-8 ${
                 fontClasses[m.name.toLowerCase()] || ""
               } ${appearance.font === m.value ? "font-medium" : ""}`}
               active={appearance.font === m.value}
@@ -98,7 +98,7 @@ const Style = () => {
             <Button
               key={m.name}
               rounded={m.radius}
-              className="w-12 h-12 text-sm font-medium"
+              className="size-12 text-xs font-medium font-manrope"
               active={appearance.cornerRadius === m.radius}
               onClick={() => updateAppearance("cornerRadius", m.radius)}
             >
