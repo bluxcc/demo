@@ -27,8 +27,8 @@ const Auth = () => {
       ],
     },
     {
-      id: "email-or-phone",
-      title: "Email or Phone",
+      id: "email-or-sms",
+      title: "Email or SMS",
       items: [
         {
           id: "email",
@@ -38,7 +38,7 @@ const Auth = () => {
         },
         {
           id: "sms",
-          title: "Phone",
+          title: "SMS",
           checked: loginMethods.includes("sms"),
           disabled: false,
         },
