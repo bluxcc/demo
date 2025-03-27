@@ -14,13 +14,12 @@ function App() {
   const { appearance, resetAppearance, loginMethods, brandLogo } =
     useConfigContext();
   const [isCodeOpen, setIsCodeOpen] = useState(false);
-  console.log(loginMethods);
   const handleOpenCode = () => setIsCodeOpen(!isCodeOpen);
   const handleCopyCode = () => {
     navigator.clipboard.writeText(codeBlock);
   };
   const handleCloseCode = () => setIsCodeOpen(false);
-  console.log(brandLogo);
+  
   const codeBlock = `import { BluxProvider, useBlux, networks } from "@bluxcc/react";
 
 const App = () => {
