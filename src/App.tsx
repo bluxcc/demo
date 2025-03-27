@@ -19,7 +19,7 @@ function App() {
     navigator.clipboard.writeText(codeBlock);
   };
   const handleCloseCode = () => setIsCodeOpen(false);
-  
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 770;
   const codeBlock = `import { BluxProvider, useBlux, networks } from "@bluxcc/react";
 
 const App = () => {
@@ -58,9 +58,9 @@ export default App;`;
         handleCloseCode={handleCloseCode}
       />
       <div className="h-[calc(100vh-72px)] w-full flex transition-all duration-300 mobile:relative ">
-        <div className="font-jetbrains mobile:w-full ">
+        <div className="font-jetbrains mobile:w-full">
           <TabsContainer />
-          <div className="mobile:block hidden">
+          {isMobile && (
             <BluxProvider
               isDemo
               config={{
@@ -73,7 +73,7 @@ export default App;`;
             >
               <OpenModal />
             </BluxProvider>
-          </div>
+          )}
         </div>
         <div
           className={`${
