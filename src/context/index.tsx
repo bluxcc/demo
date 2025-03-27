@@ -5,6 +5,8 @@ import { LoginMethodType } from "../constants";
 interface IConfigContext {
   appearance: IAppearance;
   loginMethods: LoginMethodType;
+  brandLogo: string;
+  updateBrandLogo: (logo: string) => void;
   updateAppearance: (
     property: keyof IAppearance,
     value: IAppearance[keyof IAppearance]

@@ -11,7 +11,8 @@ import { useConfigContext } from "./hooks/useConfigContext";
 import "./style/index.css";
 
 function App() {
-  const { appearance, resetAppearance, loginMethods } = useConfigContext();
+  const { appearance, resetAppearance, loginMethods, brandLogo } =
+    useConfigContext();
   const [isCodeOpen, setIsCodeOpen] = useState(false);
   console.log(loginMethods);
   const handleOpenCode = () => setIsCodeOpen(!isCodeOpen);
@@ -19,7 +20,7 @@ function App() {
     navigator.clipboard.writeText(codeBlock);
   };
   const handleCloseCode = () => setIsCodeOpen(false);
-
+  console.log(brandLogo);
   const codeBlock = `import { BluxProvider, useBlux, networks } from "@bluxcc/react";
 
 const App = () => {
@@ -29,6 +30,7 @@ const App = () => {
     <BluxProvider
       config={{
         appName: "Blux Demo",
+        appLogo: "${brandLogo}",
         networks: [networks.mainnet],
         appearance: {
           theme: "${appearance.theme}",
@@ -65,6 +67,7 @@ export default App;`;
               config={{
                 appearance,
                 appName: "demo",
+                appLogo: brandLogo,
                 networks: [networks.mainnet],
                 loginMethods: loginMethods,
               }}
@@ -86,6 +89,7 @@ export default App;`;
                 config={{
                   appearance,
                   appName: "demo",
+                  appLogo: brandLogo,
                   networks: [networks.mainnet],
                   loginMethods: loginMethods,
                 }}

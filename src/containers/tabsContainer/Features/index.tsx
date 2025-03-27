@@ -22,36 +22,20 @@ const Features = () => {
       <div className="flex flex-col space-y-4">
         <p className="text-lg font-medium font-manrope">Features</p>
         <div className="w-full flex flex-col items-center gap-2">
-          <CheckBoxItem
-            title="Send"
-            onChange={handleFeatureChange}
-            initialChecked
-          />
-          <CheckBoxItem
-            title="Swap"
-            onChange={handleFeatureChange}
-            initialChecked
-          />
+          <CheckBoxItem title="Send" onChange={handleFeatureChange} checked />
+          <CheckBoxItem title="Swap" onChange={handleFeatureChange} checked />
           <CheckBoxItem
             title="Receive"
             onChange={handleFeatureChange}
-            initialChecked
+            checked
           />
         </div>
       </div>
 
       <hr className="border border-dashed border-lightPurple" />
       <div className="w-full flex flex-col items-center gap-2">
-        <CheckBoxItem
-          title="History"
-          onChange={handleFeatureChange}
-          initialChecked
-        />
-        <CheckBoxItem
-          title="Balances"
-          onChange={handleFeatureChange}
-          initialChecked
-        />
+        <CheckBoxItem title="History" onChange={handleFeatureChange} checked />
+        <CheckBoxItem title="Balances" onChange={handleFeatureChange} checked />
       </div>
     </div>
   );

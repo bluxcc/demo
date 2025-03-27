@@ -14,7 +14,7 @@ type TabsProps = {
 };
 
 const Tabs = ({ tabs }: TabsProps) => {
-  const [activeTab, setActiveTab] = useState(0);
+  const [activeTab, setActiveTab] = useState(2);
   const [hoveredTab, setHoveredTab] = useState<number | null>(null);
 
   return (
@@ -72,7 +72,7 @@ const Tabs = ({ tabs }: TabsProps) => {
       </div>
 
       <div
-        className="w-[310px] mobile:w-full text-primary p-4 mobile:border-r-hidden border-r border-lightPurple"
+        className="w-[310px] mobile:w-full text-primary p-4 mobile:border-r-hidden border-r border-lightPurple overflow-y-auto"
         role="tabpanel"
         aria-labelledby={`tab-${activeTab}`}
       >

@@ -65,6 +65,7 @@ const Auth = () => {
     }
 
     updateLoginMethods(checkedItems as LoginMethodType);
+    console.log(checkedItems);
   };
 
   useEffect(() => {
