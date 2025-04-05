@@ -10,11 +10,11 @@ export interface IAppearance {
   textColor: string;
   font: SupportedFonts;
   cornerRadius: RadiusValues;
+  logo?: React.ImgHTMLAttributes<HTMLImageElement>["src"];
 }
 
 export const ConfigProvider = ({ children }: { children: ReactNode }) => {
   const [appearance, setAppearance] = useState<IAppearance>(defaultAppearance);
-  const [brandLogo, setBrandLogo] = useState("/images/blackBluxLogo.svg");
   const [loginMethods, setLoginMethods] = useState<LoginMethodType>([
     "wallet",
     "email",
@@ -40,15 +40,9 @@ export const ConfigProvider = ({ children }: { children: ReactNode }) => {
     setLoginMethods(methods);
   };
 
-  const updateBrandLogo = (logo: string) => {
-    setBrandLogo(logo);
-  };
-
   return (
     <ConfigContext.Provider
       value={{
-        brandLogo,
-        updateBrandLogo,
         appearance,
         loginMethods,
         updateAppearance,

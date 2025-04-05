@@ -11,8 +11,7 @@ import { useConfigContext } from "./hooks/useConfigContext";
 import "./style/index.css";
 
 function App() {
-  const { appearance, resetAppearance, loginMethods, brandLogo } =
-    useConfigContext();
+  const { appearance, resetAppearance, loginMethods } = useConfigContext();
   const [isCodeOpen, setIsCodeOpen] = useState(false);
   const handleOpenCode = () => setIsCodeOpen(!isCodeOpen);
   const handleCopyCode = () => {
@@ -29,7 +28,6 @@ const App = () => {
     <BluxProvider
       config={{
         appName: "Blux Demo",
-        appLogo: "${brandLogo}",
         networks: [networks.mainnet],
         appearance: {
           theme: "${appearance.theme}",
@@ -38,6 +36,7 @@ const App = () => {
           textColor: "${appearance.textColor}",
           font: "${appearance.font}",
           cornerRadius: "${appearance.cornerRadius}",
+          logo: "${appearance.logo}"
         }
         loginMethods: [${loginMethods}]
       }}
@@ -66,7 +65,6 @@ export default App;`;
               config={{
                 appearance,
                 appName: "demo",
-                appLogo: brandLogo,
                 networks: [networks.mainnet],
                 loginMethods: loginMethods,
               }}
@@ -88,7 +86,6 @@ export default App;`;
                 config={{
                   appearance,
                   appName: "demo",
-                  appLogo: brandLogo,
                   networks: [networks.mainnet],
                   loginMethods: loginMethods,
                 }}

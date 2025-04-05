@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "../../../components/Button";
 import { ColorPicker } from "../../../components/ColorPicker";
 
@@ -8,11 +8,17 @@ import { useConfigContext } from "../../../hooks/useConfigContext";
 // import ToggleSwitch from "../../../components/ToggleSwitch";
 
 const Style = () => {
-  const { appearance, updateAppearance, updateBrandLogo } = useConfigContext();
+  const { appearance, updateAppearance } = useConfigContext();
   const [inputValue, setInputValue] = useState("");
 
+  useEffect(() => {
+    if (inputValue === "") {
+      updateAppearance("logo", "/images/blackBluxLogo.svg");
+    }
+  }, []);
+
   const handleUpdateLogo = () => {
-    updateBrandLogo(inputValue);
+    updateAppearance("logo", inputValue);
   };
 
   const fontClasses: Record<string, string> = {
