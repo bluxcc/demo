@@ -10,7 +10,6 @@ const Features = () => {
     "Balances",
   ]);
 
-  console.log(selectedFeatures);
   const handleFeatureChange = (title: string, checked: boolean) => {
     setSelectedFeatures((prev) =>
       checked ? [...prev, title] : prev.filter((item) => item !== title)
