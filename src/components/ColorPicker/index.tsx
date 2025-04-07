@@ -31,17 +31,17 @@ export const ColorPicker = ({
   return (
     <div className="flex flex-col space-y-4">
       <p className="capitalize text-sm">{type}</p>
-      <div className="w-full flex flex-wrap gap-2 relative">
+      <div className="w-full flex flex-wrap gap-[14px] relative">
         {colors.map(({ name, color }) => (
           <Button
             key={name}
-            className="size-7 center"
+            className="size-8 center"
             rounded="full"
             active={activeColor === color || activeColor === name}
             onClick={() => handleColorClick(name, color)}
           >
             <div
-              className={`size-[15.75px] rounded-full ${
+              className={`size-[18px] rounded-full ${
                 name === "white" && "border-2 border-lightPurple"
               }`}
               style={{

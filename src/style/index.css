@@ -11,5 +11,10 @@
 .between {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  /* align-items: center; */
+}
+* {
+  ::-webkit-scrollbar {
+    width: 0.5px;
+  }
 }

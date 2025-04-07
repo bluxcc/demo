@@ -1,7 +1,7 @@
 import { useState, ReactNode } from "react";
-import { SupportedFonts, RadiusValues } from "../constants";
-import { AppearanceContext } from "./index";
 import { defaultAppearance } from "@bluxcc/react";
+import { LoginMethodType, RadiusValues, SupportedFonts } from "../constants";
+import { ConfigContext } from "./index";
 
 export interface IAppearance {
   theme: "light" | "dark";
@@ -10,13 +10,22 @@ export interface IAppearance {
   textColor: string;
   font: SupportedFonts;
   cornerRadius: RadiusValues;
-  cover: string;
+  logo?: React.ImgHTMLAttributes<HTMLImageElement>["src"];
 }
 
-export const AppearanceProvider = ({ children }: { children: ReactNode }) => {
+export const ConfigProvider = ({ children }: { children: ReactNode }) => {
   const [appearance, setAppearance] = useState<IAppearance>(defaultAppearance);
+  const [loginMethods, setLoginMethods] = useState<LoginMethodType>([
+    "wallet",
+    "email",
+    "passkey",
+    "sms",
+  ]);
 
-  const updateAppearance = (property: keyof IAppearance, value: string) => {
+  const updateAppearance = (
+    property: keyof IAppearance,
+    value: IAppearance[keyof IAppearance]
+  ) => {
     setAppearance((prev) => ({
       ...prev,
       [property]: value,
@@ -27,11 +36,21 @@ export const AppearanceProvider = ({ children }: { children: ReactNode }) => {
     setAppearance(defaultAppearance);
   };
 
+  const updateLoginMethods = (methods: LoginMethodType) => {
+    setLoginMethods(methods);
+  };
+
   return (
-    <AppearanceContext.Provider
-      value={{ appearance, updateAppearance, resetAppearance }}
+    <ConfigContext.Provider
+      value={{
+        appearance,
+        loginMethods,
+        updateAppearance,
+        resetAppearance,
+        updateLoginMethods,
+      }}
     >
       {children}
-    </AppearanceContext.Provider>
+    </ConfigContext.Provider>
   );
 };

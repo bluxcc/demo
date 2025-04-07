@@ -6,16 +6,19 @@ import redo from "/images/redo.svg";
 import Header from "./components/Header";
 import OpenModal from "./containers/OpenModal";
 import TabsContainer from "./containers/tabsContainer";
-import { useAppearance } from "./hooks/useAppearanceContext";
+import { useConfigContext } from "./hooks/useConfigContext";
 
 import "./style/index.css";
 
 function App() {
-  const { appearance, resetAppearance } = useAppearance();
+  const { appearance, resetAppearance, loginMethods } = useConfigContext();
   const [isCodeOpen, setIsCodeOpen] = useState(false);
-
   const handleOpenCode = () => setIsCodeOpen(!isCodeOpen);
-
+  const handleCopyCode = () => {
+    navigator.clipboard.writeText(codeBlock);
+  };
+  const handleCloseCode = () => setIsCodeOpen(false);
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 770;
   const codeBlock = `import { BluxProvider, useBlux, networks } from "@bluxcc/react";
 
 const App = () => {
@@ -33,8 +36,9 @@ const App = () => {
           textColor: "${appearance.textColor}",
           font: "${appearance.font}",
           cornerRadius: "${appearance.cornerRadius}",
-          cover: "${appearance.cover}"
+          logo: "${appearance.logo}"
         }
+        loginMethods: [${loginMethods}]
       }}
     >
       <button onClick={connect}>Connect Wallet</button>
@@ -45,13 +49,35 @@ const App = () => {
 export default App;`;
 
   return (
-    <div className="flex-col h-screen w-screen">
-      <Header onOpenCode={handleOpenCode} />
-      <div className="h-[calc(100vh-72px)] flex  transition-all duration-300">
-        <div className="font-jetbrains ">
+    <div className="flex-col h-screen w-screen overflow-hidden">
+      <Header
+        isCodeOpen={isCodeOpen}
+        onOpenCode={handleOpenCode}
+        handleCopyCode={handleCopyCode}
+        handleCloseCode={handleCloseCode}
+      />
+      <div className="h-[calc(100vh-72px)] w-full flex transition-all duration-300 mobile:relative ">
+        <div className="font-jetbrains mobile:w-full">
           <TabsContainer />
+          {isMobile && (
+            <BluxProvider
+              isDemo
+              config={{
+                appearance,
+                appName: "demo",
+                networks: [networks.mainnet],
+                loginMethods: loginMethods,
+              }}
+            >
+              <OpenModal />
+            </BluxProvider>
+          )}
         </div>
-        <div className="w-full relative h-full overflow-hidden">
+        <div
+          className={`${
+            isCodeOpen && "desktop:mr-[26vw]"
+          } relative h-full overflow-hidden mobile:hidden w-full transition-all duration-500`}
+        >
           <div className="absolute py-6 flex flex-col justify-between items-center inset-0 h-full w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
             <div />
             <div className="relative w-full center">
@@ -61,7 +87,7 @@ export default App;`;
                   appearance,
                   appName: "demo",
                   networks: [networks.mainnet],
-                  loginMethods: ['wallet', 'email', 'passkey'],
+                  loginMethods: loginMethods,
                 }}
               >
                 <OpenModal />
@@ -70,7 +96,7 @@ export default App;`;
             <div>
               <button
                 onClick={resetAppearance}
-                className="inline-flex font-jetbrains gap-2 justify-center items-center text-primary border-primary border-2 border-dashed h-12 w-[120px]"
+                className="inline-flex mobile:hidden font-jetbrains gap-2 justify-center items-center text-primary border-primary border-2 border-dashed h-12 w-[120px]"
               >
                 <img src={redo} alt="redo" />
                 Reset
@@ -79,11 +105,13 @@ export default App;`;
           </div>
         </div>
         <div
-          className={`h-full border-l border-lightPurple transition-all duration-300 overflow-hidden ${
-            isCodeOpen ? "w-full opacity-100" : "w-0 opacity-0"
+          className={`h-full fixed !w-[500px] border-l border-lightPurple transition-all duration-500 overflow-hidden mobile:hidden tablet:hidden ${
+            isCodeOpen
+              ? "right-0 opacity-100 !bg-white"
+              : "right-[-500px] opacity-0"
           }`}
         >
-          <div className="border border-lightPurple m-4">
+          <div className="border  border-lightPurple m-4">
             <Highlight language="tsx" code={codeBlock} theme={themes.vsLight}>
               {({ className, style, tokens, getLineProps, getTokenProps }) => (
                 <pre
@@ -97,7 +125,7 @@ export default App;`;
                   {tokens.map((line, i) => (
                     <div
                       key={i}
-                      {...getLineProps({ line, key: i })}
+                      {...getLineProps({ line })}
                       className="flex items-start"
                     >
                       <span
@@ -108,7 +136,7 @@ export default App;`;
                       </span>
                       <span className="break-all">
                         {line.map((token, key) => (
-                          <span key={key} {...getTokenProps({ token, key })} />
+                          <span key={key} {...getTokenProps({ token })} />
                         ))}
                       </span>
                     </div>

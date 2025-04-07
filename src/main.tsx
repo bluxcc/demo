@@ -1,9 +1,9 @@
 import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
-import { AppearanceProvider } from "./context/provider.tsx";
+import { ConfigProvider } from "./context/provider.tsx";
 
 createRoot(document.getElementById("root")!).render(
-  <AppearanceProvider>
+  <ConfigProvider>
     <App />
-  </AppearanceProvider>
+  </ConfigProvider>
 );

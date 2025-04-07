@@ -1,13 +1,25 @@
+import { useEffect, useState } from "react";
 import Button from "../../../components/Button";
 import { ColorPicker } from "../../../components/ColorPicker";
 
 import { CornerButtons, COLORS, Fonts } from "../../../constants";
-import { useAppearance } from "../../../hooks/useAppearanceContext";
+import { useConfigContext } from "../../../hooks/useConfigContext";
 
 // import ToggleSwitch from "../../../components/ToggleSwitch";
 
 const Style = () => {
-  const { appearance, updateAppearance } = useAppearance();
+  const { appearance, updateAppearance } = useConfigContext();
+  const [inputValue, setInputValue] = useState("");
+
+  useEffect(() => {
+    if (inputValue === "") {
+      updateAppearance("logo", "/images/blackBluxLogo.svg");
+    }
+  }, []);
+
+  const handleUpdateLogo = () => {
+    updateAppearance("logo", inputValue);
+  };
 
   const fontClasses: Record<string, string> = {
     inter: "font-inter",
@@ -21,13 +33,14 @@ const Style = () => {
       {/* Mode Selection */}
       <div className="flex flex-col space-y-4">
         <p className="text-sm">Mode</p>
-        <div className="w-full flex items-center gap-2">
+        <div className="w-full flex items-center justify-center px-3 gap-2">
           {["light", "dark"].map((m) => (
             <Button
               key={m}
-              className={`w-[120px] h-8 ${
+              className={`w-full h-8 font-manrope ${
                 appearance.theme === m && "font-medium"
               }`}
+              disabled={m === "dark"}
               active={appearance.theme === m}
               onClick={() => updateAppearance("theme", m)}
             >
@@ -62,11 +75,11 @@ const Style = () => {
 
       <div className="flex flex-col space-y-4">
         <p className="text-sm">Font</p>
-        <div className="w-full flex flex-wrap gap-2 items-center">
+        <div className="w-full grid grid-cols-2 gap-2 px-3">
           {Fonts.map((m) => (
             <Button
               key={m.name}
-              className={`w-[120px] h-8 ${
+              className={`w-full h-8 ${
                 fontClasses[m.name.toLowerCase()] || ""
               } ${appearance.font === m.value ? "font-medium" : ""}`}
               active={appearance.font === m.value}
@@ -97,7 +110,7 @@ const Style = () => {
             <Button
               key={m.name}
               rounded={m.radius}
-              className="w-12 h-12 text-sm font-medium"
+              className="size-12 text-xs font-medium font-manrope"
               active={appearance.cornerRadius === m.radius}
               onClick={() => updateAppearance("cornerRadius", m.radius)}
             >
@@ -109,15 +122,29 @@ const Style = () => {
 
       {/* Cover toggle */}
 
-      {/* <hr className="border border-dashed border-lightPurple" /> */}
+      <hr className="border border-dashed border-lightPurple" />
 
-      {/* <div className="w-full flex items-center justify-between pr-2">
-        <p className="text-sm">Add a cover</p>
-        <ToggleSwitch
-          checked={appearance.cover !== ""}
-          onChange={() => updateAppearance("cover", appearance.cover)}
-        />
-      </div> */}
+      <div className="w-full flex-col flex pr-2 space-y-4">
+        <p className="text-sm">Brand logo</p>
+        <div className="font-manrope py-4 px-3 w-full border text-sm border-lightPurple h-12 flex items-center relative">
+          <input
+            type="text"
+            onChange={(e) => setInputValue(e.target.value)}
+            placeholder="Paste your logo link here"
+            className="focus:outline-none placeholder:text-[#4D4D4D]"
+          />
+          <button
+            onClick={handleUpdateLogo}
+            className="absolute font-medium right-[10px] w-[62px] h-[32px] center rounded-[32px] border border-lightPurple text-primary text-xs"
+          >
+            Update
+          </button>
+        </div>
+        <div className="border inline-flex gap-3 bg-[#E5FBFF] text-xs p-[10px] font-manrope font-medium border-[#99F0FF] text-[#333333]">
+          <img src="/images/exclamationCircle.svg" alt="exclamation" />
+          we recommend using a logo with dimensions 40×152 px.
+        </div>
+      </div>
     </div>
   );
 };
