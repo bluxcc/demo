@@ -20,7 +20,7 @@ const OpenModal = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      // signTransaction(testXDR)
+      // signTransaction(testXDR);
       profile();
     }
   }, [isAuthenticated]);
