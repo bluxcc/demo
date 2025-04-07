@@ -22,7 +22,6 @@ const Auth = () => {
           id: "wallet",
           title: "Stellar Wallets",
           checked: loginMethods.includes("wallet"),
-          disabled: true,
         },
       ],
     },
@@ -65,7 +64,6 @@ const Auth = () => {
     }
 
     updateLoginMethods(checkedItems as LoginMethodType);
-    console.log(checkedItems);
   };
 
   useEffect(() => {
@@ -117,7 +115,6 @@ const Auth = () => {
                 {section.items.map((item) => (
                   <CheckBoxItem
                     key={item.id}
-                    disabled={item.disabled}
                     title={item.title}
                     checked={loginMethods.includes(
                       item.id as (typeof loginMethods)[number]

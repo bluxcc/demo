@@ -21,6 +21,12 @@ const Style = () => {
     updateAppearance("logo", inputValue);
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      updateAppearance("logo", inputValue);
+    }
+  };
+
   const fontClasses: Record<string, string> = {
     inter: "font-inter",
     jetbrains: "font-jetbrains",
@@ -129,6 +135,7 @@ const Style = () => {
         <div className="font-manrope py-4 px-3 w-full border text-sm border-lightPurple h-12 flex items-center relative">
           <input
             type="text"
+            onKeyDown={handleKeyDown}
             onChange={(e) => setInputValue(e.target.value)}
             placeholder="Paste your logo link here"
             className="focus:outline-none placeholder:text-[#4D4D4D]"
