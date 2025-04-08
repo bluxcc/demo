@@ -2,7 +2,7 @@ import { useState } from "react";
 import CheckBoxItem from "../../../components/CheckBoxItem";
 
 const Features = () => {
-  const [selectedFeatures, setSelectedFeatures] = useState<string[]>([
+  const [, setSelectedFeatures] = useState<string[]>([
     "Send",
     "Swap",
     "Receive",
@@ -12,7 +12,7 @@ const Features = () => {
 
   const handleFeatureChange = (title: string, checked: boolean) => {
     setSelectedFeatures((prev) =>
-      checked ? [...prev, title] : prev.filter((item) => item !== title)
+      checked ? [...prev, title] : prev.filter((item) => item !== title),
     );
   };
 
