@@ -8,8 +8,8 @@ export interface IAppearance {
   background: string;
   accent: string;
   textColor: string;
-  font: SupportedFonts;
-  cornerRadius: RadiusValues;
+  font: SupportedFonts | string;
+  cornerRadius: RadiusValues | string;
   logo?: React.ImgHTMLAttributes<HTMLImageElement>["src"];
 }
 

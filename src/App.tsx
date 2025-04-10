@@ -14,9 +14,7 @@ function App() {
   const { appearance, resetAppearance, loginMethods } = useConfigContext();
   const [isCodeOpen, setIsCodeOpen] = useState(false);
   const handleOpenCode = () => setIsCodeOpen(!isCodeOpen);
-  const handleCopyCode = () => {
-    navigator.clipboard.writeText(codeBlock);
-  };
+
   const handleCloseCode = () => setIsCodeOpen(false);
   const isMobile = typeof window !== "undefined" && window.innerWidth < 770;
   const codeBlock = `import { BluxProvider, useBlux, networks } from "@bluxcc/react";
@@ -53,7 +51,7 @@ export default App;`;
       <Header
         isCodeOpen={isCodeOpen}
         onOpenCode={handleOpenCode}
-        handleCopyCode={handleCopyCode}
+        codeBlock={codeBlock}
         handleCloseCode={handleCloseCode}
       />
       <div className="h-[calc(100vh-72px)] w-full flex transition-all duration-300 mobile:relative ">
@@ -75,7 +73,7 @@ export default App;`;
         </div>
         <div
           className={`${
-            isCodeOpen && "desktop:mr-[26vw]"
+            isCodeOpen && "desktop:mr-[500px]"
           } relative h-full overflow-hidden mobile:hidden w-full transition-all duration-500`}
         >
           <div className="absolute py-6 flex flex-col justify-between items-center inset-0 h-full w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
@@ -96,29 +94,28 @@ export default App;`;
             <div>
               <button
                 onClick={resetAppearance}
-                className="inline-flex mobile:hidden font-jetbrains gap-2 justify-center items-center text-primary border-primary border-2 border-dashed h-12 w-[120px]"
+                className="inline-flex bg-white mobile:hidden font-manrope font-medium gap-2 justify-center items-center text-primary border-[#CDCEEE] border h-12 w-[120px]"
               >
-                <img src={redo} alt="redo" />
+                <img src={redo} alt="redo" width={20} height={20} />
                 Reset
               </button>
             </div>
           </div>
         </div>
         <div
-          className={`h-full fixed !w-[500px] border-l border-lightPurple transition-all duration-500 overflow-hidden mobile:hidden tablet:hidden ${
+          className={`h-full fixed !w-[500px] border-l p-4 border-lightPurple transition-all duration-500 mobile:hidden tablet:hidden ${
             isCodeOpen
               ? "right-0 opacity-100 !bg-white"
               : "right-[-500px] opacity-0"
           }`}
         >
-          <div className="border  border-lightPurple m-4">
+          <div className="border border-lightPurple">
             <Highlight language="tsx" code={codeBlock} theme={themes.vsLight}>
               {({ className, style, tokens, getLineProps, getTokenProps }) => (
                 <pre
-                  className={`${className} p-4 text-sm font-mono leading-relaxed`}
+                  className={`${className} p-4 text-sm font-mono leading-relaxed overflow-auto h-[calc(100dvh-100px)]`}
                   style={{
                     ...style,
-                    overflowX: "hidden",
                     whiteSpace: "pre-wrap",
                   }}
                 >
