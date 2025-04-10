@@ -20,7 +20,7 @@ function App() {
   const codeBlock = `import { BluxProvider, useBlux, networks } from "@bluxcc/react";
 
 const App = () => {
-  const { connect } = useBlux();
+  const { login } = useBlux();
 
   return (
     <BluxProvider
@@ -39,7 +39,7 @@ const App = () => {
         loginMethods: [${loginMethods}]
       }}
     >
-      <button onClick={connect}>Connect Wallet</button>
+      <button onClick={login}>Login</button>
     </BluxProvider>
   );
 };

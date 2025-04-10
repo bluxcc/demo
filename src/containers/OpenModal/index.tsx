@@ -2,14 +2,14 @@ import { useEffect } from "react";
 import { useBlux } from "@bluxcc/react";
 
 const OpenModal = () => {
-  const { isReady, connect, isAuthenticated, user, profile } = useBlux();
+  const { isReady, login, isAuthenticated, user, profile } = useBlux();
   const isMobile = window.innerWidth < 768;
 
   useEffect(() => {
     if (isReady && !isMobile) {
       setInterval(() => {
         try {
-          connect();
+          login();
         } catch (e) {}
       }, 1000);
     }
@@ -30,7 +30,7 @@ const OpenModal = () => {
   return isMobile ? (
     <div
       className="absolute center bottom-0 h-16 w-full bg-primary text-white"
-      onClick={connect}
+      onClick={login}
     >
       Launch Blux
     </div>
