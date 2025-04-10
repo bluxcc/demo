@@ -94,9 +94,9 @@ export default App;`;
             <div>
               <button
                 onClick={resetAppearance}
-                className="inline-flex mobile:hidden font-jetbrains gap-2 justify-center items-center text-primary border-primary border-2 border-dashed h-12 w-[120px]"
+                className="inline-flex bg-white mobile:hidden font-manrope font-medium gap-2 justify-center items-center text-primary border-[#CDCEEE] border h-12 w-[120px]"
               >
-                <img src={redo} alt="redo" />
+                <img src={redo} alt="redo" width={20} height={20} />
                 Reset
               </button>
             </div>

@@ -25,12 +25,16 @@ const SortableItem = ({ id, title, children }: SortableItemProps) => {
       className="flex flex-col cursor-grab pointer-events-auto"
     >
       <span className="text-sm flex items-center py-2 mb-3">
-        <img className="mr-2" src="/images/dragHandle.svg" alt="Drag Handle" />
+        <img
+          className="mr-2 cursor-grab"
+          src="/images/dragHandle.svg"
+          alt="Drag Handle"
+        />
         {title && title}
       </span>
       <div
         className="flex flex-col gap-2"
-        onPointerDown={(e) => e.stopPropagation()} // ✅ Prevent DnD interference
+        onPointerDown={(e) => e.stopPropagation()}
       >
         {children}
       </div>

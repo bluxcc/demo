@@ -132,7 +132,7 @@ const Auth = () => {
 
         <hr className="border border-dashed border-lightPurple my-2" />
         <CheckBoxItem
-          title="PassKey"
+          title="Passkey"
           checked={passkeyChecked}
           onChange={() => setPasskeyChecked((prev) => !prev)}
         />
