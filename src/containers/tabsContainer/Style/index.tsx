@@ -13,7 +13,7 @@ const Style = () => {
 
   useEffect(() => {
     if (inputValue === "") {
-      updateAppearance("logo", "/images/blackBluxLogo.svg");
+      updateAppearance("logo", "/images/blux.svg");
     }
   }, []);
 
