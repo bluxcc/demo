@@ -64,7 +64,7 @@ export default App;`;
               config={{
                 appearance,
                 appName: "demo",
-                networks: [networks.mainnet, networks.testnet],
+                networks: [networks.testnet],
                 defaultNetwork: networks.testnet,
                 loginMethods: loginMethods,
               }}
@@ -86,7 +86,7 @@ export default App;`;
                 config={{
                   appearance,
                   appName: "demo",
-                  networks: [networks.mainnet, networks.testnet],
+                  networks: [networks.testnet],
                   defaultNetwork: networks.testnet,
                   loginMethods: loginMethods,
                 }}
