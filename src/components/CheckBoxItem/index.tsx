@@ -45,6 +45,7 @@ CheckBoxItemProps) => {
       {/* Custom checkbox */}
       <input
         type="checkbox"
+        aria-label="checkbox"
         className="hidden"
         checked={checked}
         onChange={!disabled ? toggleChecked : undefined}

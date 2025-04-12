@@ -37,7 +37,7 @@ const Header = ({
     <div className="w-full h-[72px] desktop:border-b border-b border-b-lightPurple between font-jetbrains">
       <div className="center pl-4">
         <a href="https://blux.cc" target="_blank">
-          <img src={logo} alt="Logo" />
+          <img src={logo} alt="Logo" width="186" height="40" />
         </a>
       </div>
 
@@ -51,12 +51,16 @@ const Header = ({
             }`}
           >
             <button
+              type="button"
+              aria-label="close"
               className="bg-[#E6E6E6] center size-12"
               onClick={handleCloseCode}
             >
               <img src={close} alt="close" />
             </button>
             <button
+              type="button"
+              aria-label="copy code"
               className="bg-[#E6E6E6] center text-primary w-[140px] h-12 font-medium"
               onClick={handleCopyCode}
             >
@@ -79,6 +83,8 @@ const Header = ({
             }`}
           >
             <button
+              type="button"
+              aria-label="get code"
               className="bg-primary w-[136px] h-12 text-white center gap-2 font-medium"
               onClick={onOpenCode}
             >

@@ -26,7 +26,8 @@ const App = () => {
     <BluxProvider
       config={{
         appName: "Blux Demo",
-        networks: [networks.mainnet],
+        networks: [networks.mainnet, networks.testnet],
+        defaultNetwork: networks.testnet,
         appearance: {
           theme: "${appearance.theme}",
           background: "${appearance.background}",
@@ -63,7 +64,8 @@ export default App;`;
               config={{
                 appearance,
                 appName: "demo",
-                networks: [networks.mainnet],
+                networks: [networks.mainnet, networks.testnet],
+                defaultNetwork: networks.testnet,
                 loginMethods: loginMethods,
               }}
             >
@@ -84,7 +86,8 @@ export default App;`;
                 config={{
                   appearance,
                   appName: "demo",
-                  networks: [networks.mainnet],
+                  networks: [networks.mainnet, networks.testnet],
+                  defaultNetwork: networks.testnet,
                   loginMethods: loginMethods,
                 }}
               >
@@ -93,6 +96,8 @@ export default App;`;
             </div>
             <div>
               <button
+                aria-label="reset"
+                type="button"
                 onClick={resetAppearance}
                 className="inline-flex bg-white mobile:hidden font-manrope font-medium gap-2 justify-center items-center text-primary border-[#CDCEEE] border h-12 w-[120px]"
               >

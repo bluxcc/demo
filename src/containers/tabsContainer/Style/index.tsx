@@ -42,6 +42,7 @@ const Style = () => {
         <div className="w-full flex items-center justify-center px-3 gap-2">
           {["light", "dark"].map((m) => (
             <Button
+              label={m}
               key={m}
               className={`w-full h-8 font-manrope ${
                 appearance.theme === m && "font-medium"
@@ -135,6 +136,7 @@ const Style = () => {
         <div className="font-manrope py-4 px-3 w-full border text-sm border-lightPurple h-12 flex items-center relative">
           <input
             type="text"
+            aria-label="logo link"
             onKeyDown={handleKeyDown}
             onChange={(e) => setInputValue(e.target.value)}
             placeholder="Paste your logo link here"
@@ -148,7 +150,12 @@ const Style = () => {
           </button>
         </div>
         <div className="border inline-flex gap-3 bg-[#E5FBFF] text-xs p-[10px] font-manrope font-medium border-[#99F0FF] text-[#333333]">
-          <img src="/images/exclamationCircle.svg" alt="exclamation" />
+          <img
+            src="/images/exclamationCircle.svg"
+            alt="exclamation"
+            width={20}
+            height={32}
+          />
           we recommend using a logo with dimensions 40×152 px.
         </div>
       </div>

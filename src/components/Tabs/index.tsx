@@ -20,7 +20,11 @@ const Tabs = ({ tabs }: TabsProps) => {
   return (
     <div className="flex h-full">
       <div className="flex !w-[81px] font-jetbrains flex-col pt-4 pb-[17px] border-r border-lightPurple justify-between items-center text-primary">
-        <div className="flex flex-col items-center">
+        <div
+          className="flex flex-col items-center"
+          role="tablist"
+          aria-label="Tabs"
+        >
           {tabs.map((tab, index) => {
             const isActive = activeTab === index;
             const isHovered = hoveredTab === index;
@@ -28,11 +32,13 @@ const Tabs = ({ tabs }: TabsProps) => {
             return (
               <button
                 key={index}
+                type="button"
+                role="tab"
+                aria-label={tab.label}
+                aria-selected={activeTab === index}
+                tabIndex={activeTab === index ? 0 : -1}
                 onClick={() => setActiveTab(index)}
                 className="py-2 px-4 flex flex-col items-center font-normal text-[13px]"
-                aria-selected={activeTab === index}
-                role="tab"
-                tabIndex={activeTab === index ? 0 : -1}
               >
                 <div
                   className="center w-16 h-8 relative"
@@ -54,7 +60,7 @@ const Tabs = ({ tabs }: TabsProps) => {
                     src={
                       isActive || isHovered ? tab.activeImg : tab.inActiveImg
                     }
-                    alt={tab.label}
+                    alt={`${tab.label} icon`}
                     className="w-6 h-6 relative z-10 transition-all duration-150"
                   />
                 </div>

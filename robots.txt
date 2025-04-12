@@ -1,0 +1,7 @@
+# robots.txt for Blux Docs
+
+User-agent: *
+Allow: /
+
+Sitemap: https://docs.blux.cc/sitemap.xml
+Host: https://docs.blux.cc
