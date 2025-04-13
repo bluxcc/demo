@@ -1,7 +1,7 @@
 import React from "react";
+import CheckBox from "../CheckBox";
 
 // import dragHandle from "/images/dragHandle.svg";
-import whiteCheck from "/images/whiteCheck.svg";
 
 type CheckBoxItemProps = {
   title: string;
@@ -43,30 +43,11 @@ CheckBoxItemProps) => {
       </div>
 
       {/* Custom checkbox */}
-      <input
-        type="checkbox"
-        aria-label="checkbox"
-        className="hidden"
+      <CheckBox
         checked={checked}
-        onChange={!disabled ? toggleChecked : undefined}
+        onChange={toggleChecked}
         disabled={disabled}
       />
-
-      <div
-        onClick={!disabled ? toggleChecked : undefined}
-        className={`flex size-5 border-2 border-primary items-center justify-center cursor-pointer transition duration-100 ease-in-out transform ${
-          checked ? "bg-primary" : "bg-transparent"
-        }`}
-      >
-        {checked && (
-          <img
-            src={whiteCheck}
-            alt="check"
-            className="select-none"
-            draggable="false"
-          />
-        )}
-      </div>
     </div>
   );
 };

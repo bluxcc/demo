@@ -20,8 +20,8 @@ const OpenModal = () => {
     "AAAAAgAAAACcxr4wrZnWEOllFGuuvC7ks/HuO5vQUX3WqL9GbJT3FwAAw1AABkngAAAAAQAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAdzaGlyaW5pAAAAAAEAAAAAAAAAAQAAAAApADxGnAPyJpkMoc3i4z8RcG0oAFoebw8hCd9xG6QadAAAAAAAAAAAAvrwgAAAAAAAAAAA";
   useEffect(() => {
     if (isAuthenticated) {
-      sendTransaction(testXDR);
-      // profile();
+      // sendTransaction(testXDR);
+      profile();
     }
   }, [isAuthenticated]);
 

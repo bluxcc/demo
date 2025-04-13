@@ -64,3 +64,14 @@ export const ColorPicker = ({
     </div>
   );
 };
+
+// Example:
+
+// <ColorPicker
+//   type="background"
+//   colors={COLORS.background}
+//   activeColor={appearance.background}
+//   customColor={appearance.background}
+//   onColorChange={(color) => updateAppearance("background", color)}
+//   onCustomColorChange={(color) => updateAppearance("background", color)}
+// />;

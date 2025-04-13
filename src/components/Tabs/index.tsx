@@ -78,7 +78,7 @@ const Tabs = ({ tabs }: TabsProps) => {
       </div>
 
       <div
-        className="w-[310px] mobile:w-full text-primary p-4 mobile:border-r-hidden border-r border-lightPurple overflow-y-auto"
+        className="w-[294px] mobile:w-full text-primary p-4 mobile:border-r-hidden border-r border-lightPurple overflow-y-auto"
         role="tabpanel"
         aria-labelledby={`tab-${activeTab}`}
       >
