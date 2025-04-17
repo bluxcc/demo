@@ -1,20 +1,11 @@
 import { useState, ReactNode } from "react";
-import { defaultDarkTheme, defaultLightTheme } from "@bluxcc/react";
-import { LoginMethodType, SupportedFonts } from "../constants";
+import {
+  defaultDarkTheme,
+  defaultLightTheme,
+  IAppearance,
+} from "@bluxcc/react";
+import { LoginMethodType } from "../constants";
 import { ConfigContext } from "./index";
-
-export interface IAppearance {
-  theme: "light" | "dark";
-  background: string;
-  bgField: string;
-  accent: string;
-  textColor: string;
-  font: SupportedFonts | string;
-  cornerRadius: string;
-  borderColor: string;
-  borderWidth: string;
-  logo: React.ImgHTMLAttributes<HTMLImageElement>["src"];
-}
 
 export const ConfigProvider = ({ children }: { children: ReactNode }) => {
   const [appearance, setAppearance] = useState<IAppearance>({

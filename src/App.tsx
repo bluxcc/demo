@@ -32,9 +32,13 @@ const App = () => {
           theme: "${appearance.theme}",
           background: "${appearance.background}",
           accent: "${appearance.accent}",
+          bgField: "${appearance.bgField}",
           textColor: "${appearance.textColor}",
-          font: "${appearance.font}",
           cornerRadius: "${appearance.cornerRadius}",
+          includeBorders: ${appearance.includeBorders},
+          borderWidth: "${appearance.borderWidth}",
+          borderColor: "${appearance.borderColor}",
+          font: "${appearance.font}",
           logo: "${appearance.logo}"
         }
         loginMethods: [${loginMethods}]

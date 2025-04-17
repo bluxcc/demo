@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import { IAppearance } from "./provider";
+import { IAppearance } from "@bluxcc/react";
 import { LoginMethodType } from "../constants";
 
 interface IConfigContext {

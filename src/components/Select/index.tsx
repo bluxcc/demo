@@ -49,7 +49,10 @@ const Select = ({
   }, []);
 
   return (
-    <div ref={ref} className="w-full flex items-center justify-between">
+    <div
+      ref={ref}
+      className="w-full flex items-center justify-between select-none"
+    >
       <p className="capitalize text-xs text-[#0C1083B2]">{name}</p>
 
       <div
@@ -60,7 +63,9 @@ const Select = ({
           <div className="!size-5">{startItem}</div>
           <span
             className={`text-sm ${
-              name === "Font" ? `${fontClasses[selected.value]}` : ""
+              name === "Font"
+                ? `${fontClasses[selected.value]}`
+                : "font-manrope"
             }`}
           >
             {selected.name}
@@ -102,7 +107,7 @@ const Select = ({
                   </div>
                   <span
                     className={`text-sm ${
-                      name === "Font" ? fontClasses[item.value] : ""
+                      name === "Font" ? fontClasses[item.value] : "font-manrope"
                     }`}
                   >
                     {item.name}

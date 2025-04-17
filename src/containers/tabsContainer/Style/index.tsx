@@ -1,8 +1,6 @@
 import { useState } from "react";
 import Button from "../../../components/Button";
-// import { ColorPicker } from "../../../components/ColorPicker";
 
-// import { CornerButtons, Fonts } from "../../../constants";
 import { useConfigContext } from "../../../hooks/useConfigContext";
 
 import sun from "/images/sun.svg";
@@ -24,6 +22,7 @@ const Style = () => {
 
   const toggleChecked = () => {
     setChecked((prev) => !prev);
+    updateAppearance("includeBorders", checked);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -103,10 +102,10 @@ const Style = () => {
         name="Corner radius"
         values={[
           { name: "None", value: "0px" },
-          { name: "Sm", value: "4px" },
-          { name: "Md", value: "8px" },
-          { name: "Lg", value: "16px" },
-          { name: "Full", value: "32px" },
+          { name: "Sm", value: "8px" },
+          { name: "Md", value: "16px" },
+          { name: "Lg", value: "24px" },
+          { name: "Round", value: "32px" },
         ]}
         defaultValue={{
           name: appearance.cornerRadius,
@@ -130,7 +129,7 @@ const Style = () => {
       <div className="between">
         <p className="text-xs text-[#0C1083B2]">Include border lines</p>
         <CheckBox
-          checked={checked}
+          checked={appearance.includeBorders}
           onChange={toggleChecked}
           borderColor="#cdceee"
         />
@@ -148,7 +147,7 @@ const Style = () => {
           value: appearance.borderWidth.toLowerCase(),
         }}
         onChange={(item) => {
-          updateAppearance("borderWidth", item.name);
+          updateAppearance("borderWidth", item.value);
         }}
         startItem={
           <img

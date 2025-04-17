@@ -7,7 +7,7 @@ type ToggleCollapseProps = {
 };
 
 const ToggleCollapse = ({
-  title = "Color option",
+  title,
   children,
   defaultOpen = true,
 }: ToggleCollapseProps) => {
@@ -26,10 +26,10 @@ const ToggleCollapse = ({
   }, [children]);
 
   return (
-    <div className="w-full">
+    <div className="w-full select-none cursor-pointer" onClick={handleCollapse}>
       <div className={`flex items-center justify-between`}>
         <p className="text-sm font-medium font-manrope">{title}</p>
-        <button onClick={handleCollapse} className="relative w-4 h-4">
+        <button className="relative w-4 h-4">
           <img
             src="/images/minus.svg"
             alt="Collapse"
