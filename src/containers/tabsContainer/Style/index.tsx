@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Button from "../../../components/Button";
 // import { ColorPicker } from "../../../components/ColorPicker";
 
@@ -7,7 +7,7 @@ import { useConfigContext } from "../../../hooks/useConfigContext";
 
 import sun from "/images/sun.svg";
 import moon from "/images/moon.svg";
-import { ColorSelector } from "../../../components/ColorSelector";
+import { ColorBox } from "../../../components/ColorBox";
 import Select from "../../../components/Select";
 import ToggleCollapse from "../../../components/ToggleCollapse";
 import CheckBox from "../../../components/CheckBox";
@@ -15,18 +15,12 @@ import CheckBox from "../../../components/CheckBox";
 const Style = () => {
   const { appearance, updateAppearance } = useConfigContext();
   const [logoInputValue, setLogoInputValue] = useState("");
-  const [borderInputValue, setBorderInputValue] = useState("1");
-  const [CornerInputValue, setCornerInputValue] = useState("16");
+
   const [checked, setChecked] = useState(false);
 
   const handleUpdateLogo = () => {
     updateAppearance("logo", logoInputValue);
   };
-
-  useEffect(() => {
-    updateAppearance("borderWidth", borderInputValue + "px");
-    updateAppearance("cornerRadius", CornerInputValue + "px");
-  }, [borderInputValue, CornerInputValue]);
 
   const toggleChecked = () => {
     setChecked((prev) => !prev);
@@ -38,13 +32,6 @@ const Style = () => {
     }
   };
 
-  // const fontClasses: Record<string, string> = {
-  //   inter: "font-inter",
-  //   jetbrains: "font-jetbrains",
-  //   lora: "font-lora",
-  //   manrope: "font-manrope",
-  // };
-
   const themes = [
     { name: "light", logo: sun },
     { name: "dark", logo: moon },
@@ -55,7 +42,7 @@ const Style = () => {
       {/* Mode Selection */}
       <p className="text-lg font-medium font-manrope">Style</p>
 
-      <div className="flex flex-col space-y-4">
+      <div className="flex flex-col space-y-1">
         <p className="text-xs text-[#0C1083B2]">Theme</p>
         <div className="w-full center gap-2">
           {themes.map((m) => (
@@ -81,28 +68,28 @@ const Style = () => {
 
       <hr className="border border-dashed border-lightPurple" />
       <ToggleCollapse title="Color option">
-        <div className="mt-3 space-y-2">
-          <ColorSelector
+        <div className="mt-3">
+          <ColorBox
             name="background"
             color={appearance.background}
             onColorChange={(color) => updateAppearance("background", color)}
           />
-          <ColorSelector
-            name="text"
-            color={appearance.textColor}
-            onColorChange={(color) => updateAppearance("textColor", color)}
-          />
-          <ColorSelector
+          <ColorBox
             name="accent"
             color={appearance.accent}
             onColorChange={(color) => updateAppearance("accent", color)}
           />
-          <ColorSelector
+          <ColorBox
             name="bgField"
             color={appearance.bgField}
             onColorChange={(color) => updateAppearance("bgField", color)}
           />
-          <ColorSelector
+          <ColorBox
+            name="text"
+            color={appearance.textColor}
+            onColorChange={(color) => updateAppearance("textColor", color)}
+          />
+          <ColorBox
             name="border"
             color={appearance.borderColor}
             onColorChange={(color) => updateAppearance("borderColor", color)}
@@ -113,52 +100,21 @@ const Style = () => {
       <hr className="border border-dashed border-lightPurple" />
 
       <Select
-        type="select"
-        name="Font"
-        onClick={() => {}}
-        value="Manrope"
-        startItem={<img src="/images/fontIcon.svg" alt="font" />}
-      />
-      <hr className="border border-dashed border-lightPurple" />
-      <div className="between">
-        <p className="text-xs text-[#0C1083B2]">Include border lines</p>
-        <CheckBox
-          checked={checked}
-          onChange={toggleChecked}
-          borderColor="#cdceee"
-        />
-      </div>
-      <Select
-        type="input"
-        name="Border width"
-        startItem={
-          <img
-            src="/images/borderIcon.svg"
-            alt="border"
-            width={20}
-            height={20}
-          />
-        }
-      >
-        <input
-          type="number"
-          value={borderInputValue}
-          aria-label="border width"
-          placeholder={appearance.borderWidth}
-          min={0}
-          max={5}
-          onChange={(e) => {
-            const value = Math.max(0, Math.min(5, Number(e.target.value)));
-            setBorderInputValue(value.toString());
-          }}
-          className="focus:outline-none placeholder:text-primary text-sm max-w-[94px]"
-        />
-      </Select>
-      <hr className="border border-dashed border-lightPurple " />
-
-      <Select
-        type="input"
         name="Corner radius"
+        values={[
+          { name: "None", value: "0px" },
+          { name: "Sm", value: "4px" },
+          { name: "Md", value: "8px" },
+          { name: "Lg", value: "16px" },
+          { name: "Full", value: "32px" },
+        ]}
+        defaultValue={{
+          name: appearance.cornerRadius,
+          value: appearance.cornerRadius.toLowerCase(),
+        }}
+        onChange={(item) => {
+          updateAppearance("cornerRadius", item.value);
+        }}
         startItem={
           <img
             src="/images/roundedCorner.svg"
@@ -167,21 +123,61 @@ const Style = () => {
             height={20}
           />
         }
-      >
-        <input
-          type="number"
-          value={CornerInputValue}
-          aria-label="Corner Radius"
-          placeholder={appearance.borderWidth}
-          min={0}
-          max={44}
-          onChange={(e) => {
-            const value = Math.max(0, Math.min(44, Number(e.target.value)));
-            setCornerInputValue(value.toString());
-          }}
-          className="focus:outline-none placeholder:text-primary text-sm max-w-[94px]"
+      />
+
+      <hr className="border border-dashed border-lightPurple" />
+
+      <div className="between">
+        <p className="text-xs text-[#0C1083B2]">Include border lines</p>
+        <CheckBox
+          checked={checked}
+          onChange={toggleChecked}
+          borderColor="#cdceee"
         />
-      </Select>
+      </div>
+
+      <Select
+        name="Border width"
+        values={[
+          { name: "1px", value: "1px" },
+          { name: "1.5px", value: "1.5px" },
+          { name: "2px", value: "2px" },
+        ]}
+        defaultValue={{
+          name: appearance.borderWidth,
+          value: appearance.borderWidth.toLowerCase(),
+        }}
+        onChange={(item) => {
+          updateAppearance("borderWidth", item.name);
+        }}
+        startItem={
+          <img
+            src="/images/borderIcon.svg"
+            alt="border"
+            width={20}
+            height={20}
+          />
+        }
+      />
+      <hr className="border border-dashed border-lightPurple " />
+
+      <Select
+        name="Font"
+        values={[
+          { name: "Inter", value: "inter" },
+          { name: "Manrope", value: "manrope" },
+          { name: "Lora", value: "lora" },
+          { name: "JetBrains", value: "jetbrains" },
+        ]}
+        defaultValue={{
+          name: appearance.font,
+          value: appearance.font.toLowerCase(),
+        }}
+        onChange={(item) => {
+          updateAppearance("font", item.name);
+        }}
+        startItem={<img src="/images/fontIcon.svg" alt="font" />}
+      />
 
       <hr className="border border-dashed border-lightPurple" />
 
