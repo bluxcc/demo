@@ -33,7 +33,13 @@ const Header = ({
     <div className="w-full h-[72px] desktop:border-b border-b border-b-lightPurple between font-jetbrains">
       <div className="center pl-4">
         <a href="https://blux.cc" target="_blank">
-          <img src="/images/logo.svg" alt="Logo" width="186" height="40" />
+          <img
+            src="/images/logo.svg"
+            alt="Logo"
+            width="186"
+            height="40"
+            loading="lazy"
+          />
         </a>
       </div>
 

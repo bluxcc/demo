@@ -54,7 +54,7 @@ const Style = () => {
             >
               <img
                 src={m.logo}
-                alt={m.name}
+                alt="theme"
                 className="w-6 h-6"
                 width={24}
                 height={24}
