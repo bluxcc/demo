@@ -185,7 +185,12 @@ const Style = () => {
         <div className="space-y-2 mt-3">
           {appearance.logo && (
             <div className="w-full flex justify-end">
-              <div className="flex border border-dashed border-lightPurple overflow-hidden p-2 max-h-[36px] max-w-[150px]">
+              <div
+                style={{
+                  background: appearance.background,
+                }}
+                className="flex border border-dashed border-lightPurple overflow-hidden p-2 max-h-[36px] max-w-[150px]"
+              >
                 <img
                   src={appearance.logo}
                   alt="Logo"
