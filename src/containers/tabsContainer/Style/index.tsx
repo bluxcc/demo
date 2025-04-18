@@ -37,9 +37,8 @@ const Style = () => {
   ];
 
   return (
-    <div className="flex flex-col text-primary space-y-3">
-      {/* Mode Selection */}
-      <p className="text-lg font-medium font-manrope">Style</p>
+    <div className="flex flex-col text-primary space-y-4">
+      <p className="text-lg font-manrope-medium">Style</p>
 
       <div className="flex flex-col space-y-1">
         <p className="text-xs text-[#0C1083B2]">Theme</p>
@@ -48,7 +47,7 @@ const Style = () => {
             <Button
               label={m.name}
               key={m.name}
-              className={`w-full h-12 font-manrope center gap-1 font-medium`}
+              className={`w-full h-12 font-manrope-medium center gap-1 select-none`}
               active={appearance.theme === m.name}
               onClick={() => updateAppearance("theme", m.name)}
             >
@@ -138,6 +137,7 @@ const Style = () => {
       <Select
         name="Border width"
         values={[
+          { name: "0.5px", value: "0.5px" },
           { name: "1px", value: "1px" },
           { name: "1.5px", value: "1.5px" },
           { name: "2px", value: "2px" },
@@ -163,19 +163,21 @@ const Style = () => {
       <Select
         name="Font"
         values={[
-          { name: "Inter", value: "inter" },
-          { name: "Manrope", value: "manrope" },
-          { name: "Lora", value: "lora" },
-          { name: "JetBrains", value: "jetbrains" },
+          { name: "Inter", value: "Inter" },
+          { name: "Manrope", value: "Manrope" },
+          { name: "Lora", value: "Lora" },
+          { name: "JetBrains", value: "JetbrainsMono" },
         ]}
         defaultValue={{
           name: appearance.font,
           value: appearance.font.toLowerCase(),
         }}
         onChange={(item) => {
-          updateAppearance("font", item.name);
+          updateAppearance("font", item.value);
         }}
-        startItem={<img src="/images/fontIcon.svg" alt="font" />}
+        startItem={
+          <img src="/images/fontIcon.svg" alt="font" width={20} height={20} />
+        }
       />
 
       <hr className="border border-dashed border-lightPurple" />
@@ -211,12 +213,12 @@ const Style = () => {
             />
             <button
               onClick={handleUpdateLogo}
-              className="absolute font-medium right-[10px] w-[62px] h-[32px] center rounded-[32px] border border-lightPurple text-primary text-xs"
+              className="absolute font-manrope-medium right-[10px] w-[62px] h-[32px] center rounded-[32px] border border-lightPurple text-primary text-xs"
             >
               Update
             </button>
           </div>
-          <div className="border inline-flex gap-3 bg-[#E5FBFF] text-xs p-[10px] font-manrope font-medium border-[#99F0FF] text-[#333333]">
+          <div className="border inline-flex gap-3 bg-[#E5FBFF] text-xs p-[10px] font-manrope-medium border-[#99F0FF] text-[#333333]">
             <img
               src="/images/exclamationCircle.svg"
               alt="exclamation"

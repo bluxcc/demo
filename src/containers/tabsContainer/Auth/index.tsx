@@ -103,7 +103,7 @@ const Auth = () => {
   return (
     <DndContext collisionDetection={closestCenter} onDragEnd={onDragEnd}>
       <div className="flex flex-col text-primary space-y-3">
-        <p className="font-manrope font-medium text-lg">Login Methods</p>
+        <p className="font-manrope-medium text-lg">Login Methods</p>
 
         <SortableContext
           items={sections}

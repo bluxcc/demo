@@ -29,7 +29,7 @@ CheckBoxItemProps) => {
       className="flex w-full justify-between items-center border border-lightPurple p-3 h-12 cursor-pointer"
       // draggable={draggable}
     >
-      <div className="flex items-center text-sm font-manrope font-medium">
+      <div className="flex items-center text-sm font-manrope-medium">
         {startIcon && <div className="mr-2">{startIcon}</div>}
         {/* {draggable && (
           <img

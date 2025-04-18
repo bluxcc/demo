@@ -60,7 +60,7 @@ export default App;`;
         handleCloseCode={handleCloseCode}
       />
       <div className="h-[calc(100vh-72px)] w-full flex transition-all duration-300 mobile:relative ">
-        <div className="font-jetbrains mobile:w-full">
+        <div className="font-jetbrainsMono mobile:w-full">
           <TabsContainer />
           {isMobile && (
             <BluxProvider
@@ -103,7 +103,7 @@ export default App;`;
                 aria-label="reset"
                 type="button"
                 onClick={resetAppearance}
-                className="inline-flex bg-white mobile:hidden font-manrope font-medium gap-2 justify-center items-center text-primary border-[#CDCEEE] border h-12 w-[120px]"
+                className="inline-flex bg-white mobile:hidden font-manrope-medium gap-2 justify-center items-center text-primary border-[#CDCEEE] border h-12 w-[120px]"
               >
                 <img src={redo} alt="redo" width={20} height={20} />
                 Reset

@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Utility classes */
 .center {
   display: flex;
   justify-content: center;
@@ -13,8 +14,73 @@
   justify-content: space-between;
   /* align-items: center; */
 }
-* {
-  ::-webkit-scrollbar {
-    width: 0.5px;
-  }
+
+/* Scrollbar styling */
+*::-webkit-scrollbar {
+  width: 0.5px;
+}
+
+/* Font Faces - Optimized with woff2 only */
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/Inter-Regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/fonts/Inter-Medium.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Lora";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/Lora-Regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Lora";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/fonts/Lora-Medium.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/Manrope-Regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Manrope-Medium";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/fonts/Manrope-Medium.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "JetBrainsMono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/JetBrainsMono-Regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "JetBrainsMono";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/fonts/JetBrainsMono-Medium.woff2") format("woff2");
 }

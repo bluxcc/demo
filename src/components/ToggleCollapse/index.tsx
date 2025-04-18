@@ -26,9 +26,12 @@ const ToggleCollapse = ({
   }, [children]);
 
   return (
-    <div className="w-full select-none cursor-pointer" onClick={handleCollapse}>
-      <div className={`flex items-center justify-between`}>
-        <p className="text-sm font-medium font-manrope">{title}</p>
+    <div className="w-full select-none cursor-pointer">
+      <div
+        className={`flex items-center justify-between`}
+        onClick={handleCollapse}
+      >
+        <p className="text-sm font-manrope-medium">{title}</p>
         <button className="relative w-4 h-4">
           <img
             src="/images/minus.svg"

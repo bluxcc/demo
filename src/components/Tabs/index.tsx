@@ -19,7 +19,7 @@ const Tabs = ({ tabs }: TabsProps) => {
 
   return (
     <div className="flex h-full">
-      <div className="flex !w-[81px] font-jetbrains flex-col pt-4 pb-[17px] border-r border-lightPurple justify-between items-center text-primary">
+      <div className="flex !w-[81px] font-manrope-medium flex-col pt-4 pb-[17px] border-r border-lightPurple justify-between items-center text-primary">
         <div
           className="flex flex-col items-center"
           role="tablist"
@@ -38,7 +38,7 @@ const Tabs = ({ tabs }: TabsProps) => {
                 aria-selected={activeTab === index}
                 tabIndex={activeTab === index ? 0 : -1}
                 onClick={() => setActiveTab(index)}
-                className="py-2 px-4 flex flex-col items-center font-normal text-[13px]"
+                className="py-2 px-4 flex flex-col gap-1 items-center font-normal text-[13px]"
               >
                 <div
                   className="center w-16 h-8 relative"

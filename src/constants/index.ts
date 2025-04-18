@@ -29,7 +29,7 @@ export const CornerButtons: { name: string; radius: RadiusValues }[] = [
   },
 ];
 
-export const Fonts: { name: string; value: SupportedFonts }[] = [
+export const Fonts: { name: string; value: string }[] = [
   { name: "Manrope", value: "Manrope" },
   { name: "Inter", value: "Inter" },
   { name: "JetBrains", value: "JetBrains Mono" },
@@ -46,8 +46,6 @@ export type LoginMethodType = Array<
   | "github"
   | "passkey"
 >;
-
-export type SupportedFonts = "Manrope" | "Inter" | "JetBrains Mono" | "Lora";
 
 export type ColorType = "background" | "accent" | "bgField" | "text" | "border";
 // export type BackgroundColor = (typeof COLORS.background)[number]["name"];

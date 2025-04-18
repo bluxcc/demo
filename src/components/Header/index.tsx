@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Logo from "../../assets/logo";
 
 type HeaderProps = {
   onOpenCode: () => void;
@@ -30,16 +31,10 @@ const Header = ({
   };
 
   return (
-    <div className="w-full h-[72px] desktop:border-b border-b border-b-lightPurple between font-jetbrains">
+    <div className="w-full h-[72px] desktop:border-b border-b border-b-lightPurple between font-jetbrainsMono">
       <div className="center pl-4">
         <a href="https://blux.cc" target="_blank">
-          <img
-            src="/images/logo.svg"
-            alt="Logo"
-            width="186"
-            height="40"
-            loading="lazy"
-          />
+          <Logo />
         </a>
       </div>
 
@@ -63,7 +58,7 @@ const Header = ({
             <button
               type="button"
               aria-label="copy code"
-              className="bg-[#E6E6E6] center text-primary w-[140px] h-12 font-medium"
+              className="bg-[#E6E6E6] center text-primary w-[140px] h-12 font-manrope-medium"
               onClick={handleCopyCode}
             >
               {copied ? (
@@ -87,10 +82,10 @@ const Header = ({
             <button
               type="button"
               aria-label="live code"
-              className="bg-primary w-[136px] h-12 text-white center gap-2 font-medium"
+              className="bg-primary w-[136px] h-12 text-white center gap-2 font-manrope-medium"
               onClick={onOpenCode}
             >
-              <img src="/images/code.svg" alt="code" />
+              <img src="/images/code.svg" alt="code" height={24} width={24} />
               Live Code
             </button>
           </div>

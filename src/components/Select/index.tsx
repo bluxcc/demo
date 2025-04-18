@@ -12,10 +12,10 @@ type SelectProps = {
 };
 
 const fontClasses: Record<string, string> = {
-  inter: "font-inter",
-  jetbrains: "font-jetbrains",
-  lora: "font-lora",
-  manrope: "font-manrope",
+  Inter: "font-inter",
+  JetbrainsMono: "font-jetbrainsMono",
+  Lora: "font-lora",
+  Manrope: "font-manrope",
 };
 
 const Select = ({
@@ -62,10 +62,10 @@ const Select = ({
         <div className="flex items-center gap-2">
           <div className="!size-5">{startItem}</div>
           <span
-            className={`text-sm ${
+            className={`text-sm font-medium ${
               name === "Font"
                 ? `${fontClasses[selected.value]}`
-                : "font-manrope"
+                : "font-manrope-medium"
             }`}
           >
             {selected.name}
