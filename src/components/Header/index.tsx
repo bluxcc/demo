@@ -33,7 +33,12 @@ const Header = ({
   return (
     <div className="w-full h-[72px] desktop:border-b border-b border-b-lightPurple between font-jetbrainsMono">
       <div className="center pl-4">
-        <a href="https://blux.cc" target="_blank">
+        <a
+          href="https://blux.cc"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Blux website (opens in a new tab)"
+        >
           <Logo />
         </a>
       </div>
