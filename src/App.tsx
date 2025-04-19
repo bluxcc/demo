@@ -91,7 +91,7 @@ export default App;`;
                   appearance,
                   appName: "demo",
                   networks: [networks.testnet, networks.mainnet],
-                  defaultNetwork: networks.testnet,
+                  defaultNetwork: networks.mainnet,
                   loginMethods: loginMethods,
                 }}
               >
