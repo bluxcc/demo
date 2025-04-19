@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useBlux } from "@bluxcc/react";
 
 const OpenModal = () => {
-  const { isReady, login, isAuthenticated, user, profile, sendTransaction } =
+  const { isReady, login, isAuthenticated, user, profile } =
     useBlux();
   const isMobile = window.innerWidth < 768;
 
@@ -16,11 +16,8 @@ const OpenModal = () => {
     }
   }, [isReady, user]);
 
-  const testXDR =
-    "AAAAAgAAAACcxr4wrZnWEOllFGuuvC7ks/HuO5vQUX3WqL9GbJT3FwAAw1AABkngAAAAAQAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAdzaGlyaW5pAAAAAAEAAAAAAAAAAQAAAAApADxGnAPyJpkMoc3i4z8RcG0oAFoebw8hCd9xG6QadAAAAAAAAAAAAvrwgAAAAAAAAAAA";
   useEffect(() => {
     if (isAuthenticated) {
-      // sendTransaction(testXDR);
       profile();
     }
   }, [isAuthenticated]);
