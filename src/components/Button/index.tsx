@@ -10,6 +10,7 @@ type ButtonProps = {
   onClick?: () => void;
   active?: boolean;
   disabled?: boolean;
+  label?: string;
 };
 
 const Button = ({
@@ -19,9 +20,12 @@ const Button = ({
   active,
   onClick,
   disabled,
+  label,
 }: ButtonProps) => {
   return (
     <button
+      type="button"
+      aria-label={label}
       disabled={disabled}
       onClick={disabled ? undefined : onClick}
       className={clsx(

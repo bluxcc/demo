@@ -1,0 +1,7 @@
+# robots.txt for Blux Demo
+
+User-agent: *
+Allow: /
+
+Sitemap: https://demo.blux.cc/sitemap.xml
+Host: https://demo.blux.cc

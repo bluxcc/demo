@@ -12,14 +12,14 @@ const Features = () => {
 
   const handleFeatureChange = (title: string, checked: boolean) => {
     setSelectedFeatures((prev) =>
-      checked ? [...prev, title] : prev.filter((item) => item !== title),
+      checked ? [...prev, title] : prev.filter((item) => item !== title)
     );
   };
 
   return (
     <div className="flex flex-col text-primary space-y-3">
       <div className="flex flex-col space-y-4">
-        <p className="text-lg font-medium font-manrope">Features</p>
+        <p className="text-lg font-manrope-medium">Features</p>
         <div className="w-full flex flex-col items-center gap-2">
           <CheckBoxItem title="Send" onChange={handleFeatureChange} checked />
           <CheckBoxItem title="Swap" onChange={handleFeatureChange} checked />

@@ -1,20 +1,18 @@
 import { useState, ReactNode } from "react";
-import { defaultAppearance } from "@bluxcc/react";
-import { LoginMethodType, RadiusValues, SupportedFonts } from "../constants";
+import {
+  defaultDarkTheme,
+  defaultLightTheme,
+  IAppearance,
+} from "@bluxcc/react";
+import { LoginMethodType } from "../constants";
 import { ConfigContext } from "./index";
 
-export interface IAppearance {
-  theme: "light" | "dark";
-  background: string;
-  accent: string;
-  textColor: string;
-  font: SupportedFonts | string;
-  cornerRadius: RadiusValues | string;
-  logo?: React.ImgHTMLAttributes<HTMLImageElement>["src"];
-}
-
 export const ConfigProvider = ({ children }: { children: ReactNode }) => {
-  const [appearance, setAppearance] = useState<IAppearance>(defaultAppearance);
+  const [appearance, setAppearance] = useState<IAppearance>({
+    ...defaultLightTheme,
+    logo: "/images/blux.svg",
+  });
+
   const [loginMethods, setLoginMethods] = useState<LoginMethodType>([
     "wallet",
     "email",
@@ -26,6 +24,23 @@ export const ConfigProvider = ({ children }: { children: ReactNode }) => {
     property: keyof IAppearance,
     value: IAppearance[keyof IAppearance]
   ) => {
+    if (property === "theme") {
+      if (value === "dark") {
+        setAppearance({
+          ...defaultDarkTheme,
+          logo: "/images/whiteBluxLogo.svg",
+        });
+        return;
+      } else if (value === "light") {
+        setAppearance({
+          ...defaultLightTheme,
+          logo: "/images/blux.svg",
+        });
+        return;
+      }
+    }
+
+    // For other properties, update normally
     setAppearance((prev) => ({
       ...prev,
       [property]: value,
@@ -33,7 +48,10 @@ export const ConfigProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const resetAppearance = () => {
-    setAppearance(defaultAppearance);
+    setAppearance({
+      ...defaultLightTheme,
+      logo: "/images/blux.svg",
+    });
   };
 
   const updateLoginMethods = (methods: LoginMethodType) => {

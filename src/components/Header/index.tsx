@@ -1,8 +1,5 @@
-import logo from "/images/logo.svg";
-import close from "/images/close.svg";
-import copy from "/images/copy.svg";
-import code from "/images/code.svg";
 import { useState } from "react";
+import Logo from "../../assets/logo";
 
 type HeaderProps = {
   onOpenCode: () => void;
@@ -34,10 +31,15 @@ const Header = ({
   };
 
   return (
-    <div className="w-full h-[72px] desktop:border-b border-b border-b-lightPurple between font-jetbrains">
+    <div className="w-full h-[72px] desktop:border-b border-b border-b-lightPurple between font-jetbrainsMono">
       <div className="center pl-4">
-        <a href="https://blux.cc" target="_blank">
-          <img src={logo} alt="Logo" />
+        <a
+          href="https://blux.cc"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Blux website (opens in a new tab)"
+        >
+          <Logo />
         </a>
       </div>
 
@@ -51,26 +53,30 @@ const Header = ({
             }`}
           >
             <button
+              type="button"
+              aria-label="close"
               className="bg-[#E6E6E6] center size-12"
               onClick={handleCloseCode}
             >
-              <img src={close} alt="close" />
+              <img src="/images/close.svg" alt="close" />
             </button>
             <button
-              className="bg-[#E6E6E6] center text-primary w-[140px] h-12 font-medium"
+              type="button"
+              aria-label="copy code"
+              className="bg-[#E6E6E6] center text-primary w-[140px] h-12 font-manrope-medium"
               onClick={handleCopyCode}
             >
               {copied ? (
                 "Copied!"
               ) : (
                 <span className="flex gap-1 whitespace-nowrap">
-                  Copy Code <img src={copy} alt="copy" />
+                  Copy Code <img src="/images/copy.svg" alt="copy" />
                 </span>
               )}
             </button>
           </div>
 
-          {/* Get Code Button */}
+          {/* live Code Button */}
           <div
             className={`absolute top-0 right-4 flex items-center justify-end h-full w-full ${
               isCodeOpen
@@ -79,11 +85,13 @@ const Header = ({
             }`}
           >
             <button
-              className="bg-primary w-[136px] h-12 text-white center gap-2 font-medium"
+              type="button"
+              aria-label="live code"
+              className="bg-primary w-[136px] h-12 text-white center gap-2 font-manrope-medium"
               onClick={onOpenCode}
             >
-              <img src={code} alt="code" />
-              Get Code
+              <img src="/images/code.svg" alt="code" height={24} width={24} />
+              Live Code
             </button>
           </div>
         </div>

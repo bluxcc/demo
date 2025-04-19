@@ -26,14 +26,19 @@ const App = () => {
     <BluxProvider
       config={{
         appName: "Blux Demo",
-        networks: [networks.mainnet],
+        networks: [networks.mainnet, networks.testnet],
+        defaultNetwork: networks.testnet,
         appearance: {
           theme: "${appearance.theme}",
           background: "${appearance.background}",
           accent: "${appearance.accent}",
+          bgField: "${appearance.bgField}",
           textColor: "${appearance.textColor}",
-          font: "${appearance.font}",
           cornerRadius: "${appearance.cornerRadius}",
+          includeBorders: ${appearance.includeBorders},
+          borderWidth: "${appearance.borderWidth}",
+          borderColor: "${appearance.borderColor}",
+          font: "${appearance.font}",
           logo: "${appearance.logo}"
         }
         loginMethods: [${loginMethods}]
@@ -55,7 +60,7 @@ export default App;`;
         handleCloseCode={handleCloseCode}
       />
       <div className="h-[calc(100vh-72px)] w-full flex transition-all duration-300 mobile:relative ">
-        <div className="font-jetbrains mobile:w-full">
+        <div className="font-jetbrainsMono mobile:w-full">
           <TabsContainer />
           {isMobile && (
             <BluxProvider
@@ -63,7 +68,8 @@ export default App;`;
               config={{
                 appearance,
                 appName: "demo",
-                networks: [networks.mainnet],
+                networks: [networks.testnet, networks.mainnet],
+                defaultNetwork: networks.testnet,
                 loginMethods: loginMethods,
               }}
             >
@@ -84,7 +90,8 @@ export default App;`;
                 config={{
                   appearance,
                   appName: "demo",
-                  networks: [networks.mainnet],
+                  networks: [networks.testnet, networks.mainnet],
+                  defaultNetwork: networks.mainnet,
                   loginMethods: loginMethods,
                 }}
               >
@@ -93,8 +100,10 @@ export default App;`;
             </div>
             <div>
               <button
+                aria-label="reset"
+                type="button"
                 onClick={resetAppearance}
-                className="inline-flex bg-white mobile:hidden font-manrope font-medium gap-2 justify-center items-center text-primary border-[#CDCEEE] border h-12 w-[120px]"
+                className="inline-flex bg-white mobile:hidden font-manrope-medium gap-2 justify-center items-center text-primary border-[#CDCEEE] border h-12 w-[120px]"
               >
                 <img src={redo} alt="redo" width={20} height={20} />
                 Reset

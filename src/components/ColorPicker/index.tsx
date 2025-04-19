@@ -35,6 +35,7 @@ export const ColorPicker = ({
         {colors.map(({ name, color }) => (
           <Button
             key={name}
+            label={`color ${name}`}
             className="size-8 center"
             rounded="full"
             active={activeColor === color || activeColor === name}
@@ -53,6 +54,7 @@ export const ColorPicker = ({
         ))}
         <input
           ref={pickerRef}
+          aria-label="color picker"
           type="color"
           className="absolute top-3 opacity-0 w-[20px] h-[20px] pointer-events-none"
           value={customColor}
@@ -62,3 +64,14 @@ export const ColorPicker = ({
     </div>
   );
 };
+
+// Example:
+
+// <ColorPicker
+//   type="background"
+//   colors={COLORS.background}
+//   activeColor={appearance.background}
+//   customColor={appearance.background}
+//   onColorChange={(color) => updateAppearance("background", color)}
+//   onCustomColorChange={(color) => updateAppearance("background", color)}
+// />;

@@ -6,6 +6,8 @@ interface ToggleSwitchProps {
 const ToggleSwitch = ({ checked, onChange }: ToggleSwitchProps) => {
   return (
     <button
+      type="button"
+      aria-label="toggle switch"
       className={`w-10 h-5 flex items-center rounded-full border  p-1 transition-colors
         ${checked ? "border-primary" : "border-[#9999B6]"}`}
       onClick={onChange}
