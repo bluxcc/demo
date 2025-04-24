@@ -1,6 +1,6 @@
 export const COLORS = {
   background: ["#ffffff", "#EFEFEF", "#E5FBFF", "#FFE5E5"] as const,
-  accent: ["#0C1083", "#FFB500", "#009900", "#DE1C2E"] as const,
+  accent: ["#0A84FF", "#FFB500", "#009900", "#DE1C2E"] as const,
   bgField: ["#ffffff", "#E0E0E0", "#CCF7FF", "#FFCCCC"] as const,
   text: ["#0D1292", "#000000", "#04062F", "#260000"] as const,
   border: ["#CDCEEE", "#ffffff", "#A9A9A9", "#000000"] as const,

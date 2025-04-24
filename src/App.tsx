@@ -41,7 +41,7 @@ const App = () => {
           font: "${appearance.font}",
           logo: "${appearance.logo}"
         }
-        loginMethods: [${loginMethods}]
+        loginMethods: ${JSON.stringify(loginMethods)}
       }}
     >
       <button onClick={login}>Login</button>
