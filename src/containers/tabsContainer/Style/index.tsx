@@ -97,34 +97,6 @@ const Style = () => {
 
       <hr className="border border-dashed border-lightPurple" />
 
-      <Select
-        name="Corner radius"
-        values={[
-          { name: "None", value: "0px" },
-          { name: "Sm", value: "8px" },
-          { name: "Md", value: "16px" },
-          { name: "Lg", value: "24px" },
-          { name: "Round", value: "32px" },
-        ]}
-        defaultValue={{
-          name: appearance.cornerRadius,
-          value: appearance.cornerRadius.toLowerCase(),
-        }}
-        onChange={(item) => {
-          updateAppearance("cornerRadius", item.value);
-        }}
-        startItem={
-          <img
-            src="/images/roundedCorner.svg"
-            alt="cornerRadius"
-            width={20}
-            height={20}
-          />
-        }
-      />
-
-      <hr className="border border-dashed border-lightPurple" />
-
       <div className="between">
         <p className="text-xs text-[#0C1083B2]">Include border lines</p>
         <CheckBox
@@ -158,6 +130,33 @@ const Style = () => {
           />
         }
       />
+
+      <Select
+        name="Border radius"
+        values={[
+          { name: "None", value: "0px" },
+          { name: "Sm", value: "8px" },
+          { name: "Md", value: "16px" },
+          { name: "Lg", value: "24px" },
+          { name: "Round", value: "32px" },
+        ]}
+        defaultValue={{
+          name: appearance.borderRadius,
+          value: appearance.borderRadius.toLowerCase(),
+        }}
+        onChange={(item) => {
+          updateAppearance("borderRadius", item.value);
+        }}
+        startItem={
+          <img
+            src="/images/roundedCorner.svg"
+            alt="borderRadius"
+            width={20}
+            height={20}
+          />
+        }
+      />
+
       <hr className="border border-dashed border-lightPurple " />
 
       <Select

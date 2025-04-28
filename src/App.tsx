@@ -34,7 +34,7 @@ const App = () => {
           accent: "${appearance.accent}",
           bgField: "${appearance.bgField}",
           textColor: "${appearance.textColor}",
-          cornerRadius: "${appearance.cornerRadius}",
+          borderRadius: "${appearance.borderRadius}",
           includeBorders: ${appearance.includeBorders},
           borderWidth: "${appearance.borderWidth}",
           borderColor: "${appearance.borderColor}",
@@ -62,6 +62,7 @@ export default App;`;
       <div className="h-[calc(100vh-72px)] w-full flex transition-all duration-300 mobile:relative ">
         <div className="font-jetbrainsMono mobile:w-full">
           <TabsContainer />
+          {/* mobile */}
           {isMobile && (
             <BluxProvider
               isDemo

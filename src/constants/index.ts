@@ -6,29 +6,6 @@ export const COLORS = {
   border: ["#CDCEEE", "#ffffff", "#A9A9A9", "#000000"] as const,
 };
 
-export const CornerButtons: { name: string; radius: RadiusValues }[] = [
-  {
-    name: "none",
-    radius: "none",
-  },
-  {
-    name: "sm",
-    radius: "sm",
-  },
-  {
-    name: "md",
-    radius: "md",
-  },
-  {
-    name: "lg",
-    radius: "lg",
-  },
-  {
-    name: "full",
-    radius: "full",
-  },
-];
-
 export const Fonts: { name: string; value: string }[] = [
   { name: "Manrope", value: "Manrope" },
   { name: "Inter", value: "Inter" },
