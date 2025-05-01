@@ -44,7 +44,7 @@ const Header = ({
       </div>
 
       <div className="font-manrope desktop:flex hidden relative">
-        <div className="relative w-[500px] overflow-hidden">
+        <div className="relative w-[470px] overflow-hidden">
           <div
             className={`flex w-full px-4 items-center justify-between border-l border-l-lightPurple absolute top-0 right-0 transition-transform duration-500 ${
               isCodeOpen

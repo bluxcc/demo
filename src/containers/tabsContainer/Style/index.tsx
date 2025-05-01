@@ -162,8 +162,8 @@ const Style = () => {
       <Select
         name="Font"
         values={[
-          { name: "Inter", value: "Inter" },
           { name: "Manrope", value: "Manrope" },
+          { name: "Inter", value: "Inter" },
           { name: "Lora", value: "Lora" },
           { name: "JetBrains", value: "JetbrainsMono" },
         ]}

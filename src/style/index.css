@@ -15,9 +15,26 @@
   /* align-items: center; */
 }
 
-/* Scrollbar styling */
+/* WebKit (Chrome, Safari, Edge, Opera) */
 *::-webkit-scrollbar {
   width: 0.5px;
+  height: 0.5px;
+  scrollbar-color: transparent;
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin; /* 'auto' | 'thin' | 'none' */
+  scrollbar-color: transparent;
+}
+
+/* (Optional) For Internet Explorer and legacy Edge */
+* {
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+*::-webkit-scrollbar {
+  display: none;
 }
 
 /* Font Faces - Optimized with woff2 only */
