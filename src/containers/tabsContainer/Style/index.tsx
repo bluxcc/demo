@@ -5,7 +5,7 @@ import { useConfigContext } from "../../../hooks/useConfigContext";
 
 import sun from "/images/sun.svg";
 import moon from "/images/moon.svg";
-import { ColorBox } from "../../../components/ColorBox";
+import ColorBox from "../../../components/ColorBox";
 import Select from "../../../components/Select";
 import ToggleCollapse from "../../../components/ToggleCollapse";
 import CheckBox from "../../../components/CheckBox";
@@ -68,26 +68,31 @@ const Style = () => {
       <ToggleCollapse title="Color option">
         <div className="mt-3">
           <ColorBox
+            mode={appearance.theme}
             name="background"
             color={appearance.background}
             onColorChange={(color) => updateAppearance("background", color)}
           />
           <ColorBox
+            mode={appearance.theme}
             name="accent"
             color={appearance.accent}
             onColorChange={(color) => updateAppearance("accent", color)}
           />
           <ColorBox
+            mode={appearance.theme}
             name="bgField"
             color={appearance.bgField}
             onColorChange={(color) => updateAppearance("bgField", color)}
           />
           <ColorBox
+            mode={appearance.theme}
             name="text"
             color={appearance.textColor}
             onColorChange={(color) => updateAppearance("textColor", color)}
           />
           <ColorBox
+            mode={appearance.theme}
             name="border"
             color={appearance.borderColor}
             onColorChange={(color) => updateAppearance("borderColor", color)}
