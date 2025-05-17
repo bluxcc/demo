@@ -80,7 +80,7 @@ export default App;`;
         </div>
         <div
           className={`${
-            isCodeOpen && "desktop:mr-[500px]"
+            isCodeOpen && "desktop:mr-[470px]"
           } relative h-full overflow-hidden mobile:hidden w-full transition-all duration-500`}
         >
           <div className="absolute py-6 flex flex-col justify-between items-center inset-0 h-full w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
@@ -113,10 +113,10 @@ export default App;`;
           </div>
         </div>
         <div
-          className={`h-full fixed !w-[500px] border-l p-4 border-lightPurple transition-all duration-500 mobile:hidden tablet:hidden ${
+          className={`h-full fixed !w-[470px] border-l p-4 border-lightPurple transition-all duration-500 mobile:hidden tablet:hidden ${
             isCodeOpen
               ? "right-0 opacity-100 !bg-white"
-              : "right-[-500px] opacity-0"
+              : "right-[-470px] opacity-0"
           }`}
         >
           <div className="border border-lightPurple">
