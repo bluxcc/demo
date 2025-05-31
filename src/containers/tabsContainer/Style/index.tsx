@@ -3,12 +3,15 @@ import Button from "../../../components/Button";
 
 import { useConfigContext } from "../../../hooks/useConfigContext";
 
-import sun from "/images/sun.svg";
-import moon from "/images/moon.svg";
 import ColorBox from "../../../components/ColorBox";
 import Select from "../../../components/Select";
 import ToggleCollapse from "../../../components/ToggleCollapse";
 import CheckBox from "../../../components/CheckBox";
+
+import sun from "/images/sun.svg";
+import moon from "/images/moon.svg";
+import sunFilled from "/images/sunFilled.svg";
+import moonFilled from "/images/moonFilled.svg";
 
 const Style = () => {
   const { appearance, updateAppearance } = useConfigContext();
@@ -32,8 +35,8 @@ const Style = () => {
   };
 
   const themes = [
-    { name: "light", logo: sun },
-    { name: "dark", logo: moon },
+    { name: "light", logo: sun, activeLogo: sunFilled },
+    { name: "dark", logo: moon, activeLogo: moonFilled },
   ];
 
   return (
@@ -52,7 +55,7 @@ const Style = () => {
               onClick={() => updateAppearance("theme", m.name)}
             >
               <img
-                src={m.logo}
+                src={appearance.theme === m.name ? m.activeLogo : m.logo}
                 alt="theme"
                 className="w-6 h-6"
                 width={24}
