@@ -19,9 +19,12 @@ function App() {
   const isMobile = typeof window !== "undefined" && window.innerWidth < 770;
   const codeBlock = `import { BluxProvider, useBlux, networks } from "@bluxcc/react";
 
-const App = () => {
+const LoginButton = () => {
   const { login } = useBlux();
+  return <button onClick={login}>Login</button>;
+};
 
+const App = () => {
   return (
     <BluxProvider
       config={{
@@ -40,11 +43,11 @@ const App = () => {
           borderColor: "${appearance.borderColor}",
           font: "${appearance.font}",
           logo: "${appearance.logo}"
-        }
-        loginMethods: ${JSON.stringify(loginMethods)}
+        },
+        loginMethods: ${JSON.stringify(loginMethods, null, 2)}
       }}
     >
-      <button onClick={login}>Login</button>
+      <LoginButton />
     </BluxProvider>
   );
 };
@@ -52,7 +55,7 @@ const App = () => {
 export default App;`;
 
   return (
-    <div className="flex-col h-screen w-screen overflow-hidden">
+    <div className="flex-col w-screen h-screen overflow-hidden">
       <Header
         isCodeOpen={isCodeOpen}
         onOpenCode={handleOpenCode}
@@ -136,7 +139,7 @@ export default App;`;
                       className="flex items-start"
                     >
                       <span
-                        className="text-gray-500 select-none w-8 text-right pr-4 flex-shrink-0"
+                        className="flex-shrink-0 w-8 pr-4 text-right text-gray-500 select-none"
                         style={{ minWidth: "2rem" }}
                       >
                         {i + 1}
