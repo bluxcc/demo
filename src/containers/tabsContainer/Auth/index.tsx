@@ -26,19 +26,13 @@ const Auth = () => {
       ],
     },
     {
-      id: "email-or-sms",
-      title: "Email or SMS",
+      id: "email",
+      title: "Email",
       items: [
         {
           id: "email",
           title: "Email",
           checked: loginMethods.includes("email"),
-          disabled: false,
-        },
-        {
-          id: "sms",
-          title: "SMS",
-          checked: loginMethods.includes("sms"),
           disabled: false,
         },
       ],
@@ -102,8 +96,8 @@ const Auth = () => {
 
   return (
     <DndContext collisionDetection={closestCenter} onDragEnd={onDragEnd}>
-      <div className="flex flex-col text-primary space-y-3">
-        <p className="font-manrope-medium text-lg">Login Methods</p>
+      <div className="flex flex-col space-y-3 text-primary">
+        <p className="text-lg font-manrope-medium">Login Methods</p>
 
         <SortableContext
           items={sections}
@@ -124,13 +118,13 @@ const Auth = () => {
                 ))}
               </SortableItem>
               {index !== sections.length - 1 && (
-                <hr className="border border-dashed border-lightPurple mt-4" />
+                <hr className="mt-4 border border-dashed border-lightPurple" />
               )}
             </div>
           ))}
         </SortableContext>
 
-        <hr className="border border-dashed border-lightPurple my-2" />
+        <hr className="my-2 border border-dashed border-lightPurple" />
         <CheckBoxItem
           title="Passkey"
           checked={passkeyChecked}

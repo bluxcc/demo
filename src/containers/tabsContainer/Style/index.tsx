@@ -40,12 +40,12 @@ const Style = () => {
   ];
 
   return (
-    <div className="flex flex-col text-primary space-y-4">
+    <div className="flex flex-col space-y-4 text-primary">
       <p className="text-lg font-manrope-medium">Style</p>
 
       <div className="flex flex-col space-y-1">
         <p className="text-xs text-[#0C1083B2]">Theme</p>
-        <div className="w-full center gap-2">
+        <div className="w-full gap-2 center">
           {themes.map((m) => (
             <Button
               label={m.name}
@@ -177,7 +177,7 @@ const Style = () => {
         ]}
         defaultValue={{
           name: appearance.font,
-          value: appearance.font.toLowerCase(),
+          value: appearance.font,
         }}
         onChange={(item) => {
           updateAppearance("font", item.value);
@@ -190,9 +190,9 @@ const Style = () => {
       <hr className="border border-dashed border-lightPurple" />
 
       <ToggleCollapse title="Insert logo" defaultOpen={false}>
-        <div className="space-y-2 mt-3">
+        <div className="mt-3 space-y-2">
           {appearance.logo && (
-            <div className="w-full flex justify-end">
+            <div className="flex justify-end w-full">
               <div
                 style={{
                   background: appearance.background,
@@ -209,7 +209,7 @@ const Style = () => {
               </div>
             </div>
           )}
-          <div className="font-manrope py-4 px-3 w-full border text-sm border-lightPurple h-12 flex items-center relative">
+          <div className="relative flex items-center w-full h-12 px-3 py-4 text-sm border font-manrope border-lightPurple">
             <input
               type="text"
               aria-label="logo link"

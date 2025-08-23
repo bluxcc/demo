@@ -29,6 +29,14 @@ const Select = ({
   const [selected, setSelected] = useState(
     () => values.find((v) => v.value === defaultValue?.value) || values[0]
   );
+
+  useEffect(() => {
+    if (defaultValue && defaultValue.value !== selected.value) {
+      const newSelected = values.find((v) => v.value === defaultValue.value);
+      if (newSelected) setSelected(newSelected);
+    }
+  }, [defaultValue, values, selected]);
+
   const ref = useRef<HTMLDivElement>(null);
 
   const handleSelect = (option: { name: string; value: string }) => {
@@ -51,7 +59,7 @@ const Select = ({
   return (
     <div
       ref={ref}
-      className="w-full flex items-center justify-between select-none"
+      className="flex items-center justify-between w-full select-none"
     >
       <p className="capitalize text-xs text-[#0C1083B2]">{name}</p>
 
@@ -92,7 +100,7 @@ const Select = ({
                     handleSelect(item);
                   }}
                 >
-                  <div className="size-5 flex items-center justify-center">
+                  <div className="flex items-center justify-center size-5">
                     {(isSelected || isSelectOpen) && (
                       <img
                         src="/images/blueCheck.svg"
