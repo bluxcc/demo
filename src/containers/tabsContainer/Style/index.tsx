@@ -1,12 +1,11 @@
 import { useState } from "react";
+
 import Button from "../../../components/Button";
-
-import { useConfigContext } from "../../../hooks/useConfigContext";
-
-import ColorBox from "../../../components/ColorBox";
 import Select from "../../../components/Select";
+import ColorBox from "../../../components/ColorBox";
 import ToggleCollapse from "../../../components/ToggleCollapse";
-import CheckBox from "../../../components/CheckBox";
+import { useConfigContext } from "../../../hooks/useConfigContext";
+// import CheckBox from "../../../components/CheckBox";
 
 import sun from "/images/sun.svg";
 import moon from "/images/moon.svg";
@@ -14,19 +13,19 @@ import sunFilled from "/images/sunFilled.svg";
 import moonFilled from "/images/moonFilled.svg";
 
 const Style = () => {
-  const { appearance, updateAppearance } = useConfigContext();
+  const { appearance, updateAppearance, theme, setTheme } = useConfigContext();
   const [logoInputValue, setLogoInputValue] = useState("");
-
-  const [checked, setChecked] = useState(false);
 
   const handleUpdateLogo = () => {
     updateAppearance("logo", logoInputValue);
   };
 
-  const toggleChecked = () => {
-    setChecked((prev) => !prev);
-    updateAppearance("includeBorders", checked);
-  };
+  // const [checked, setChecked] = useState(false);
+  // const toggleChecked = () => {
+  //   setChecked((prev) => !prev);
+  //
+  //   updateAppearance("includeBorders", checked);
+  // };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
@@ -51,11 +50,11 @@ const Style = () => {
               label={m.name}
               key={m.name}
               className={`w-full h-12 font-manrope-medium center gap-1 select-none`}
-              active={appearance.theme === m.name}
-              onClick={() => updateAppearance("theme", m.name)}
+              active={theme === m.name}
+              onClick={() => setTheme(m.name as "light" | "dark")}
             >
               <img
-                src={appearance.theme === m.name ? m.activeLogo : m.logo}
+                src={theme === m.name ? m.activeLogo : m.logo}
                 alt="theme"
                 className="w-6 h-6"
                 width={24}
@@ -71,31 +70,33 @@ const Style = () => {
       <ToggleCollapse title="Color option">
         <div className="mt-3">
           <ColorBox
-            mode={appearance.theme}
+            mode={theme}
             name="background"
             color={appearance.background}
             onColorChange={(color) => updateAppearance("background", color)}
           />
           <ColorBox
-            mode={appearance.theme}
+            mode={theme}
             name="accent"
-            color={appearance.accent}
-            onColorChange={(color) => updateAppearance("accent", color)}
+            color={appearance.accentColor}
+            onColorChange={(color) => updateAppearance("accentColor", color)}
           />
           <ColorBox
-            mode={appearance.theme}
+            mode={theme}
             name="bgField"
-            color={appearance.bgField}
-            onColorChange={(color) => updateAppearance("bgField", color)}
+            color={appearance.fieldBackground}
+            onColorChange={(color) =>
+              updateAppearance("fieldBackground", color)
+            }
           />
           <ColorBox
-            mode={appearance.theme}
+            mode={theme}
             name="text"
             color={appearance.textColor}
             onColorChange={(color) => updateAppearance("textColor", color)}
           />
           <ColorBox
-            mode={appearance.theme}
+            mode={theme}
             name="border"
             color={appearance.borderColor}
             onColorChange={(color) => updateAppearance("borderColor", color)}
@@ -107,11 +108,15 @@ const Style = () => {
 
       <div className="between">
         <p className="text-xs text-[#0C1083B2]">Include border lines</p>
+        {/*
+          TODO: 
         <CheckBox
           checked={appearance.includeBorders}
           onChange={toggleChecked}
           borderColor="#cdceee"
         />
+
+        */}
       </div>
 
       <Select

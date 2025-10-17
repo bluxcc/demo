@@ -1,11 +1,9 @@
 import { useState, ReactNode } from "react";
-import {
-  defaultDarkTheme,
-  defaultLightTheme,
-  IAppearance,
-} from "@bluxcc/react";
-import { LoginMethodType } from "../constants";
+
 import { ConfigContext } from "./index";
+import { LoginMethodType } from "../constants";
+import { IAppearance } from "../types";
+import { defaultDarkTheme, defaultLightTheme } from "../constants/themes";
 
 export const ConfigProvider = ({ children }: { children: ReactNode }) => {
   const [appearance, setAppearance] = useState<IAppearance>({
@@ -15,32 +13,31 @@ export const ConfigProvider = ({ children }: { children: ReactNode }) => {
 
   const [loginMethods, setLoginMethods] = useState<LoginMethodType>([
     "wallet",
-    "email",
-    "passkey",
-    "sms",
+    // "email",
+    // "passkey",
+    // "sms",
   ]);
+
+  const [theme, setTheme] = useState<"light" | "dark">("light");
 
   const updateAppearance = (
     property: keyof IAppearance,
-    value: IAppearance[keyof IAppearance]
+    value: IAppearance[keyof IAppearance],
   ) => {
-    if (property === "theme") {
-      if (value === "dark") {
-        setAppearance({
-          ...defaultDarkTheme,
-          logo: "/images/whiteBluxLogo.svg",
-        });
-        return;
-      } else if (value === "light") {
-        setAppearance({
-          ...defaultLightTheme,
-          logo: "/images/blux.svg",
-        });
-        return;
-      }
+    if (theme === "dark") {
+      setAppearance({
+        ...defaultDarkTheme,
+        logo: "/images/whiteBluxLogo.svg",
+      });
+      return;
+    } else if (value === "light") {
+      setAppearance({
+        ...defaultLightTheme,
+        logo: "/images/blux.svg",
+      });
+      return;
     }
 
-    // For other properties, update normally
     setAppearance((prev) => ({
       ...prev,
       [property]: value,
@@ -61,6 +58,8 @@ export const ConfigProvider = ({ children }: { children: ReactNode }) => {
   return (
     <ConfigContext.Provider
       value={{
+        theme,
+        setTheme,
         appearance,
         loginMethods,
         updateAppearance,

@@ -2,8 +2,8 @@ import { useEffect } from "react";
 import { useBlux } from "@bluxcc/react";
 
 const OpenModal = () => {
-  const { isReady, login, isAuthenticated, user, profile } =
-    useBlux();
+  const { isReady, login, isAuthenticated, user, profile } = useBlux();
+
   const isMobile = window.innerWidth < 768;
 
   useEffect(() => {
@@ -11,16 +11,16 @@ const OpenModal = () => {
       setInterval(() => {
         try {
           login();
-        } catch (e) {}
+        } catch { }
       }, 1000);
     }
-  }, [isReady, user]);
+  }, [isReady, user, login, isMobile]);
 
   useEffect(() => {
     if (isAuthenticated) {
       profile();
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, profile]);
 
   if (!isReady) return <div>Loading...</div>;
 

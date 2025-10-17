@@ -40,7 +40,7 @@ const Auth = () => {
   ]);
 
   const [passkeyChecked, setPasskeyChecked] = useState(
-    loginMethods.includes("passkey")
+    loginMethods.includes("passkey"),
   );
 
   useEffect(() => {
@@ -88,9 +88,9 @@ const Auth = () => {
       prevSections.map((section) => ({
         ...section,
         items: section.items.map((item) =>
-          item.title === title ? { ...item, checked } : item
+          item.title === title ? { ...item, checked } : item,
         ),
-      }))
+      })),
     );
   };
 
@@ -111,7 +111,7 @@ const Auth = () => {
                     key={item.id}
                     title={item.title}
                     checked={loginMethods.includes(
-                      item.id as (typeof loginMethods)[number]
+                      item.id as (typeof loginMethods)[number],
                     )}
                     onChange={handleItemChange}
                   />
