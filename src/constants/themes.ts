@@ -10,7 +10,9 @@ export const defaultLightTheme: IAppearance = {
   borderRadius: "24px",
   borderColor: "#cdceee",
   borderWidth: "1px",
-  outlineWidth: "1px",
+  backdropBlur: "0px",
+  backdropColor: "auto",
+  boxShadow: "0px 4px 80px 0px #00000008",
 };
 
 export const defaultDarkTheme: IAppearance = {
@@ -23,5 +25,7 @@ export const defaultDarkTheme: IAppearance = {
   borderRadius: "24px",
   borderColor: "#333333",
   borderWidth: "1px",
-  outlineWidth: "1px",
+  backdropBlur: "1px",
+  backdropColor: "#00000033",
+  boxShadow: "0px 4px 80px 0px #00000008",
 };

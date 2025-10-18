@@ -4,9 +4,14 @@ export interface IAppearance {
   accentColor: string;
   textColor: string;
   font: string;
-  outlineWidth: string;
+  outlineWidth?: string;
+  outlineColor?: string;
+  outlineRadius?: string;
   borderRadius: string;
   borderColor: string;
   borderWidth: string;
   logo: string;
+  backdropBlur: string;
+  backdropColor: string;
+  boxShadow: string;
 }

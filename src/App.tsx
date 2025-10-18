@@ -63,13 +63,13 @@ export default App;`;
       <div className="h-[calc(100vh-72px)] w-full flex transition-all duration-300 mobile:relative ">
         <div className="font-jetbrainsMono mobile:w-full">
           <TabsContainer />
-          {/* mobile */}
+
           {isMobile && (
             <BluxProvider
-              isDemo
               config={{
                 appearance,
-                appName: "demo",
+                appName: "Blux Demo",
+                isPersistent: true,
                 loginMethods: loginMethods,
                 networks: [networks.testnet, networks.mainnet],
               }}
@@ -86,10 +86,10 @@ export default App;`;
             <div />
             <div className="relative w-full center">
               <BluxProvider
-                isDemo
                 config={{
                   appearance,
-                  appName: "demo",
+                  isPersistent: true,
+                  appName: "Blux Demo",
                   loginMethods: loginMethods,
                   networks: [networks.testnet, networks.mainnet],
                 }}
