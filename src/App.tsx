@@ -3,6 +3,7 @@ import { BluxProvider, networks } from "@bluxcc/react";
 import { Highlight, themes } from "prism-react-renderer";
 
 import redo from "/images/redo.svg";
+import { WC_URI } from "./constants";
 import Header from "./components/Header";
 import OpenModal from "./containers/OpenModal";
 import TabsContainer from "./containers/tabsContainer";
@@ -27,6 +28,21 @@ function App() {
 
   const codeBlock = generateCodeBlock(appearance, loginMethods);
 
+  const bluxConfig = {
+    appearance,
+    isPersistent: true,
+    appName: "Blux Demo",
+    loginMethods: loginMethods,
+    networks: [networks.mainnet],
+    promptOnWrongNetwork: false,
+    walletConnect: {
+      url: WC_URI,
+      description: "Blux",
+      icons: ["/images/blux.svg"],
+      projectId: import.meta.env.WC_PROJECT_ID,
+    },
+  };
+
   return (
     <div className="flex-col w-screen h-screen overflow-hidden">
       <Header
@@ -40,16 +56,7 @@ function App() {
           <TabsContainer />
 
           {isMobile && (
-            <BluxProvider
-              config={{
-                appearance,
-                isPersistent: true,
-                appName: "Blux Demo",
-                loginMethods: loginMethods,
-                networks: [networks.mainnet],
-                promptOnWrongNetwork: false,
-              }}
-            >
+            <BluxProvider config={bluxConfig}>
               <OpenModal />
             </BluxProvider>
           )}
@@ -61,16 +68,7 @@ function App() {
           <div className="absolute py-6 flex flex-col justify-between items-center inset-0 h-full w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
             <div />
             <div className="relative w-full center">
-              <BluxProvider
-                config={{
-                  appearance,
-                  isPersistent: true,
-                  appName: "Blux Demo",
-                  loginMethods: loginMethods,
-                  networks: [networks.mainnet],
-                  promptOnWrongNetwork: false,
-                }}
-              >
+              <BluxProvider config={bluxConfig}>
                 <OpenModal />
               </BluxProvider>
             </div>

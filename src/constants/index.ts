@@ -40,3 +40,7 @@ export type ColorType = "background" | "accent" | "bgField" | "text" | "border";
 // export const CUSTOM_GRADIENT =
 //   "conic-gradient(from 180deg at 50% 50%, #0D1292 0deg, #FFCDCD 180deg, #53E5FF 360deg)";
 export type RadiusValues = "sm" | "md" | "lg" | "none" | "full";
+
+export const WC_URI = import.meta.env.DEV
+  ? "http://localhost:3000"
+  : "https://demo.blux.cc";
