@@ -1,5 +1,5 @@
-import { useState } from "react";
-import Logo from "../../assets/Logo";
+import { useState } from 'react';
+import Logo from '../../assets/Logo';
 
 type HeaderProps = {
   onOpenCode: () => void;
@@ -21,18 +21,14 @@ const Header = ({
       .writeText(codeBlock)
       .then(() => {
         setCopied(true);
-        setTimeout(() => {
-          setCopied(false);
-        }, 1000);
+        setTimeout(() => setCopied(false), 1000);
       })
-      .catch((error) => {
-        console.error("Failed to copy code:", error);
-      });
+      .catch((error) => console.error('Failed to copy code:', error));
   };
 
   return (
     <div className="w-full h-[72px] desktop:border-b border-b border-b-lightPurple between font-jetbrainsMono">
-      <div className="center pl-4">
+      <div className="pl-4 center">
         <a
           href="https://blux.cc"
           target="_blank"
@@ -43,13 +39,13 @@ const Header = ({
         </a>
       </div>
 
-      <div className="font-manrope desktop:flex hidden relative">
+      <div className="relative hidden font-manrope desktop:flex">
         <div className="relative w-[470px] overflow-hidden">
           <div
             className={`flex w-full px-4 items-center justify-between border-l border-l-lightPurple absolute top-0 right-0 transition-transform duration-500 ${
               isCodeOpen
-                ? "translate-x-0 opacity-100 h-full"
-                : "translate-x-full opacity-0"
+                ? 'translate-x-0 opacity-100 h-full'
+                : 'translate-x-full opacity-0'
             }`}
           >
             <button
@@ -67,7 +63,7 @@ const Header = ({
               onClick={handleCopyCode}
             >
               {copied ? (
-                "Copied!"
+                'Copied!'
               ) : (
                 <span className="flex gap-1 whitespace-nowrap">
                   Copy Code <img src="/images/copy.svg" alt="copy" />
@@ -76,18 +72,29 @@ const Header = ({
             </button>
           </div>
 
-          {/* live Code Button */}
+          {/* When code panel is closed */}
           <div
-            className={`absolute top-0 right-4 flex items-center justify-end h-full w-full ${
+            className={`absolute top-0 right-4 flex items-center justify-end h-full w-full gap-3 transition-transform duration-500 ease-in-out ${
               isCodeOpen
-                ? "translate-x-full opacity-0"
-                : "-translate-x-0 opacity-100"
+                ? 'translate-x-full opacity-0'
+                : 'translate-x-0 opacity-100'
             }`}
           >
+            {/* Docs Button */}
+            <a
+              aria-label="docs"
+              className="hover:bg-[#F2F2F2] transition-all duration-500 px-4 h-12 text-primary center gap-2 font-manrope-medium"
+              href="https://docs.blux.cc/"
+              target="_blank"
+            >
+              Documentation
+            </a>
+
+            {/* Live Code Button */}
             <button
               type="button"
               aria-label="live code"
-              className="bg-primary w-[136px] h-12 text-white center gap-2 font-manrope-medium"
+              className="bg-primary w-[136px] hover:bg-primaryDark transition-all duration-500 h-12 text-white center gap-2 font-manrope-medium"
               onClick={onOpenCode}
             >
               <img src="/images/code.svg" alt="code" height={24} width={24} />

@@ -1,23 +1,23 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-import Button from "../../../components/Button";
-import Select from "../../../components/Select";
-import ColorBox from "../../../components/ColorBox";
-import ToggleCollapse from "../../../components/ToggleCollapse";
-import { useConfigContext } from "../../../hooks/useConfigContext";
+import Button from '../../../components/Button';
+import Select from '../../../components/Select';
+import ColorBox from '../../../components/ColorBox';
+import ToggleCollapse from '../../../components/ToggleCollapse';
+import { useConfigContext } from '../../../hooks/useConfigContext';
 // import CheckBox from "../../../components/CheckBox";
 
-import sun from "/images/sun.svg";
-import moon from "/images/moon.svg";
-import sunFilled from "/images/sunFilled.svg";
-import moonFilled from "/images/moonFilled.svg";
+import sun from '/images/sun.svg';
+import moon from '/images/moon.svg';
+import sunFilled from '/images/sunFilled.svg';
+import moonFilled from '/images/moonFilled.svg';
 
 const Style = () => {
   const { appearance, updateAppearance, theme, setTheme } = useConfigContext();
-  const [logoInputValue, setLogoInputValue] = useState("");
+  const [logoInputValue, setLogoInputValue] = useState('');
 
   const handleUpdateLogo = () => {
-    updateAppearance("logo", logoInputValue);
+    updateAppearance('logo', logoInputValue);
   };
 
   // const [checked, setChecked] = useState(false);
@@ -28,14 +28,14 @@ const Style = () => {
   // };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      updateAppearance("logo", logoInputValue);
+    if (e.key === 'Enter') {
+      updateAppearance('logo', logoInputValue);
     }
   };
 
   const themes = [
-    { name: "light", logo: sun, activeLogo: sunFilled },
-    { name: "dark", logo: moon, activeLogo: moonFilled },
+    { name: 'light', logo: sun, activeLogo: sunFilled },
+    { name: 'dark', logo: moon, activeLogo: moonFilled },
   ];
 
   return (
@@ -51,7 +51,7 @@ const Style = () => {
               key={m.name}
               className={`w-full h-12 font-manrope-medium center gap-1 select-none`}
               active={theme === m.name}
-              onClick={() => setTheme(m.name as "light" | "dark")}
+              onClick={() => setTheme(m.name as 'light' | 'dark')}
             >
               <img
                 src={theme === m.name ? m.activeLogo : m.logo}
@@ -73,66 +73,65 @@ const Style = () => {
             mode={theme}
             name="background"
             color={appearance.background}
-            onColorChange={(color) => updateAppearance("background", color)}
+            onColorChange={(color) => updateAppearance('background', color)}
           />
           <ColorBox
             mode={theme}
-            name="accent"
+            name="accentColor"
             color={appearance.accentColor}
-            onColorChange={(color) => updateAppearance("accentColor", color)}
+            onColorChange={(color) => updateAppearance('accentColor', color)}
           />
           <ColorBox
             mode={theme}
-            name="bgField"
+            name="fieldBackground"
             color={appearance.fieldBackground}
             onColorChange={(color) =>
-              updateAppearance("fieldBackground", color)
+              updateAppearance('fieldBackground', color)
             }
           />
           <ColorBox
             mode={theme}
-            name="text"
+            name="textColor"
             color={appearance.textColor}
-            onColorChange={(color) => updateAppearance("textColor", color)}
+            onColorChange={(color) => updateAppearance('textColor', color)}
           />
           <ColorBox
             mode={theme}
-            name="border"
+            name="borderColor"
             color={appearance.borderColor}
-            onColorChange={(color) => updateAppearance("borderColor", color)}
+            onColorChange={(color) => updateAppearance('borderColor', color)}
           />
         </div>
       </ToggleCollapse>
 
       <hr className="border border-dashed border-lightPurple" />
 
-      <div className="between">
+      {/* <div className="between">
         <p className="text-xs text-[#0C1083B2]">Include border lines</p>
-        {/*
-          TODO: 
+        
         <CheckBox
           checked={appearance.includeBorders}
           onChange={toggleChecked}
           borderColor="#cdceee"
         />
 
-        */}
-      </div>
+       
+      </div> */}
 
       <Select
         name="Border width"
         values={[
-          { name: "0.5px", value: "0.5px" },
-          { name: "1px", value: "1px" },
-          { name: "1.5px", value: "1.5px" },
-          { name: "2px", value: "2px" },
+          { name: '0.5px', value: '0.5px' },
+          { name: '1px', value: '1px' },
+          { name: '1.5px', value: '1.5px' },
+          { name: '2px', value: '2px' },
         ]}
         defaultValue={{
           name: appearance.borderWidth,
           value: appearance.borderWidth.toLowerCase(),
         }}
         onChange={(item) => {
-          updateAppearance("borderWidth", item.value);
+          updateAppearance('borderWidth', item.value);
         }}
         startItem={
           <img
@@ -147,18 +146,18 @@ const Style = () => {
       <Select
         name="Border radius"
         values={[
-          { name: "None", value: "0px" },
-          { name: "Sm", value: "8px" },
-          { name: "Md", value: "16px" },
-          { name: "Lg", value: "24px" },
-          { name: "Round", value: "32px" },
+          { name: 'None', value: '0px' },
+          { name: 'Sm', value: '8px' },
+          { name: 'Md', value: '16px' },
+          { name: 'Lg', value: '24px' },
+          { name: 'Round', value: '32px' },
         ]}
         defaultValue={{
           name: appearance.borderRadius,
           value: appearance.borderRadius.toLowerCase(),
         }}
         onChange={(item) => {
-          updateAppearance("borderRadius", item.value);
+          updateAppearance('borderRadius', item.value);
         }}
         startItem={
           <img
@@ -173,19 +172,19 @@ const Style = () => {
       <hr className="border border-dashed border-lightPurple " />
 
       <Select
-        name="Font"
+        name="Font family"
         values={[
-          { name: "Manrope", value: "Manrope" },
-          { name: "Inter", value: "Inter" },
-          { name: "Lora", value: "Lora" },
-          { name: "JetBrains", value: "JetbrainsMono" },
+          { name: 'Manrope', value: 'Manrope' },
+          { name: 'Inter', value: 'Inter' },
+          { name: 'Lora', value: 'Lora' },
+          { name: 'JetBrains', value: 'JetbrainsMono' },
         ]}
         defaultValue={{
           name: appearance.font,
           value: appearance.font,
         }}
         onChange={(item) => {
-          updateAppearance("font", item.value);
+          updateAppearance('font', item.value);
         }}
         startItem={
           <img src="/images/fontIcon.svg" alt="font" width={20} height={20} />

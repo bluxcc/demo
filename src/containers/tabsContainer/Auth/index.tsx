@@ -78,21 +78,54 @@ const Auth = () => {
     });
   };
 
-  const handleItemChange = (title: string, checked: boolean) => {
-    if (title === "PassKey") {
-      setPasskeyChecked(checked);
-      return;
+const handleItemChange = (title: string, checked: boolean) => {
+  const allItems = sections.flatMap((s) => s.items);
+  const totalChecked =
+    allItems.filter((i) => i.checked).length + (passkeyChecked ? 1 : 0);
+
+  if (title === "PassKey") {
+    // Prevent unchecking if it’s the last checked one
+    if (!checked && totalChecked === 1) return;
+
+    // Prevent checking Passkey alone (must have others selected)
+    if (checked) {
+      const hasOtherChecked = allItems.some((i) => i.checked);
+      if (!hasOtherChecked) return; // do nothing if no others are checked
     }
 
-    setSections((prevSections) =>
-      prevSections.map((section) => ({
-        ...section,
-        items: section.items.map((item) =>
-          item.title === title ? { ...item, checked } : item,
-        ),
-      })),
-    );
-  };
+    setPasskeyChecked(checked);
+    return;
+  }
+
+  // When toggling normal login methods
+  const targetItem = allItems.find((i) => i.title === title);
+  const isCurrentlyChecked = targetItem?.checked ?? false;
+
+  // Prevent unchecking if this is the last checked (and passkey isn’t enough)
+  if (!checked) {
+    const newTotal =
+      totalChecked - (isCurrentlyChecked ? 1 : 0); 
+    if (newTotal === 0) return;
+  }
+
+  setSections((prevSections) =>
+    prevSections.map((section) => ({
+      ...section,
+      items: section.items.map((item) =>
+        item.title === title ? { ...item, checked } : item,
+      ),
+    })),
+  );
+
+  if (passkeyChecked && !checked) {
+    const stillChecked = allItems
+      .filter((i) => i.title !== title)
+      .filter((i) => i.checked).length;
+    if (stillChecked === 0) setPasskeyChecked(false);
+  }
+};
+
+
 
   return (
     <DndContext collisionDetection={closestCenter} onDragEnd={onDragEnd}>

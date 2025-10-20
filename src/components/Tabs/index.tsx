@@ -14,7 +14,7 @@ type TabsProps = {
 };
 
 const Tabs = ({ tabs }: TabsProps) => {
-  const [activeTab, setActiveTab] = useState(2);
+  const [activeTab, setActiveTab] = useState(1);
   const [hoveredTab, setHoveredTab] = useState<number | null>(null);
 
   return (
@@ -41,7 +41,7 @@ const Tabs = ({ tabs }: TabsProps) => {
                 className="py-2 px-4 flex flex-col gap-1 items-center font-normal text-[13px]"
               >
                 <div
-                  className="center w-16 h-8 relative"
+                  className="relative w-16 h-8 center"
                   onMouseEnter={() => setHoveredTab(index)}
                   onMouseLeave={() => setHoveredTab(null)}
                 >
@@ -61,7 +61,7 @@ const Tabs = ({ tabs }: TabsProps) => {
                       isActive || isHovered ? tab.activeImg : tab.inActiveImg
                     }
                     alt={`${tab.label} icon`}
-                    className="w-6 h-6 relative z-10 transition-all duration-150"
+                    className="relative z-10 w-6 h-6 transition-all duration-150"
                   />
                 </div>
 
@@ -71,7 +71,7 @@ const Tabs = ({ tabs }: TabsProps) => {
           })}
         </div>
         <div>
-          {/* <button className="w-12 center h-12 bg-lightGray">
+          {/* <button className="w-12 h-12 center bg-lightGray">
             <img src={settings} alt="settings" />
           </button> */}
         </div>
