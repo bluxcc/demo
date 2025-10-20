@@ -15,8 +15,20 @@ export const generateCodeBlock = (
       defaultLightTheme[key as keyof IAppearance] === val,
     ])
     .filter(([, , isDefault]) => !isDefault)
-    .map(([key, val]) => `${indent}${key}: "${val}",`)
-    .join("\n");
+    .map(([key, val]) => `${indent}${key}: "${val}",`);
+
+  const showableFieldsText = showableFields.join("\n");
+
+  const showAppearance = () => {
+    if (showableFields.length === 0) {
+      return "";
+    }
+
+    return `
+        appearance: {
+${showableFieldsText}
+        },`;
+  };
 
   const codeBlock = `import { BluxProvider, useBlux, networks } from "@bluxcc/react";
 
@@ -31,10 +43,7 @@ const App = () => {
     <BluxProvider
       config={{
         appName: "Blux Demo",
-        networks: [networks.mainnet],
-        appearance: {
-${showableFields}
-        },
+        networks: [networks.mainnet],${showAppearance()}
         loginMethods: [${loginMethods.map((x) => `"${x}"`).join(", ")}]
       }}
     >
