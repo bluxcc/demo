@@ -39,7 +39,7 @@ function App() {
       url: WC_URI,
       description: "Blux",
       icons: ["/images/blux.svg"],
-      projectId: import.meta.env.WC_PROJECT_ID,
+      projectId: import.meta.env.VITE_WC_ID,
     },
   };
 
