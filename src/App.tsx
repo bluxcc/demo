@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BluxProvider, networks } from "@bluxcc/react";
 import { Highlight, themes } from "prism-react-renderer";
 
@@ -6,51 +6,26 @@ import redo from "/images/redo.svg";
 import Header from "./components/Header";
 import OpenModal from "./containers/OpenModal";
 import TabsContainer from "./containers/tabsContainer";
+import { generateCodeBlock } from "./generateCodeBlock";
 import { useConfigContext } from "./hooks/useConfigContext";
+import { defaultDarkTheme, defaultLightTheme } from "./constants/themes";
 
 import "./style/index.css";
 
 function App() {
-  const { appearance, resetAppearance, loginMethods } = useConfigContext();
   const [isCodeOpen, setIsCodeOpen] = useState(false);
   const handleOpenCode = () => setIsCodeOpen(!isCodeOpen);
+  const { appearance, resetAppearance, setAppearance, loginMethods, theme } =
+    useConfigContext();
 
   const handleCloseCode = () => setIsCodeOpen(false);
   const isMobile = typeof window !== "undefined" && window.innerWidth < 770;
-  const codeBlock = `import { BluxProvider, useBlux, networks } from "@bluxcc/react";
 
-const LoginButton = () => {
-  const { login } = useBlux();
-  return <button onClick={login}>Login</button>;
-};
+  useEffect(() => {
+    setAppearance(theme === "light" ? defaultLightTheme : defaultDarkTheme);
+  }, [theme, setAppearance]);
 
-const App = () => {
-  return (
-    <BluxProvider
-      config={{
-        appName: "Blux Demo",
-        networks: [networks.mainnet, networks.testnet],
-        defaultNetwork: networks.testnet,
-        appearance: {
-          background: "${appearance.background}",
-          accentColor: "${appearance.accentColor}",
-          fieldBackground: "${appearance.fieldBackground}",
-          textColor: "${appearance.textColor}",
-          borderRadius: "${appearance.borderRadius}",
-          borderWidth: "${appearance.borderWidth}",
-          borderColor: "${appearance.borderColor}",
-          font: "${appearance.font}",
-          logo: "${appearance.logo}"
-        },
-        loginMethods: ${JSON.stringify(loginMethods, null, 2)}
-      }}
-    >
-      <LoginButton />
-    </BluxProvider>
-  );
-};
-
-export default App;`;
+  const codeBlock = generateCodeBlock(appearance, loginMethods);
 
   return (
     <div className="flex-col w-screen h-screen overflow-hidden">
@@ -68,10 +43,11 @@ export default App;`;
             <BluxProvider
               config={{
                 appearance,
-                appName: "Blux Demo",
                 isPersistent: true,
+                appName: "Blux Demo",
                 loginMethods: loginMethods,
-                networks: [networks.testnet, networks.mainnet],
+                networks: [networks.mainnet],
+                promptOnWrongNetwork: false,
               }}
             >
               <OpenModal />
@@ -91,7 +67,8 @@ export default App;`;
                   isPersistent: true,
                   appName: "Blux Demo",
                   loginMethods: loginMethods,
-                  networks: [networks.testnet, networks.mainnet],
+                  networks: [networks.mainnet],
+                  promptOnWrongNetwork: false,
                 }}
               >
                 <OpenModal />

@@ -7,18 +7,26 @@ const OpenModal = () => {
   const isMobile = window.innerWidth < 768;
 
   useEffect(() => {
-    if (isReady && !isMobile) {
-      setInterval(() => {
+    let i: any;
+
+    if (isReady && !isMobile && !isAuthenticated) {
+      i = setInterval(() => {
         try {
           login();
         } catch { }
       }, 1000);
     }
-  }, [isReady, user, login, isMobile]);
+
+    return () => {
+      clearInterval(i);
+    };
+  }, [isReady, user, login, isMobile, isAuthenticated]);
 
   useEffect(() => {
     if (isAuthenticated) {
-      profile();
+      setTimeout(() => {
+        profile();
+      }, 2350);
     }
   }, [isAuthenticated, profile]);
 

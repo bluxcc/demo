@@ -13,6 +13,7 @@ interface IConfigContext {
     value: IAppearance[keyof IAppearance],
   ) => void;
   resetAppearance: () => void;
+  setAppearance: React.Dispatch<React.SetStateAction<IAppearance>>;
   updateLoginMethods: (methods: LoginMethodType) => void;
 }
 

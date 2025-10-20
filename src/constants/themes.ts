@@ -1,7 +1,7 @@
 import { IAppearance } from "../types";
 
 export const defaultLightTheme: IAppearance = {
-  logo: "",
+  logo: "/images/blux.svg",
   font: "Manrope",
   textColor: "#000000",
   accentColor: "#0c1083",
@@ -16,7 +16,7 @@ export const defaultLightTheme: IAppearance = {
 };
 
 export const defaultDarkTheme: IAppearance = {
-  logo: "",
+  logo: "/images/whiteBluxLogo.svg",
   font: "Manrope",
   textColor: "#ffffff",
   accentColor: "#ffffff",
