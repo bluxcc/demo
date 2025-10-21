@@ -1,38 +1,38 @@
-import { useState, useEffect } from "react";
-import { DndContext, DragEndEvent, closestCenter } from "@dnd-kit/core";
+import { useState, useEffect } from 'react';
+import { DndContext, DragEndEvent, closestCenter } from '@dnd-kit/core';
 import {
   SortableContext,
   verticalListSortingStrategy,
   arrayMove,
-} from "@dnd-kit/sortable";
-import SortableItem from "./SortableItem";
-import CheckBoxItem from "../../../components/CheckBoxItem";
-import { useConfigContext } from "../../../hooks/useConfigContext";
-import { LoginMethodType } from "../../../constants";
+} from '@dnd-kit/sortable';
+import SortableItem from './SortableItem';
+import CheckBoxItem from '../../../components/CheckBoxItem';
+import { useConfigContext } from '../../../hooks/useConfigContext';
+import { LoginMethodType } from '../../../constants';
 
 const Auth = () => {
   const { updateLoginMethods, loginMethods } = useConfigContext();
 
   const [sections, setSections] = useState([
     {
-      id: "wallet",
-      title: "Wallet",
+      id: 'wallet',
+      title: 'Wallet',
       items: [
         {
-          id: "wallet",
-          title: "Stellar Wallets",
-          checked: loginMethods.includes("wallet"),
+          id: 'wallet',
+          title: 'Stellar Wallets',
+          checked: loginMethods.includes('wallet'),
         },
       ],
     },
     {
-      id: "email",
-      title: "Email",
+      id: 'email',
+      title: 'Email',
       items: [
         {
-          id: "email",
-          title: "Email",
-          checked: loginMethods.includes("email"),
+          id: 'email',
+          title: 'Email',
+          checked: loginMethods.includes('email'),
           disabled: false,
         },
       ],
@@ -40,11 +40,11 @@ const Auth = () => {
   ]);
 
   const [passkeyChecked, setPasskeyChecked] = useState(
-    loginMethods.includes("passkey"),
+    loginMethods.includes('passkey'),
   );
 
   useEffect(() => {
-    setPasskeyChecked(loginMethods.includes("passkey"));
+    setPasskeyChecked(loginMethods.includes('passkey'));
   }, [loginMethods]);
 
   const updateCheckedValues = () => {
@@ -54,7 +54,7 @@ const Auth = () => {
       .map((item) => item.id);
 
     if (passkeyChecked) {
-      checkedItems.push("passkey");
+      checkedItems.push('passkey');
     }
 
     updateLoginMethods(checkedItems as LoginMethodType);
@@ -78,54 +78,30 @@ const Auth = () => {
     });
   };
 
-const handleItemChange = (title: string, checked: boolean) => {
-  const allItems = sections.flatMap((s) => s.items);
-  const totalChecked =
-    allItems.filter((i) => i.checked).length + (passkeyChecked ? 1 : 0);
+  const handleItemChange = (title: string, checked: boolean) => {
+    const allItems = sections.flatMap((s) => s.items);
+    const itemCheckedCount = allItems.filter((i) => i.checked).length;
+    const totalChecked = itemCheckedCount + (passkeyChecked ? 1 : 0);
+    const isPasskey = title === 'Passkey';
 
-  if (title === "PassKey") {
-    // Prevent unchecking if it’s the last checked one
+    console.log(allItems, totalChecked, isPasskey);
+
     if (!checked && totalChecked === 1) return;
 
-    // Prevent checking Passkey alone (must have others selected)
-    if (checked) {
-      const hasOtherChecked = allItems.some((i) => i.checked);
-      if (!hasOtherChecked) return; // do nothing if no others are checked
+    if (isPasskey) {
+      setPasskeyChecked(checked);
+      return;
     }
 
-    setPasskeyChecked(checked);
-    return;
-  }
-
-  // When toggling normal login methods
-  const targetItem = allItems.find((i) => i.title === title);
-  const isCurrentlyChecked = targetItem?.checked ?? false;
-
-  // Prevent unchecking if this is the last checked (and passkey isn’t enough)
-  if (!checked) {
-    const newTotal =
-      totalChecked - (isCurrentlyChecked ? 1 : 0); 
-    if (newTotal === 0) return;
-  }
-
-  setSections((prevSections) =>
-    prevSections.map((section) => ({
-      ...section,
-      items: section.items.map((item) =>
-        item.title === title ? { ...item, checked } : item,
-      ),
-    })),
-  );
-
-  if (passkeyChecked && !checked) {
-    const stillChecked = allItems
-      .filter((i) => i.title !== title)
-      .filter((i) => i.checked).length;
-    if (stillChecked === 0) setPasskeyChecked(false);
-  }
-};
-
-
+    setSections((prevSections) =>
+      prevSections.map((section) => ({
+        ...section,
+        items: section.items.map((item) =>
+          item.title === title ? { ...item, checked } : item,
+        ),
+      })),
+    );
+  };
 
   return (
     <DndContext collisionDetection={closestCenter} onDragEnd={onDragEnd}>
@@ -161,7 +137,7 @@ const handleItemChange = (title: string, checked: boolean) => {
         <CheckBoxItem
           title="Passkey"
           checked={passkeyChecked}
-          onChange={() => setPasskeyChecked((prev) => !prev)}
+          onChange={handleItemChange}
         />
       </div>
     </DndContext>
