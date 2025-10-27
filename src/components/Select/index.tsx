@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useRef, useState } from "react";
+import { ReactNode, useEffect, useRef, useState } from 'react';
 
 type SelectProps = {
   name: string;
@@ -12,10 +12,10 @@ type SelectProps = {
 };
 
 const fontClasses: Record<string, string> = {
-  Inter: "font-inter",
-  JetbrainsMono: "font-jetbrainsMono",
-  Lora: "font-lora",
-  Manrope: "font-manrope",
+  Inter: 'font-inter',
+  JetbrainsMono: 'font-jetbrainsMono',
+  Lora: 'font-lora',
+  Manrope: 'font-manrope',
 };
 
 const Select = ({
@@ -27,7 +27,7 @@ const Select = ({
 }: SelectProps) => {
   const [isSelectOpen, setIsSelectOpen] = useState(false);
   const [selected, setSelected] = useState(
-    () => values.find((v) => v.value === defaultValue?.value) || values[0]
+    () => values.find((v) => v.value === defaultValue?.value) || values[0],
   );
 
   useEffect(() => {
@@ -52,8 +52,8 @@ const Select = ({
   };
 
   useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
   return (
@@ -71,9 +71,9 @@ const Select = ({
           <div className="!size-5">{startItem}</div>
           <span
             className={`text-sm font-medium ${
-              name === "Font"
+              name === 'Font'
                 ? `${fontClasses[selected.value]}`
-                : "font-manrope-medium"
+                : 'font-manrope-medium'
             }`}
           >
             {selected.name}
@@ -108,14 +108,14 @@ const Select = ({
                         height={20}
                         width={20}
                         className={`transition-opacity duration-150 ${
-                          isSelected ? "opacity-100" : "opacity-0"
+                          isSelected ? 'opacity-100' : 'opacity-0'
                         }`}
                       />
                     )}
                   </div>
                   <span
                     className={`text-sm ${
-                      name === "Font" ? fontClasses[item.value] : "font-manrope"
+                      name === 'Font' ? fontClasses[item.value] : 'font-manrope'
                     }`}
                   >
                     {item.name}
@@ -131,3 +131,29 @@ const Select = ({
 };
 
 export default Select;
+
+{
+  /* <Select
+            name="outline width"
+            values={[
+              { name: '1px', value: '1px' },
+              { name: '1.5px', value: '1.5px' },
+              { name: '2px', value: '2px' },
+            ]}
+            defaultValue={{
+              name: appearance.outlineWidth || '1px',
+              value: appearance.outlineWidth.toLowerCase() || '1px',
+            }}
+            onChange={(item) => {
+              updateAppearance('outlineWidth', item.value);
+            }}
+            startItem={
+              <img
+                src="/images/borderIcon.svg"
+                alt="border"
+                width={20}
+                height={20}
+              />
+            }
+          /> */
+}

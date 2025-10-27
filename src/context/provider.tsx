@@ -1,14 +1,14 @@
-import { useState, ReactNode } from "react";
+import { useState, ReactNode } from 'react';
 
-import { IAppearance } from "../types";
-import { ConfigContext } from "./index";
-import { LoginMethodType } from "../constants";
-import { defaultLightTheme } from "../constants/themes";
+import { IAppearance } from '../types';
+import { ConfigContext } from './index';
+import { LoginMethodType } from '../constants';
+import { defaultLightTheme } from '../constants/themes';
 
 export const ConfigProvider = ({ children }: { children: ReactNode }) => {
-  const [theme, setTheme] = useState<"light" | "dark">("light");
+  const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const [appearance, setAppearance] = useState<IAppearance>(defaultLightTheme);
-  const [loginMethods, setLoginMethods] = useState<LoginMethodType>(["wallet"]);
+  const [loginMethods, setLoginMethods] = useState<LoginMethodType>(['wallet']);
 
   const updateAppearance = (
     property: keyof IAppearance,
@@ -23,8 +23,9 @@ export const ConfigProvider = ({ children }: { children: ReactNode }) => {
   const resetAppearance = () => {
     setAppearance({
       ...defaultLightTheme,
-      logo: "/images/blux.svg",
+      logo: '/images/blux.svg',
     });
+    setTheme('light');
   };
 
   const updateLoginMethods = (methods: LoginMethodType) => {

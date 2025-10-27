@@ -5,6 +5,7 @@ export const COLORS = {
     fieldBackground: ['#ffffff', '#E5E5EC', '#E4F0E6', '#FFE5E5'] as const,
     textColor: ['#000000', '#011122', '#011907', '#260000'] as const,
     borderColor: ['#F2F2F7', '#CDCEEE', '#D5DDD6', '#A9A9A9'] as const,
+    outlineColor: ['#F2F2F7', '#CDCEEE', '#D5DDD6', '#A9A9A9'] as const,
   },
   dark: {
     background: ['#000000', '#100930', '#441213', '#093018'] as const,
@@ -12,6 +13,7 @@ export const COLORS = {
     fieldBackground: ['#000000', '#050115', '#2C0707', '#02160A'] as const,
     textColor: ['#FFFFFF', '#EFEBFF', '#FFEAEB', '#DEFFE6'] as const,
     borderColor: ['#333333', '#2E1D74', '#572424', '#10552C'] as const,
+    outlineColor: ['#333333', '#2E1D74', '#572424', '#10552C'] as const,
   },
 };
 
@@ -38,7 +40,8 @@ export type ColorType =
   | 'accentColor'
   | 'fieldBackground'
   | 'textColor'
-  | 'borderColor';
+  | 'borderColor'
+  | 'outlineColor';
 // export type BackgroundColor = (typeof COLORS.background)[number]["name"];
 // export type AccentColor = (typeof COLORS.accent)[number]["name"];
 // export type TextColor = (typeof COLORS.text)[number]["name"];

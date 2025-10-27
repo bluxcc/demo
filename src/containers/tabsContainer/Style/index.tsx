@@ -11,6 +11,7 @@ import sun from '/images/sun.svg';
 import moon from '/images/moon.svg';
 import sunFilled from '/images/sunFilled.svg';
 import moonFilled from '/images/moonFilled.svg';
+import Input from '../../../components/Input';
 
 const Style = () => {
   const { appearance, updateAppearance, theme, setTheme } = useConfigContext();
@@ -19,13 +20,6 @@ const Style = () => {
   const handleUpdateLogo = () => {
     updateAppearance('logo', logoInputValue);
   };
-
-  // const [checked, setChecked] = useState(false);
-  // const toggleChecked = () => {
-  //   setChecked((prev) => !prev);
-  //
-  //   updateAppearance("includeBorders", checked);
-  // };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
@@ -67,7 +61,7 @@ const Style = () => {
       </div>
 
       <hr className="border border-dashed border-lightPurple" />
-      <ToggleCollapse title="Color option">
+      <ToggleCollapse title="Color options">
         <div className="mt-3">
           <ColorBox
             mode={theme}
@@ -101,76 +95,16 @@ const Style = () => {
             color={appearance.borderColor}
             onColorChange={(color) => updateAppearance('borderColor', color)}
           />
+          <ColorBox
+            mode={theme}
+            name="outlineColor"
+            color={appearance.outlineColor as string}
+            onColorChange={(color) => updateAppearance('outlineColor', color)}
+          />
         </div>
       </ToggleCollapse>
 
       <hr className="border border-dashed border-lightPurple" />
-
-      {/* <div className="between">
-        <p className="text-xs text-[#0C1083B2]">Include border lines</p>
-        
-        <CheckBox
-          checked={appearance.includeBorders}
-          onChange={toggleChecked}
-          borderColor="#cdceee"
-        />
-
-       
-      </div> */}
-
-      <Select
-        name="Border width"
-        values={[
-          { name: '0.5px', value: '0.5px' },
-          { name: '1px', value: '1px' },
-          { name: '1.5px', value: '1.5px' },
-          { name: '2px', value: '2px' },
-        ]}
-        defaultValue={{
-          name: appearance.borderWidth,
-          value: appearance.borderWidth.toLowerCase(),
-        }}
-        onChange={(item) => {
-          updateAppearance('borderWidth', item.value);
-        }}
-        startItem={
-          <img
-            src="/images/borderIcon.svg"
-            alt="border"
-            width={20}
-            height={20}
-          />
-        }
-      />
-
-      <Select
-        name="Border radius"
-        values={[
-          { name: 'None', value: '0px' },
-          { name: 'Sm', value: '8px' },
-          { name: 'Md', value: '16px' },
-          { name: 'Lg', value: '24px' },
-          { name: 'Round', value: '32px' },
-        ]}
-        defaultValue={{
-          name: appearance.borderRadius,
-          value: appearance.borderRadius.toLowerCase(),
-        }}
-        onChange={(item) => {
-          updateAppearance('borderRadius', item.value);
-        }}
-        startItem={
-          <img
-            src="/images/roundedCorner.svg"
-            alt="borderRadius"
-            width={20}
-            height={20}
-          />
-        }
-      />
-
-      <hr className="border border-dashed border-lightPurple " />
-
       <Select
         name="Font family"
         values={[
@@ -180,11 +114,11 @@ const Style = () => {
           { name: 'JetBrains', value: 'JetbrainsMono' },
         ]}
         defaultValue={{
-          name: appearance.font,
-          value: appearance.font,
+          name: appearance.fontFamily,
+          value: appearance.fontFamily,
         }}
         onChange={(item) => {
-          updateAppearance('font', item.value);
+          updateAppearance('fontFamily', item.value);
         }}
         startItem={
           <img src="/images/fontIcon.svg" alt="font" width={20} height={20} />
@@ -192,6 +126,86 @@ const Style = () => {
       />
 
       <hr className="border border-dashed border-lightPurple" />
+
+      <ToggleCollapse title="Border options">
+        <div className="mt-3 space-y-2">
+          <Input
+            defaultValue={parseInt(appearance.borderWidth)}
+            maxValue={3}
+            minValue={0.5}
+            startIcon={
+              <img
+                src="/images/borderIcon.svg"
+                alt="border"
+                width={20}
+                height={20}
+              />
+            }
+            label="Border width"
+            onChange={(item) => {
+              updateAppearance('borderWidth', `${item}px`);
+            }}
+          />
+
+          <Input
+            defaultValue={parseInt(appearance.borderRadius)}
+            maxValue={50}
+            startIcon={
+              <img
+                src="/images/roundedCorner.svg"
+                alt="borderRadius"
+                width={20}
+                height={20}
+              />
+            }
+            label="Border Radius"
+            onChange={(item) => {
+              updateAppearance('borderRadius', `${item}px`);
+            }}
+          />
+        </div>
+      </ToggleCollapse>
+      <hr className="border border-dashed border-lightPurple " />
+
+      <ToggleCollapse title="Outline options" defaultOpen={false}>
+        <div className="mt-3 space-y-2">
+          <Input
+            defaultValue={parseInt(appearance.outlineWidth)}
+            maxValue={6}
+            startIcon={
+              <img
+                src="/images/borderIcon.svg"
+                alt="border"
+                width={20}
+                height={20}
+              />
+            }
+            label="outline width"
+            onChange={(item) => {
+              updateAppearance('outlineWidth', `${item}px`);
+            }}
+          />
+
+          <Input
+            defaultValue={parseInt(appearance.outlineRadius)}
+            maxValue={38}
+            startIcon={
+              <img
+                src="/images/roundedCorner.svg"
+                alt="borderRadius"
+                width={20}
+                height={20}
+              />
+            }
+            label="outline Radius"
+            onChange={(item) => {
+              updateAppearance('outlineRadius', `${item}px`);
+            }}
+          />
+        </div>
+      </ToggleCollapse>
+
+      <hr className="border border-dashed border-lightPurple " />
 
       <ToggleCollapse title="Insert logo" defaultOpen={false}>
         <div className="mt-3 space-y-2">
@@ -236,7 +250,7 @@ const Style = () => {
               width={20}
               height={32}
             />
-            we recommend using a logo with dimensions 40×152 px.
+            Use a logo sized 40 × 152 px for best results.
           </div>
         </div>
       </ToggleCollapse>

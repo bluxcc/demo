@@ -1,17 +1,17 @@
-import { useEffect, useState } from "react";
-import { BluxProvider, networks } from "@bluxcc/react";
-import { Highlight, themes } from "prism-react-renderer";
+import { useEffect, useState } from 'react';
+import { BluxProvider, networks } from '@bluxcc/react';
+import { Highlight, themes } from 'prism-react-renderer';
 
-import redo from "/images/redo.svg";
-import { WC_URI } from "./constants";
-import Header from "./components/Header";
-import OpenModal from "./containers/OpenModal";
-import TabsContainer from "./containers/tabsContainer";
-import { generateCodeBlock } from "./generateCodeBlock";
-import { useConfigContext } from "./hooks/useConfigContext";
-import { defaultDarkTheme, defaultLightTheme } from "./constants/themes";
+import redo from '/images/redo.svg';
+import { WC_URI } from './constants';
+import Header from './components/Header';
+import OpenModal from './containers/OpenModal';
+import TabsContainer from './containers/tabsContainer';
+import { generateCodeBlock } from './generateCodeBlock';
+import { useConfigContext } from './hooks/useConfigContext';
+import { defaultDarkTheme, defaultLightTheme } from './constants/themes';
 
-import "./style/index.css";
+import './style/index.css';
 
 function App() {
   const [isCodeOpen, setIsCodeOpen] = useState(false);
@@ -20,10 +20,10 @@ function App() {
     useConfigContext();
 
   const handleCloseCode = () => setIsCodeOpen(false);
-  const isMobile = typeof window !== "undefined" && window.innerWidth < 770;
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 770;
 
   useEffect(() => {
-    setAppearance(theme === "light" ? defaultLightTheme : defaultDarkTheme);
+    setAppearance(theme === 'light' ? defaultLightTheme : defaultDarkTheme);
   }, [theme, setAppearance]);
 
   const codeBlock = generateCodeBlock(appearance, loginMethods);
@@ -31,14 +31,14 @@ function App() {
   const bluxConfig = {
     appearance,
     isPersistent: true,
-    appName: "Blux Demo",
+    appName: 'Blux Demo',
     loginMethods: loginMethods,
     networks: [networks.mainnet],
     promptOnWrongNetwork: false,
     walletConnect: {
       url: WC_URI,
-      description: "Blux",
-      icons: ["/images/blux.svg"],
+      description: 'Blux',
+      icons: ['/images/blux.svg'],
       projectId: import.meta.env.VITE_WC_ID,
     },
   };
@@ -62,8 +62,9 @@ function App() {
           )}
         </div>
         <div
-          className={`${isCodeOpen && "desktop:mr-[470px]"
-            } relative h-full overflow-hidden mobile:hidden w-full transition-all duration-500`}
+          className={`${
+            isCodeOpen && 'desktop:mr-[470px]'
+          } relative h-full overflow-hidden mobile:hidden w-full transition-all duration-500`}
         >
           <div className="absolute py-6 flex flex-col justify-between items-center inset-0 h-full w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
             <div />
@@ -86,10 +87,11 @@ function App() {
           </div>
         </div>
         <div
-          className={`h-full fixed !w-[470px] border-l p-4 border-lightPurple transition-all duration-500 mobile:hidden tablet:hidden ${isCodeOpen
-              ? "right-0 opacity-100 !bg-white"
-              : "right-[-470px] opacity-0"
-            }`}
+          className={`h-full fixed !w-[470px] border-l p-4 border-lightPurple transition-all duration-500 mobile:hidden tablet:hidden ${
+            isCodeOpen
+              ? 'right-0 opacity-100 !bg-white'
+              : 'right-[-470px] opacity-0'
+          }`}
         >
           <div className="border border-lightPurple">
             <Highlight language="tsx" code={codeBlock} theme={themes.vsLight}>
@@ -98,7 +100,7 @@ function App() {
                   className={`${className} p-4 text-sm font-mono leading-relaxed overflow-auto h-[calc(100dvh-100px)]`}
                   style={{
                     ...style,
-                    whiteSpace: "pre-wrap",
+                    whiteSpace: 'pre-wrap',
                   }}
                 >
                   {tokens.map((line, i) => (
@@ -109,7 +111,7 @@ function App() {
                     >
                       <span
                         className="flex-shrink-0 w-8 pr-4 text-right text-gray-500 select-none"
-                        style={{ minWidth: "2rem" }}
+                        style={{ minWidth: '2rem' }}
                       >
                         {i + 1}
                       </span>

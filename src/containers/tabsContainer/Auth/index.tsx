@@ -84,8 +84,6 @@ const Auth = () => {
     const totalChecked = itemCheckedCount + (passkeyChecked ? 1 : 0);
     const isPasskey = title === 'Passkey';
 
-    console.log(allItems, totalChecked, isPasskey);
-
     if (!checked && totalChecked === 1) return;
 
     if (isPasskey) {

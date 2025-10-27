@@ -3,7 +3,7 @@ export interface IAppearance {
   fieldBackground: string;
   accentColor: string;
   textColor: string;
-  font: string;
+  fontFamily: string;
   outlineWidth?: string;
   outlineColor?: string;
   outlineRadius?: string;
