@@ -131,6 +131,7 @@ const Style = () => {
         <div className="mt-3 space-y-2">
           <Input
             defaultValue={parseInt(appearance.borderWidth)}
+            value={parseInt(appearance.borderWidth)}
             maxValue={3}
             minValue={0.5}
             startIcon={
@@ -149,6 +150,7 @@ const Style = () => {
 
           <Input
             defaultValue={parseInt(appearance.borderRadius)}
+            value={parseInt(appearance.borderRadius)}
             maxValue={50}
             startIcon={
               <img
@@ -171,6 +173,7 @@ const Style = () => {
         <div className="mt-3 space-y-2">
           <Input
             defaultValue={parseInt(appearance.outlineWidth)}
+            value={parseInt(appearance.outlineWidth)}
             maxValue={6}
             startIcon={
               <img
@@ -188,6 +191,7 @@ const Style = () => {
 
           <Input
             defaultValue={parseInt(appearance.outlineRadius)}
+            value={parseInt(appearance.outlineRadius)}
             maxValue={38}
             startIcon={
               <img
