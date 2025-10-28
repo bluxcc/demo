@@ -37,7 +37,7 @@ const Input: React.FC<InputProps> = ({
   return (
     <div className="flex items-center justify-between">
       <div className="capitalize text-xs text-[#0C1083B2]">{label}</div>
-      <div className="border border-lightPurple w-full h-9 p-2 max-w-[138px] cursor-pointer flex items-center gap-1 font-manrope-medium text-sm">
+      <div className="border border-lightPurple w-full h-9 p-2 max-w-[138px] flex items-center gap-1 font-manrope-medium text-sm">
         {startIcon && (
           <div className="flex-shrink-0 w-5 h-5 mr-1">{startIcon}</div>
         )}

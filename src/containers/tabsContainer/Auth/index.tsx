@@ -102,43 +102,45 @@ const Auth = () => {
   };
 
   return (
-    <DndContext collisionDetection={closestCenter} onDragEnd={onDragEnd}>
-      <div className="flex flex-col space-y-3 text-primary">
-        <p className="text-lg font-manrope-medium">Login Methods</p>
+    <div className="overflow-hidden">
+      <DndContext collisionDetection={closestCenter} onDragEnd={onDragEnd}>
+        <div className="flex flex-col space-y-3 text-primary">
+          <p className="text-lg font-manrope-medium">Login Methods</p>
 
-        <SortableContext
-          items={sections}
-          strategy={verticalListSortingStrategy}
-        >
-          {sections.map((section, index) => (
-            <div key={section.id}>
-              <SortableItem id={section.id} title={section.title}>
-                {section.items.map((item) => (
-                  <CheckBoxItem
-                    key={item.id}
-                    title={item.title}
-                    checked={loginMethods.includes(
-                      item.id as (typeof loginMethods)[number],
-                    )}
-                    onChange={handleItemChange}
-                  />
-                ))}
-              </SortableItem>
-              {index !== sections.length - 1 && (
-                <hr className="mt-4 border border-dashed border-lightPurple" />
-              )}
-            </div>
-          ))}
-        </SortableContext>
+          <SortableContext
+            items={sections}
+            strategy={verticalListSortingStrategy}
+          >
+            {sections.map((section, index) => (
+              <div key={section.id}>
+                <SortableItem id={section.id} title={section.title}>
+                  {section.items.map((item) => (
+                    <CheckBoxItem
+                      key={item.id}
+                      title={item.title}
+                      checked={loginMethods.includes(
+                        item.id as (typeof loginMethods)[number],
+                      )}
+                      onChange={handleItemChange}
+                    />
+                  ))}
+                </SortableItem>
+                {index !== sections.length - 1 && (
+                  <hr className="mt-4 border border-dashed border-lightPurple" />
+                )}
+              </div>
+            ))}
+          </SortableContext>
 
-        <hr className="my-2 border border-dashed border-lightPurple" />
-        <CheckBoxItem
-          title="Passkey"
-          checked={passkeyChecked}
-          onChange={handleItemChange}
-        />
-      </div>
-    </DndContext>
+          <hr className="my-2 border border-dashed border-lightPurple" />
+          <CheckBoxItem
+            title="Passkey"
+            checked={passkeyChecked}
+            onChange={handleItemChange}
+          />
+        </div>
+      </DndContext>
+    </div>
   );
 };
 

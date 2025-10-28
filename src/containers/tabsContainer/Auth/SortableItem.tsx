@@ -1,5 +1,5 @@
-import { useSortable } from "@dnd-kit/sortable";
-import { CSS } from "@dnd-kit/utilities";
+import { useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 
 type SortableItemProps = {
   id: string;
@@ -22,9 +22,9 @@ const SortableItem = ({ id, title, children }: SortableItemProps) => {
       style={style}
       {...attributes}
       {...listeners}
-      className="flex flex-col cursor-grab pointer-events-auto"
+      className="flex flex-col pointer-events-auto cursor-grab"
     >
-      <span className="text-sm flex items-center py-2 mb-3">
+      <span className="flex items-center py-2 mb-3 text-sm">
         <img
           className="mr-2 cursor-grab"
           src="/images/dragHandle.svg"
