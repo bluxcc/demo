@@ -98,7 +98,7 @@ const Style = () => {
           <ColorBox
             mode={theme}
             name="outlineColor"
-            color={appearance.outlineColor as string}
+            color={appearance.outlineColor ?? '0'}
             onColorChange={(color) => updateAppearance('outlineColor', color)}
           />
         </div>
@@ -130,10 +130,10 @@ const Style = () => {
       <ToggleCollapse title="Border options">
         <div className="mt-3 space-y-2">
           <Input
-            defaultValue={parseInt(appearance.borderWidth)}
-            value={parseInt(appearance.borderWidth)}
+            defaultValue={parseInt(appearance.borderWidth ?? '0')}
+            value={parseInt(appearance.borderWidth ?? '0')}
             maxValue={3}
-            minValue={0.5}
+            minValue={1}
             startIcon={
               <img
                 src="/images/borderIcon.svg"
@@ -149,8 +149,8 @@ const Style = () => {
           />
 
           <Input
-            defaultValue={parseInt(appearance.borderRadius)}
-            value={parseInt(appearance.borderRadius)}
+            defaultValue={parseInt(appearance.borderRadius ?? '0')}
+            value={parseInt(appearance.borderRadius ?? '0')}
             maxValue={50}
             startIcon={
               <img
@@ -172,8 +172,8 @@ const Style = () => {
       <ToggleCollapse title="Outline options" defaultOpen={false}>
         <div className="mt-3 space-y-2">
           <Input
-            defaultValue={parseInt(appearance.outlineWidth as string)}
-            value={parseInt(appearance.outlineWidth as string)}
+            defaultValue={parseInt(appearance.outlineWidth ?? '0')}
+            value={parseInt(appearance.outlineWidth ?? '0')}
             maxValue={6}
             startIcon={
               <img
@@ -190,8 +190,8 @@ const Style = () => {
           />
 
           <Input
-            defaultValue={parseInt(appearance.outlineRadius as string)}
-            value={parseInt(appearance.outlineRadius as string)}
+            defaultValue={parseInt(appearance.outlineRadius ?? '0')}
+            value={parseInt(appearance.outlineRadius ?? '0')}
             maxValue={38}
             startIcon={
               <img
