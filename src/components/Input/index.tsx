@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 
 interface InputProps {
   label: string;
-  value?: number;
+  value: number;
   maxValue?: number;
   minValue?: number;
-  defaultValue?: number;
+  defaultValue: number;
   onChange: (item: number) => void;
   startIcon?: React.ReactNode;
 }

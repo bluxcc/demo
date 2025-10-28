@@ -172,8 +172,8 @@ const Style = () => {
       <ToggleCollapse title="Outline options" defaultOpen={false}>
         <div className="mt-3 space-y-2">
           <Input
-            defaultValue={parseInt(appearance.outlineWidth)}
-            value={parseInt(appearance.outlineWidth)}
+            defaultValue={parseInt(appearance.outlineWidth as string)}
+            value={parseInt(appearance.outlineWidth as string)}
             maxValue={6}
             startIcon={
               <img
@@ -190,8 +190,8 @@ const Style = () => {
           />
 
           <Input
-            defaultValue={parseInt(appearance.outlineRadius)}
-            value={parseInt(appearance.outlineRadius)}
+            defaultValue={parseInt(appearance.outlineRadius as string)}
+            value={parseInt(appearance.outlineRadius as string)}
             maxValue={38}
             startIcon={
               <img
