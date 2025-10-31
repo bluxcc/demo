@@ -1,5 +1,5 @@
-import React from "react";
-import CheckBox from "../CheckBox";
+import React from 'react';
+import CheckBox from '../CheckBox';
 
 // import dragHandle from "/images/dragHandle.svg";
 
@@ -26,7 +26,9 @@ CheckBoxItemProps) => {
 
   return (
     <div
-      className="flex w-full justify-between items-center border border-lightPurple p-3 h-12 cursor-pointer"
+      onClick={toggleChecked}
+      id="bluxcc-button"
+      className="flex items-center justify-between w-full h-12 p-3 border border-lightPurple"
       // draggable={draggable}
     >
       <div className="flex items-center text-sm font-manrope-medium">

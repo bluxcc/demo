@@ -4,8 +4,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        inter: ['Inter', 'sans-serif'],
-        lora: ['Lora', 'serif'],
+        playfair: ['playfair', 'serif'],
+        comicNeue: ['comicNeue', 'cursive'],
         manrope: ['Manrope', 'sans-serif'],
         'manrope-medium': ['Manrope-Medium', 'sans-serif'],
         jetbrainsMono: ['JetBrainsMono', 'monospace'],

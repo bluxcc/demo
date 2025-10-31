@@ -1,4 +1,4 @@
-import { useState, useRef, useLayoutEffect } from "react";
+import { useState, useRef, useLayoutEffect } from 'react';
 
 type ToggleCollapseProps = {
   title?: string;
@@ -26,35 +26,36 @@ const ToggleCollapse = ({
   }, [children]);
 
   return (
-    <div className="w-full select-none cursor-pointer">
+    <div className="w-full select-none">
       <div
         className={`flex items-center justify-between`}
         onClick={handleCollapse}
+        id="bluxcc-button"
       >
         <p className="text-sm font-manrope-medium">{title}</p>
-        <button className="relative w-4 h-4">
+        <div className="relative w-4 h-4">
           <img
             src="/images/minus.svg"
             alt="Collapse"
             className={`absolute top-0 left-0 transition-opacity duration-300 ${
-              isOpen ? "opacity-100" : "opacity-0"
+              isOpen ? 'opacity-100' : 'opacity-0'
             }`}
           />
           <img
             src="/images/plus.svg"
             alt="Expand"
             className={`absolute top-0 left-0 transition-opacity duration-300 ${
-              isOpen ? "opacity-0" : "opacity-100"
+              isOpen ? 'opacity-0' : 'opacity-100'
             }`}
           />
-        </button>
+        </div>
       </div>
 
       <div
         ref={contentRef}
         className={`w-full transition-all duration-500 ease-in-out overflow-hidden`}
         style={{
-          maxHeight: isOpen ? `${height}px` : "0px",
+          maxHeight: isOpen ? `${height}px` : '0px',
           opacity: isOpen ? 1 : 0,
         }}
       >

@@ -1,7 +1,7 @@
-import React from "react";
-import clsx from "clsx";
+import React from 'react';
+import clsx from 'clsx';
 
-import { RadiusValues } from "../../constants";
+import { RadiusValues } from '../../constants';
 
 type ButtonProps = {
   rounded?: RadiusValues;
@@ -15,7 +15,7 @@ type ButtonProps = {
 
 const Button = ({
   children,
-  rounded = "none",
+  rounded = 'none',
   className,
   active,
   onClick,
@@ -25,23 +25,24 @@ const Button = ({
   return (
     <button
       type="button"
+      id="bluxcc-button"
       aria-label={label}
       disabled={disabled}
       onClick={disabled ? undefined : onClick}
       className={clsx(
-        "bg-white text-primary transition-colors",
+        'bg-white text-primary transition-colors',
         {
-          "border-primary": active,
-          "border-lightPurple": !active,
-          "!text-[#999999] !border-[#B3B3B3]": disabled,
-          "rounded-none": rounded === "none",
-          "rounded-[4px]": rounded === "sm",
-          "rounded-lg": rounded === "md",
-          "rounded-xl": rounded === "lg",
-          "rounded-[32px]": rounded === "full",
+          'border-primary': active,
+          'border-lightPurple': !active,
+          '!text-[#999999] !border-[#B3B3B3]': disabled,
+          'rounded-none': rounded === 'none',
+          'rounded-[4px]': rounded === 'sm',
+          'rounded-lg': rounded === 'md',
+          'rounded-xl': rounded === 'lg',
+          'rounded-[32px]': rounded === 'full',
         },
-        "border-2",
-        className
+        'border-2',
+        className,
       )}
     >
       {children}

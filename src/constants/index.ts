@@ -19,9 +19,9 @@ export const COLORS = {
 
 export const Fonts: { name: string; value: string }[] = [
   { name: 'Manrope', value: 'Manrope' },
-  { name: 'Inter', value: 'Inter' },
+  { name: 'ComicNeue', value: 'ComicNeue' },
   { name: 'JetBrains', value: 'JetBrains Mono' },
-  { name: 'Lora', value: 'Lora' },
+  { name: 'Playfair', value: 'Playfair' },
 ];
 
 export type LoginMethodType = Array<

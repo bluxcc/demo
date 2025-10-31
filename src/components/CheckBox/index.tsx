@@ -1,5 +1,5 @@
-import React from "react";
-import whiteCheck from "/images/whiteCheck.svg";
+import React from 'react';
+import whiteCheck from '/images/whiteCheck.svg';
 
 type CheckBoxProps = {
   checked: boolean;
@@ -12,7 +12,7 @@ const CheckBox: React.FC<CheckBoxProps> = ({
   checked,
   onChange,
   disabled = false,
-  borderColor = "#0d1292",
+  borderColor = '#0d1292',
 }) => {
   const toggleChecked = () => {
     if (!disabled) {
@@ -31,12 +31,13 @@ const CheckBox: React.FC<CheckBoxProps> = ({
         disabled={disabled}
       />
 
-      <div
+      <button
+        id="bluxcc-button"
         onClick={toggleChecked}
         style={{ borderColor }}
-        className={`flex size-5 border items-center justify-center cursor-pointer transition duration-100 ease-in-out transform ${
-          checked ? "bg-primary !border-primary" : "bg-transparent"
-        } ${disabled ? "opacity-50 cursor-not-allowed" : ""}`}
+        className={`flex size-5 border items-center justify-center transition duration-100 ease-in-out transform ${
+          checked ? 'bg-primary !border-primary' : 'bg-transparent'
+        } ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
       >
         {checked && (
           <img
@@ -46,7 +47,7 @@ const CheckBox: React.FC<CheckBoxProps> = ({
             draggable="false"
           />
         )}
-      </div>
+      </button>
     </div>
   );
 };

@@ -1,11 +1,9 @@
 import { useState } from 'react';
 
 import Button from '../../../components/Button';
-import Select from '../../../components/Select';
 import ColorBox from '../../../components/ColorBox';
 import ToggleCollapse from '../../../components/ToggleCollapse';
 import { useConfigContext } from '../../../hooks/useConfigContext';
-// import CheckBox from "../../../components/CheckBox";
 
 import sun from '/images/sun.svg';
 import moon from '/images/moon.svg';
@@ -105,25 +103,46 @@ const Style = () => {
       </ToggleCollapse>
 
       <hr className="border border-dashed border-lightPurple" />
-      <Select
-        name="Font family"
-        values={[
-          { name: 'Manrope', value: 'Manrope' },
-          { name: 'Inter', value: 'Inter' },
-          { name: 'Lora', value: 'Lora' },
-          { name: 'JetBrains', value: 'JetbrainsMono' },
-        ]}
-        defaultValue={{
-          name: appearance.fontFamily,
-          value: appearance.fontFamily,
-        }}
-        onChange={(item) => {
-          updateAppearance('fontFamily', item.value);
-        }}
-        startItem={
-          <img src="/images/fontIcon.svg" alt="font" width={20} height={20} />
-        }
-      />
+
+      <ToggleCollapse title="Font options" defaultOpen={false}>
+        <div className="flex flex-col mt-3 space-y-2">
+          <p className="capitalize text-xs text-[#0C1083B2]">Font family</p>
+          <div className="grid w-full grid-cols-2 gap-2">
+            {[
+              { name: 'Manrope', value: 'Manrope', class: 'font-manrope' },
+              {
+                name: 'Comic Neue',
+                value: 'ComicNeue',
+                class: 'font-comicNeue',
+              },
+              {
+                name: 'Playfair Display',
+                value: 'Playfair',
+                class: 'font-playfair',
+              },
+              {
+                name: 'JetBrains Mono',
+                value: 'JetbrainsMono',
+                class: 'font-jetbrainsMono',
+              },
+            ].map((font) => {
+              const isActive = appearance.fontFamily === font.value;
+              return (
+                <Button
+                  key={font.name}
+                  className={`h-8 text-xs ${font.class} ${
+                    isActive ? 'font-medium border border-[#0C1083B2]' : ''
+                  }`}
+                  active={isActive}
+                  onClick={() => updateAppearance('fontFamily', font.value)}
+                >
+                  {font.name}
+                </Button>
+              );
+            })}
+          </div>
+        </div>
+      </ToggleCollapse>
 
       <hr className="border border-dashed border-lightPurple" />
 
@@ -263,3 +282,25 @@ const Style = () => {
 };
 
 export default Style;
+
+{
+  /* <Select
+          name="Font family"
+          values={[
+            { name: 'Manrope', value: 'Manrope' },
+            { name: 'ComicNeue', value: 'ComicNeue' },
+            { name: 'Playfair', value: 'Playfair' },
+            { name: 'JetBrains', value: 'JetbrainsMono' },
+          ]}
+          defaultValue={{
+            name: appearance.fontFamily,
+            value: appearance.fontFamily,
+          }}
+          onChange={(item) => {
+            updateAppearance('fontFamily', item.value);
+          }}
+          startItem={
+            <img src="/images/fontIcon.svg" alt="font" width={20} height={20} />
+          }
+        /> */
+}

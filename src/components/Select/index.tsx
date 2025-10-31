@@ -12,9 +12,9 @@ type SelectProps = {
 };
 
 const fontClasses: Record<string, string> = {
-  Inter: 'font-inter',
+  ComicNeue: 'font-comicNeue',
   JetbrainsMono: 'font-jetbrainsMono',
-  Lora: 'font-lora',
+  Playfair: 'font-playfair',
   Manrope: 'font-manrope',
 };
 
@@ -64,7 +64,8 @@ const Select = ({
       <p className="capitalize text-xs text-[#0C1083B2]">{name}</p>
 
       <div
-        className="flex items-center justify-between border border-lightPurple w-full h-9 p-2 max-w-[138px] cursor-pointer relative"
+        id="bluxcc-button"
+        className="flex items-center justify-between border border-lightPurple w-full h-9 p-2 max-w-[138px] relative"
         onClick={() => setIsSelectOpen((prev) => !prev)}
       >
         <div className="flex items-center gap-2">
@@ -94,7 +95,7 @@ const Select = ({
               return (
                 <div
                   key={idx}
-                  className="group w-full h-7 flex items-center justify-start gap-2 px-2 py-1 hover:bg-[#E6E6E6] cursor-pointer"
+                  className="group w-full h-7 flex items-center justify-start gap-2 px-2 py-1 hover:bg-[#E6E6E6]"
                   onClick={(e) => {
                     e.stopPropagation();
                     handleSelect(item);

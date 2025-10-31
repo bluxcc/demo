@@ -1,11 +1,11 @@
-import { useRef } from "react";
-import Button from "../Button";
-import { COLORS, ColorType } from "../../constants";
+import { useRef } from 'react';
+import Button from '../Button';
+import { COLORS, ColorType } from '../../constants';
 
 type ColorBoxProps = {
   name: ColorType;
   color: string;
-  mode?: "light" | "dark";
+  mode?: 'light' | 'dark';
   onColorChange: (color: string) => void;
 };
 
@@ -13,7 +13,7 @@ const ColorBox = ({
   name,
   color,
   onColorChange,
-  mode = "light",
+  mode = 'light',
 }: ColorBoxProps) => {
   const colorInputRef = useRef<HTMLInputElement>(null);
 
@@ -28,9 +28,12 @@ const ColorBox = ({
   const colorOptions = COLORS[mode][name];
 
   return (
-    <div className="w-full flex flex-col my-2">
+    <div className="flex flex-col w-full my-2">
       <p className="capitalize text-xs text-[#0C1083B2] mb-1">{name}</p>
-      <div className="flex items-center justify-between border border-lightPurple p-2 w-full h-10 cursor-pointer relative">
+      <div
+        className="relative flex items-center justify-between w-full h-10 p-2 border border-lightPurple"
+        id="bluxcc-button"
+      >
         <div
           onClick={openColorPicker}
           className="flex items-center gap-1 bg-[#f2f2f2] p-0.5 rounded-full w-[92px]"
@@ -66,7 +69,7 @@ const ColorBox = ({
             >
               <div
                 className={`size-3.5 rounded-full ${
-                  colorHex === "#ffffff" && "border border-lightPurple"
+                  colorHex === '#ffffff' && 'border border-lightPurple'
                 }`}
                 style={{ background: colorHex }}
               />
