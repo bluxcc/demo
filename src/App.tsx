@@ -14,6 +14,7 @@ import { defaultDarkTheme, defaultLightTheme } from './constants/themes';
 
 import './style/index.css';
 import { generateRandomTheme } from './utils/randomTheme';
+import { useIsMobile } from './hooks/useIsMobile';
 
 function App() {
   const [isCodeOpen, setIsCodeOpen] = useState(false);
@@ -29,7 +30,7 @@ function App() {
   } = useConfigContext();
 
   const handleCloseCode = () => setIsCodeOpen(false);
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 770;
+  const isMobile = useIsMobile(770);
 
   useEffect(() => {
     setAppearance(
@@ -56,7 +57,6 @@ function App() {
 
   const bluxConfig = {
     appearance,
-    isPersistent: true,
     appName: 'Blux Demo',
     loginMethods: loginMethods,
     networks: [networks.mainnet],
@@ -95,7 +95,7 @@ function App() {
           <div className="absolute py-6 flex flex-col justify-between items-center inset-0 h-full w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
             <div />
             <div className="relative w-full center">
-              <BluxProvider config={bluxConfig}>
+              <BluxProvider config={{ ...bluxConfig, isPersistent: true }}>
                 <OpenModal />
               </BluxProvider>
             </div>
