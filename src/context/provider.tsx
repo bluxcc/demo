@@ -6,7 +6,7 @@ import { LoginMethodType } from '../constants';
 import { defaultLightTheme } from '../constants/themes';
 
 export const ConfigProvider = ({ children }: { children: ReactNode }) => {
-  const [theme, setTheme] = useState<'light' | 'dark'>('light');
+  const [theme, setTheme] = useState<'light' | 'dark' | 'random'>('light');
   const [appearance, setAppearance] = useState<IAppearance>(defaultLightTheme);
   const [loginMethods, setLoginMethods] = useState<LoginMethodType>(['wallet']);
 

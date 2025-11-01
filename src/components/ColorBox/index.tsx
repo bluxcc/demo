@@ -5,7 +5,7 @@ import { COLORS, ColorType } from '../../constants';
 type ColorBoxProps = {
   name: ColorType;
   color: string;
-  mode?: 'light' | 'dark';
+  mode?: 'light' | 'dark' | 'random';
   onColorChange: (color: string) => void;
 };
 

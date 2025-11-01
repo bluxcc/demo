@@ -1,12 +1,12 @@
-import { IAppearance } from "./types";
-import { LoginMethodType } from "./constants";
-import { defaultLightTheme } from "./constants/themes";
+import { IAppearance } from '../types';
+import { LoginMethodType } from '../constants';
+import { defaultLightTheme } from '../constants/themes';
 
 export const generateCodeBlock = (
   appearance: IAppearance,
   loginMethods: LoginMethodType,
 ) => {
-  const indent = "          ";
+  const indent = '          ';
 
   const showableFields = Object.entries(appearance)
     .map(([key, val]) => [
@@ -17,11 +17,11 @@ export const generateCodeBlock = (
     .filter(([, , isDefault]) => !isDefault)
     .map(([key, val]) => `${indent}${key}: "${val}",`);
 
-  const showableFieldsText = showableFields.join("\n");
+  const showableFieldsText = showableFields.join('\n');
 
   const showAppearance = () => {
     if (showableFields.length === 0) {
-      return "";
+      return '';
     }
 
     return `
@@ -44,7 +44,7 @@ const App = () => {
       config={{
         appName: "Blux Demo",
         networks: [networks.mainnet],${showAppearance()}
-        loginMethods: [${loginMethods.map((x) => `"${x}"`).join(", ")}]
+        loginMethods: [${loginMethods.map((x) => `"${x}"`).join(', ')}]
       }}
     >
       <LoginButton />

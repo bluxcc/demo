@@ -1,11 +1,11 @@
-import { createContext } from "react";
+import { createContext } from 'react';
 
-import { IAppearance } from "../types";
-import { LoginMethodType } from "../constants";
+import { IAppearance } from '../types';
+import { LoginMethodType } from '../constants';
 
 interface IConfigContext {
-  theme: "dark" | "light";
-  setTheme: (theme: "dark" | "light") => void;
+  theme: 'dark' | 'light' | 'random';
+  setTheme: (theme: 'dark' | 'light' | 'random') => void;
   appearance: IAppearance;
   loginMethods: LoginMethodType;
   updateAppearance: (

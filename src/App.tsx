@@ -2,29 +2,55 @@ import { useEffect, useState } from 'react';
 import { BluxProvider, networks } from '@bluxcc/react';
 import { Highlight, themes } from 'prism-react-renderer';
 
-import redo from '/images/redo.svg';
+import reset from '/images/reset.svg';
+import swap from '/images/swap.svg';
 import { WC_URI } from './constants';
 import Header from './components/Header';
 import OpenModal from './containers/OpenModal';
 import TabsContainer from './containers/tabsContainer';
-import { generateCodeBlock } from './generateCodeBlock';
+import { generateCodeBlock } from './utils/generateCodeBlock';
 import { useConfigContext } from './hooks/useConfigContext';
 import { defaultDarkTheme, defaultLightTheme } from './constants/themes';
 
 import './style/index.css';
+import { generateRandomTheme } from './utils/randomTheme';
 
 function App() {
   const [isCodeOpen, setIsCodeOpen] = useState(false);
+  const [trigger, setTrigger] = useState(0);
   const handleOpenCode = () => setIsCodeOpen(!isCodeOpen);
-  const { appearance, resetAppearance, setAppearance, loginMethods, theme } =
-    useConfigContext();
+  const {
+    appearance,
+    resetAppearance,
+    setAppearance,
+    setTheme,
+    loginMethods,
+    theme,
+  } = useConfigContext();
 
   const handleCloseCode = () => setIsCodeOpen(false);
   const isMobile = typeof window !== 'undefined' && window.innerWidth < 770;
 
   useEffect(() => {
-    setAppearance(theme === 'light' ? defaultLightTheme : defaultDarkTheme);
-  }, [theme, setAppearance]);
+    setAppearance(
+      theme === 'light'
+        ? defaultLightTheme
+        : theme === 'dark'
+          ? defaultDarkTheme
+          : generateRandomTheme(),
+    );
+  }, [theme, trigger, setAppearance]);
+
+  const handleSpin = (
+    e: React.MouseEvent<HTMLButtonElement>,
+    duration = 500,
+  ) => {
+    const img = e.currentTarget.querySelector('img');
+    if (!img) return;
+
+    img.classList.add('animate-spin');
+    setTimeout(() => img.classList.remove('animate-spin'), duration);
+  };
 
   const codeBlock = generateCodeBlock(appearance, loginMethods);
 
@@ -73,15 +99,31 @@ function App() {
                 <OpenModal />
               </BluxProvider>
             </div>
-            <div>
+            <div className="space-x-2">
               <button
                 aria-label="reset"
                 type="button"
-                onClick={resetAppearance}
-                className="inline-flex bg-white mobile:hidden font-manrope-medium gap-2 justify-center items-center text-primary border-[#CDCEEE] border h-12 w-[120px]"
+                onClick={() => {
+                  resetAppearance();
+                }}
+                className="inline-flex text-sm bg-white mobile:hidden font-manrope-medium gap-2 justify-center items-center text-primary border-[#CDCEEE] hover:border-primary transition-all duration-300 border h-12 pl-2 pr-4"
               >
-                <img src={redo} alt="redo" width={20} height={20} />
+                <img src={reset} alt="reset" width={24} height={24} />
                 Reset
+              </button>
+
+              <button
+                aria-label="randomize"
+                type="button"
+                onClick={(e) => {
+                  handleSpin(e);
+                  if (theme === 'random') setTrigger((t) => t + 1);
+                  else setTheme('random');
+                }}
+                className="inline-flex text-sm bg-white mobile:hidden font-manrope-medium gap-2 justify-center items-center text-primary border-[#CDCEEE] hover:border-primary transition-all duration-300 border h-12 pl-2 pr-4"
+              >
+                <img src={swap} alt="swap" width={24} height={24} />
+                Randomize
               </button>
             </div>
           </div>
