@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import { BluxProvider, networks } from '@bluxcc/react';
+import { BluxProvider, networks, useBlux } from '@bluxcc/react';
 import { Highlight, themes } from 'prism-react-renderer';
 
 import reset from '/images/reset.svg';
 import swap from '/images/swap.svg';
-import { WC_URI } from './constants';
+import { corners, WC_URI } from './constants';
 import Header from './components/Header';
 import OpenModal from './containers/OpenModal';
 import TabsContainer from './containers/tabsContainer';
@@ -15,6 +15,8 @@ import { defaultDarkTheme, defaultLightTheme } from './constants/themes';
 import './style/index.css';
 import { generateRandomTheme } from './utils/randomTheme';
 import { useIsMobile } from './hooks/useIsMobile';
+import { useCornerResize } from './hooks/useCornerResize';
+import { Loading } from './assets/Loading';
 
 function App() {
   const [isCodeOpen, setIsCodeOpen] = useState(false);
@@ -27,7 +29,9 @@ function App() {
     setTheme,
     loginMethods,
     theme,
+    height,
   } = useConfigContext();
+  const { isReady } = useBlux();
 
   const handleCloseCode = () => setIsCodeOpen(false);
   const isMobile = useIsMobile(770);
@@ -54,6 +58,14 @@ function App() {
   };
 
   const codeBlock = generateCodeBlock(appearance, loginMethods);
+  const { radius, handleMouseDown } = useCornerResize(12, 4, 60);
+
+  useEffect(() => {
+    setAppearance((prev) => ({
+      ...prev,
+      outlineRadius: `${radius}px`,
+    }));
+  }, [radius, setAppearance]);
 
   const bluxConfig = {
     appearance,
@@ -83,7 +95,13 @@ function App() {
 
           {isMobile && (
             <BluxProvider config={bluxConfig}>
-              <OpenModal />
+              {isReady ? (
+                <OpenModal />
+              ) : (
+                <div className="flex items-center justify-center">
+                  <Loading />
+                </div>
+              )}
             </BluxProvider>
           )}
         </div>
@@ -96,7 +114,30 @@ function App() {
             <div />
             <div className="relative w-full center">
               <BluxProvider config={{ ...bluxConfig, isPersistent: true }}>
-                <OpenModal />
+                {isReady ? (
+                  <>
+                    <OpenModal />
+                    <div
+                      className="relative transition-[height] duration-300"
+                      style={{
+                        height: `${height + 40}px`,
+                        width: '400px',
+                      }}
+                    >
+                      {corners.map(({ pos, classes }) => (
+                        <div
+                          key={pos}
+                          onMouseDown={(e) => handleMouseDown(pos, e)}
+                          className={`absolute size-10 select-none  z-[9999999] ${classes}`}
+                        />
+                      ))}
+                    </div>
+                  </>
+                ) : (
+                  <div className="flex items-center justify-center">
+                    <Loading />
+                  </div>
+                )}
               </BluxProvider>
             </div>
             <div className="space-x-2">

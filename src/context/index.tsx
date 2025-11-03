@@ -6,6 +6,8 @@ import { LoginMethodType } from '../constants';
 interface IConfigContext {
   theme: 'dark' | 'light' | 'random';
   setTheme: (theme: 'dark' | 'light' | 'random') => void;
+  height: number;
+  setHeight: (height: number) => void;
   appearance: IAppearance;
   loginMethods: LoginMethodType;
   updateAppearance: (

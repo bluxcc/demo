@@ -50,9 +50,7 @@ export type ColorType =
   | 'textColor'
   | 'borderColor'
   | 'outlineColor';
-// export type BackgroundColor = (typeof COLORS.background)[number]["name"];
-// export type AccentColor = (typeof COLORS.accent)[number]["name"];
-// export type TextColor = (typeof COLORS.text)[number]["name"];
+
 // export const CUSTOM_GRADIENT =
 //   "conic-gradient(from 180deg at 50% 50%, #0D1292 0deg, #FFCDCD 180deg, #53E5FF 360deg)";
 export type RadiusValues = 'sm' | 'md' | 'lg' | 'none' | 'full';
@@ -60,3 +58,26 @@ export type RadiusValues = 'sm' | 'md' | 'lg' | 'none' | 'full';
 export const WC_URI = import.meta.env.DEV
   ? 'http://localhost:3000'
   : 'https://demo.blux.cc';
+
+export const corners = [
+  {
+    pos: 'top-left',
+    classes: '-top-0 -left-0 cursor-nwse-resize',
+    borders: { top: true, left: true },
+  },
+  {
+    pos: 'top-right',
+    classes: '-top-0 -right-0 cursor-nesw-resize',
+    borders: { top: true, right: true },
+  },
+  {
+    pos: 'bottom-left',
+    classes: '-bottom-0 -left-0 cursor-nesw-resize',
+    borders: { bottom: true, left: true },
+  },
+  {
+    pos: 'bottom-right',
+    classes: `-bottom-0 -right-0 cursor-nwse-resize`,
+    borders: { bottom: true, right: true },
+  },
+];

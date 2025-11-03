@@ -7,6 +7,7 @@ import { defaultLightTheme } from '../constants/themes';
 
 export const ConfigProvider = ({ children }: { children: ReactNode }) => {
   const [theme, setTheme] = useState<'light' | 'dark' | 'random'>('light');
+  const [height, setHeight] = useState(377);
   const [appearance, setAppearance] = useState<IAppearance>(defaultLightTheme);
   const [loginMethods, setLoginMethods] = useState<LoginMethodType>(['wallet']);
 
@@ -35,6 +36,8 @@ export const ConfigProvider = ({ children }: { children: ReactNode }) => {
   return (
     <ConfigContext.Provider
       value={{
+        height,
+        setHeight,
         theme,
         setTheme,
         appearance,
