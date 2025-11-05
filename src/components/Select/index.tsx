@@ -150,12 +150,6 @@ export default Select;
               updateAppearance('outlineWidth', item.value);
             }}
             startItem={
-              <img
-                src="/images/borderIcon.svg"
-                alt="border"
-                width={20}
-                height={20}
-              />
             }
           /> */
 }

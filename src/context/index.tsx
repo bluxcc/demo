@@ -4,8 +4,10 @@ import { IAppearance } from '../types';
 import { LoginMethodType } from '../constants';
 
 interface IConfigContext {
-  theme: 'dark' | 'light' | 'random';
-  setTheme: (theme: 'dark' | 'light' | 'random') => void;
+  theme: 'dark' | 'light';
+  setTheme: (theme: 'dark' | 'light') => void;
+  customLogo: string;
+  setCustomLogo: (logo: string) => void;
   height: number;
   setHeight: (height: number) => void;
   appearance: IAppearance;

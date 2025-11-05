@@ -36,21 +36,12 @@ const ToggleCollapse = ({
         id="bluxcc-button"
       >
         <p className="text-sm font-manrope-medium">{title}</p>
-        <div className="relative w-4 h-4">
-          <div
-            className={`absolute top-0 left-0 transition-opacity duration-300 ${
-              isOpen ? 'opacity-100' : 'opacity-0'
-            }`}
-          >
+        <div className="flex items-center justify-center">
+          {isOpen ? (
             <Minus fill={theme === 'dark' ? 'white' : '#0C1083'} />
-          </div>
-          <div
-            className={`absolute top-0 left-0 transition-opacity duration-300 ${
-              isOpen ? 'opacity-100' : 'opacity-0'
-            }`}
-          >
+          ) : (
             <Plus fill={theme === 'dark' ? 'white' : '#0C1083'} />
-          </div>
+          )}
         </div>
       </div>
 

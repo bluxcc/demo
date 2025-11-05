@@ -2,9 +2,7 @@ import { useEffect, useState } from 'react';
 import { BluxProvider, networks, useBlux } from '@bluxcc/react';
 import { Highlight, themes } from 'prism-react-renderer';
 
-import reset from '/images/reset.svg';
-import swap from '/images/swap.svg';
-import { corners, WC_URI } from './constants';
+import { centers, corners, WC_URI } from './constants';
 import Header from './components/Header';
 import OpenModal from './containers/OpenModal';
 import TabsContainer from './containers/tabsContainer';
@@ -18,19 +16,19 @@ import { useIsMobile } from './hooks/useIsMobile';
 import { useCornerResize } from './hooks/useCornerResize';
 import { Loading } from './assets/Loading';
 import { Reset, Swap } from './assets/Icons';
+import { useOutlineResize } from './hooks/useOutlineResize';
 
 function App() {
   const [isCodeOpen, setIsCodeOpen] = useState(false);
-  const [trigger, setTrigger] = useState(0);
   const handleOpenCode = () => setIsCodeOpen(!isCodeOpen);
   const {
     appearance,
     resetAppearance,
     setAppearance,
-    setTheme,
     loginMethods,
     theme,
     height,
+    customLogo,
   } = useConfigContext();
   const { isReady } = useBlux();
 
@@ -40,12 +38,14 @@ function App() {
   useEffect(() => {
     setAppearance(
       theme === 'light'
-        ? defaultLightTheme
-        : theme === 'dark'
-          ? defaultDarkTheme
-          : generateRandomTheme(),
+        ? customLogo
+          ? { ...defaultLightTheme, logo: customLogo }
+          : defaultLightTheme
+        : customLogo
+          ? { ...defaultDarkTheme, logo: customLogo }
+          : defaultDarkTheme,
     );
-  }, [theme, trigger, setAppearance]);
+  }, [theme, setAppearance, customLogo]);
 
   const handleSpin = (
     e: React.MouseEvent<HTMLButtonElement>,
@@ -58,15 +58,31 @@ function App() {
     setTimeout(() => img.classList.remove('animate-spin'), duration);
   };
 
+  const handleRandomize = () => {
+    setAppearance(
+      theme === 'dark'
+        ? {
+            ...defaultDarkTheme,
+            ...generateRandomTheme(appearance.logo, 'dark'),
+          }
+        : {
+            ...defaultLightTheme,
+            ...generateRandomTheme(appearance.logo, 'light'),
+          },
+    );
+  };
+
   const codeBlock = generateCodeBlock(appearance, loginMethods);
-  const { radius, handleMouseDown } = useCornerResize(12, 4, 60);
+  const { radius, handleResizeRadius } = useCornerResize(32, 0, 40);
+  const { width, handleResizeOutlineWidth } = useOutlineResize(1, 0, 6);
 
   useEffect(() => {
     setAppearance((prev) => ({
       ...prev,
       outlineRadius: `${radius}px`,
+      outlineWidth: `${width}px`,
     }));
-  }, [radius, setAppearance]);
+  }, [radius, width, setAppearance]);
 
   const bluxConfig = {
     appearance,
@@ -133,8 +149,15 @@ function App() {
                       {corners.map(({ pos, classes }) => (
                         <div
                           key={pos}
-                          onMouseDown={(e) => handleMouseDown(pos, e)}
-                          className={`absolute size-10 select-none  z-[9999999] ${classes}`}
+                          onMouseDown={(e) => handleResizeRadius(pos, e)}
+                          className={`absolute h-14 w-9 select-none z-[9999999] ${classes}`}
+                        />
+                      ))}
+                      {centers.map(({ pos, classes }) => (
+                        <div
+                          key={pos}
+                          onMouseDown={(e) => handleResizeOutlineWidth(pos, e)}
+                          className={`absolute h-7 w-[200px] select-none z-[9999999] ${classes}`}
                         />
                       ))}
                     </div>
@@ -163,8 +186,7 @@ function App() {
                 type="button"
                 onClick={(e) => {
                   handleSpin(e);
-                  if (theme === 'random') setTrigger((t) => t + 1);
-                  else setTheme('random');
+                  handleRandomize();
                 }}
                 className="inline-flex text-sm bg-white dark:bg-darkBg dark:border-darkBorder dark:text-white mobile:hidden font-manrope-medium gap-2 justify-center items-center text-primary border-[#CDCEEE] hover:border-primary transition-all duration-300 border h-12 pl-2 pr-4"
               >

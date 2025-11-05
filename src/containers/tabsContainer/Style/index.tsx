@@ -8,6 +8,7 @@ import { useConfigContext } from '../../../hooks/useConfigContext';
 import Input from '../../../components/Input';
 import {
   BorderIcon,
+  ExclamationCircle,
   Moon,
   MoonFilled,
   RoundedCorner,
@@ -16,10 +17,12 @@ import {
 } from '../../../assets/Icons';
 
 const Style = () => {
-  const { appearance, updateAppearance, theme, setTheme } = useConfigContext();
+  const { appearance, updateAppearance, theme, setTheme, setCustomLogo } =
+    useConfigContext();
   const [logoInputValue, setLogoInputValue] = useState('');
 
   const handleUpdateLogo = () => {
+    setCustomLogo(logoInputValue);
     updateAppearance('logo', logoInputValue);
   };
 
@@ -246,7 +249,7 @@ const Style = () => {
               </div>
             </div>
           )}
-          <div className="relative flex items-center w-full h-12 px-3 py-4 text-sm border font-manrope border-lightPurple">
+          <div className="relative flex items-center w-full h-12 px-3 py-4 text-sm border font-manrope border-lightPurple dark:border-darkBorder">
             <input
               type="text"
               aria-label="logo link"
@@ -262,13 +265,8 @@ const Style = () => {
               Update
             </button>
           </div>
-          <div className="border inline-flex gap-3 bg-[#E5FBFF] text-xs p-[10px] font-manrope-medium border-[#99F0FF] text-[#333333] dark:text-primary">
-            <img
-              src="/images/exclamationCircle.svg"
-              alt="exclamation"
-              width={20}
-              height={32}
-            />
+          <div className="border inline-flex gap-3 bg-[#E5FBFF] text-xs p-[10px] font-manrope-medium border-[#99F0FF] dark:border-darkBorder dark:bg-darkGray text-[#333333] dark:text-white">
+            <ExclamationCircle fill={theme === 'dark' ? 'white' : '#0C1083'} />
             Use a logo sized 40 × 152 px for best results.
           </div>
         </div>
@@ -296,7 +294,6 @@ export default Style;
             updateAppearance('fontFamily', item.value);
           }}
           startItem={
-            <img src="/images/fontIcon.svg" alt="font" width={20} height={20} />
           }
         /> */
 }

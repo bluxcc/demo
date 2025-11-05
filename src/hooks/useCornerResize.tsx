@@ -47,11 +47,11 @@ export const useCornerResize = (
     };
   }, [resizingCorner, startPos, min, max]);
 
-  const handleMouseDown = (corner: string, e: React.MouseEvent) => {
+  const handleResizeRadius = (corner: string, e: React.MouseEvent) => {
     e.stopPropagation();
     setResizingCorner(corner);
     setStartPos({ x: e.clientX, y: e.clientY });
   };
 
-  return { radius, handleMouseDown };
+  return { radius, handleResizeRadius };
 };

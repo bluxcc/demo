@@ -10,7 +10,7 @@ export const COLORS = {
   dark: {
     background: ['#000000', '#100930', '#441213', '#093018'] as const,
     accentColor: ['#0A84FF', '#FFD60A', '#30D158', '#FF375F'] as const,
-    fieldBackground: ['#000000', '#050115', '#2C0707', '#02160A'] as const,
+    fieldBackground: ['#1a1a1a', '#050115', '#2C0707', '#02160A'] as const,
     textColor: ['#FFFFFF', '#EFEBFF', '#FFEAEB', '#DEFFE6'] as const,
     borderColor: ['#333333', '#2E1D74', '#572424', '#10552C'] as const,
     outlineColor: ['#3A4A66', '#4A3F6B', '#3C4B42', '#4A3C3C'] as const,
@@ -79,5 +79,28 @@ export const corners = [
     pos: 'bottom-right',
     classes: `-bottom-0 -right-0 cursor-nwse-resize`,
     borders: { bottom: true, right: true },
+  },
+];
+
+export const centers = [
+  {
+    pos: 'top-center',
+    classes: '-top-0 left-1/2 -translate-x-1/2 cursor-n-resize',
+    borders: { top: true },
+  },
+  {
+    pos: 'bottom-center',
+    classes: '-bottom-0 left-1/2 -translate-x-1/2 cursor-n-resize',
+    borders: { bottom: true },
+  },
+  {
+    pos: 'left-center',
+    classes: '-left-[85px] top-1/2 -translate-y-1/2 cursor-e-resize rotate-90',
+    borders: { left: true },
+  },
+  {
+    pos: 'right-center',
+    classes: '-right-[85px] top-1/2 -translate-y-1/2 cursor-e-resize rotate-90',
+    borders: { right: true },
   },
 ];

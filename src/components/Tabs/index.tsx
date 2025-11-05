@@ -19,7 +19,7 @@ const Tabs = ({ tabs }: TabsProps) => {
 
   return (
     <div className="flex h-full">
-      <div className="flex !w-[81px] font-manrope-medium flex-col pt-4 pb-[17px] border-r border-lightPurple dark:border-darkBorder justify-between items-center text-primary dark:bg-darkBg dark:text-white">
+      <div className="flex !w-[81px] font-manrope-medium pt-4 pb-[17px] border-r border-lightPurple dark:border-darkBorder justify-center items-start text-primary dark:bg-darkBg dark:text-white">
         <div
           className="flex flex-col items-center"
           role="tablist"
@@ -65,11 +65,6 @@ const Tabs = ({ tabs }: TabsProps) => {
               </button>
             );
           })}
-        </div>
-        <div>
-          {/* <button className="w-12 h-12 center bg-lightGray">
-            <img src={settings} alt="settings" />
-          </button> */}
         </div>
       </div>
 

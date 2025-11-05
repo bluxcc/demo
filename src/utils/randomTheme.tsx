@@ -6,10 +6,8 @@ const randomFrom = <T,>(arr: T[]) =>
 const randomPx = (min: number, max: number) =>
   `${Math.floor(Math.random() * (max - min + 1) + min)}px`;
 
-const randomFont = () => {
-  const fonts = ['Manrope', 'JetbrainsMono', 'Playfair', 'ComicNeue'];
-  return randomFrom(fonts);
-};
+const randomFont = () =>
+  randomFrom(['Manrope', 'JetbrainsMono', 'Playfair', 'ComicNeue']);
 
 const randomHex = (min: number, max: number) => {
   const r = Math.floor(Math.random() * (max - min) + min);
@@ -18,18 +16,23 @@ const randomHex = (min: number, max: number) => {
   return `#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)}`;
 };
 
-const getContrastColor = (hex: string) => {
-  const c = hex.substring(1);
-  const rgb = parseInt(c, 16);
-  const r = (rgb >> 16) & 0xff;
-  const g = (rgb >> 8) & 0xff;
-  const b = rgb & 0xff;
-  const brightness = (r * 299 + g * 587 + b * 114) / 1000;
-  return brightness > 128 ? '#111111' : '#ffffff';
+export const isDarkBackground = (hex: string): boolean => {
+  const c = hex.replace('#', '');
+  const r = parseInt(c.substring(0, 2), 16);
+  const g = parseInt(c.substring(2, 4), 16);
+  const b = parseInt(c.substring(4, 6), 16);
+  const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+  return luminance < 0.5;
 };
 
-export const generateRandomTheme = (): IAppearance => {
-  const isDark = Math.random() < 0.5;
+const getContrastColor = (hex: string) =>
+  isDarkBackground(hex) ? '#ffffff' : '#111111';
+
+export const generateRandomTheme = (
+  logo: string,
+  baseTheme: 'light' | 'dark' = 'light',
+): IAppearance => {
+  const isDark = baseTheme === 'dark';
 
   const background = isDark ? randomHex(10, 60) : randomHex(220, 255);
   const fieldBackground = isDark ? randomHex(20, 70) : randomHex(240, 255);
@@ -40,7 +43,7 @@ export const generateRandomTheme = (): IAppearance => {
   const backdropColor = `${borderColor}33`;
 
   return {
-    logo: '',
+    logo: logo,
     fontFamily: randomFont(),
     textColor,
     accentColor,
