@@ -1,5 +1,6 @@
 import React from 'react';
-import whiteCheck from '/images/whiteCheck.svg';
+import { WhiteCheck } from '../../assets/Icons';
+import { useConfigContext } from '../../hooks/useConfigContext';
 
 type CheckBoxProps = {
   checked: boolean;
@@ -14,6 +15,8 @@ const CheckBox: React.FC<CheckBoxProps> = ({
   disabled = false,
   borderColor = '#0d1292',
 }) => {
+  const { theme } = useConfigContext();
+
   const toggleChecked = () => {
     if (!disabled) {
       onChange();
@@ -34,18 +37,17 @@ const CheckBox: React.FC<CheckBoxProps> = ({
       <button
         id="bluxcc-button"
         onClick={toggleChecked}
-        style={{ borderColor }}
+        style={{ borderColor: theme === 'dark' ? 'white' : borderColor }}
         className={`flex size-5 border items-center justify-center transition duration-100 ease-in-out transform ${
-          checked ? 'bg-primary !border-primary' : 'bg-transparent'
+          checked
+            ? 'bg-primary !border-primary dark:!border-white dark:bg-white'
+            : 'bg-transparent'
         } ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
       >
         {checked && (
-          <img
-            src={whiteCheck}
-            alt="check"
-            className="select-none"
-            draggable="false"
-          />
+          <div className="select-none">
+            <WhiteCheck fill={theme === 'dark' ? 'black' : 'white'} />
+          </div>
         )}
       </button>
     </div>

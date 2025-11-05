@@ -17,7 +17,7 @@ const Button = ({
   children,
   rounded = 'none',
   className,
-  active,
+  active = false,
   onClick,
   disabled,
   label,
@@ -30,10 +30,10 @@ const Button = ({
       disabled={disabled}
       onClick={disabled ? undefined : onClick}
       className={clsx(
-        'bg-white text-primary transition-colors',
+        'bg-white dark:bg-darkBg dark:text-white text-primary transition-colors',
         {
-          'border-primary': active,
-          'border-lightPurple': !active,
+          'border-primary dark:border-white': active,
+          'border-lightPurple dark:border-darkBorder': !active,
           '!text-[#999999] !border-[#B3B3B3]': disabled,
           'rounded-none': rounded === 'none',
           'rounded-[4px]': rounded === 'sm',

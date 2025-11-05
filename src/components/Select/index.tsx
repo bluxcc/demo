@@ -1,4 +1,6 @@
 import { ReactNode, useEffect, useRef, useState } from 'react';
+import { DropDown } from '../../assets/Icons';
+import { useConfigContext } from '../../hooks/useConfigContext';
 
 type SelectProps = {
   name: string;
@@ -29,6 +31,8 @@ const Select = ({
   const [selected, setSelected] = useState(
     () => values.find((v) => v.value === defaultValue?.value) || values[0],
   );
+
+  const { theme } = useConfigContext();
 
   useEffect(() => {
     if (defaultValue && defaultValue.value !== selected.value) {
@@ -61,11 +65,13 @@ const Select = ({
       ref={ref}
       className="flex items-center justify-between w-full select-none"
     >
-      <p className="capitalize text-xs text-[#0C1083B2]">{name}</p>
+      <p className="capitalize text-xs text-[#0C1083B2] dark:text-white/70">
+        {name}
+      </p>
 
       <div
         id="bluxcc-button"
-        className="flex items-center justify-between border border-lightPurple w-full h-9 p-2 max-w-[138px] relative"
+        className="flex items-center justify-between border border-lightPurple dark:border-darkBorder w-full h-9 p-2 max-w-[138px] relative"
         onClick={() => setIsSelectOpen((prev) => !prev)}
       >
         <div className="flex items-center gap-2">
@@ -81,15 +87,10 @@ const Select = ({
           </span>
         </div>
 
-        <img
-          src="/images/dropDown.svg"
-          width={16}
-          height={16}
-          alt="dropdown icon"
-        />
+        <DropDown fill={theme === 'dark' ? 'white' : '#CDCEEE'} />
 
         {isSelectOpen && (
-          <div className="absolute top-10 left-[-1px] right-[-1px] w-[calc(100%+2px)] z-10 bg-white border border-lightPurple">
+          <div className="absolute top-10 left-[-1px] right-[-1px] w-[calc(100%+2px)] z-10 bg-white dark:bg-darkBg dark:text-white border border-lightPurple dark:border-darkBorder">
             {values.map((item, idx) => {
               const isSelected = selected.value === item.value;
               return (

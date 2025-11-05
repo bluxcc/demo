@@ -104,7 +104,7 @@ const Auth = () => {
   return (
     <div className="overflow-hidden">
       <DndContext collisionDetection={closestCenter} onDragEnd={onDragEnd}>
-        <div className="flex flex-col space-y-3 text-primary">
+        <div className="flex flex-col space-y-3 text-primary dark:text-white">
           <p className="text-lg font-manrope-medium">Login Methods</p>
 
           <SortableContext
@@ -126,13 +126,13 @@ const Auth = () => {
                   ))}
                 </SortableItem>
                 {index !== sections.length - 1 && (
-                  <hr className="mt-4 border border-dashed border-lightPurple" />
+                  <hr className="mt-4 border border-dashed border-lightPurple dark:border-darkBorder" />
                 )}
               </div>
             ))}
           </SortableContext>
 
-          <hr className="my-2 border border-dashed border-lightPurple" />
+          <hr className="my-2 border border-dashed border-lightPurple dark:border-darkBorder" />
           <CheckBoxItem
             title="Passkey"
             checked={passkeyChecked}

@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import Logo from '../../assets/Logo';
+import { useConfigContext } from '../../hooks/useConfigContext';
+import { Close, Code, Copy } from '../../assets/Icons';
 
 type HeaderProps = {
   onOpenCode: () => void;
@@ -15,6 +17,7 @@ const Header = ({
   handleCloseCode,
 }: HeaderProps) => {
   const [copied, setCopied] = useState(false);
+  const { theme } = useConfigContext();
 
   const handleCopyCode = () => {
     navigator.clipboard
@@ -27,7 +30,7 @@ const Header = ({
   };
 
   return (
-    <div className="w-full h-[72px] desktop:border-b border-b border-b-lightPurple between font-jetbrainsMono">
+    <div className="w-full h-[72px] desktop:border-b border-b border-b-lightPurple dark:border-b-darkBorder between font-jetbrainsMono dark:bg-darkBg dark:text-white">
       <div className="pl-4 center">
         <a
           href="https://blux.cc"
@@ -35,14 +38,14 @@ const Header = ({
           rel="noopener noreferrer"
           aria-label="Blux website (opens in a new tab)"
         >
-          <Logo />
+          <Logo fill={theme === 'dark' ? 'white' : '#0D1292'} />
         </a>
       </div>
 
       <div className="relative hidden font-manrope desktop:flex">
         <div className="relative w-[470px] overflow-hidden">
           <div
-            className={`flex w-full px-4 items-center justify-between border-l border-l-lightPurple absolute top-0 right-0 transition-transform duration-500 ${
+            className={`flex w-full px-4 items-center justify-between border-l border-l-lightPurple dark:border-l-darkBorder absolute top-0 right-0 transition-transform duration-500 ${
               isCodeOpen
                 ? 'translate-x-0 opacity-100 h-full'
                 : 'translate-x-full opacity-0'
@@ -51,22 +54,23 @@ const Header = ({
             <button
               type="button"
               aria-label="close"
-              className="bg-[#E6E6E6] center size-12"
+              className="bg-[#E6E6E6] dark:bg-darkFieldGray dark:text-white center size-12"
               onClick={handleCloseCode}
             >
-              <img src="/images/close.svg" alt="close" />
+              <Close fill={theme === 'dark' ? 'white' : '#090B5D'} />
             </button>
             <button
               type="button"
               aria-label="copy code"
-              className="bg-[#E6E6E6] center text-primary w-[140px] h-12 font-manrope-medium"
+              className="bg-[#E6E6E6] dark:bg-darkFieldGray dark:text-white center text-primary w-[140px] h-12 font-manrope-medium"
               onClick={handleCopyCode}
             >
               {copied ? (
                 'Copied!'
               ) : (
                 <span className="flex gap-1 whitespace-nowrap">
-                  Copy Code <img src="/images/copy.svg" alt="copy" />
+                  Copy Code{' '}
+                  <Copy fill={theme === 'dark' ? 'white' : '#0C1083'} />
                 </span>
               )}
             </button>
@@ -83,7 +87,7 @@ const Header = ({
             {/* Docs Button */}
             <a
               aria-label="docs"
-              className="hover:bg-[#F2F2F2] transition-all duration-500 px-4 h-12 text-primary center gap-2 font-manrope-medium"
+              className="hover:bg-[#F2F2F2] dark:text-white dark:hover:bg-darkFieldGray transition-all duration-500 px-4 h-12 text-primary center gap-2 font-manrope-medium"
               href="https://docs.blux.cc/"
               target="_blank"
             >
@@ -94,11 +98,10 @@ const Header = ({
             <button
               type="button"
               aria-label="live code"
-              className="bg-primary w-[136px] hover:bg-primaryDark transition-all duration-500 h-12 text-white center gap-2 font-manrope-medium"
+              className="bg-primary w-[136px] dark:bg-darkFieldGray hover:bg-primaryDark transition-all duration-500 h-12 text-white center gap-2 font-manrope-medium"
               onClick={onOpenCode}
             >
-              <img src="/images/code.svg" alt="code" height={24} width={24} />
-              Live Code
+              <Code /> Live Code
             </button>
           </div>
         </div>

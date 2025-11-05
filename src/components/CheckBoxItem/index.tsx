@@ -28,7 +28,7 @@ CheckBoxItemProps) => {
     <div
       onClick={toggleChecked}
       id="bluxcc-button"
-      className="flex items-center justify-between w-full h-12 p-3 border border-lightPurple"
+      className="flex items-center justify-between w-full h-12 p-3 border border-lightPurple dark:border-darkBorder"
       // draggable={draggable}
     >
       <div className="flex items-center text-sm font-manrope-medium">

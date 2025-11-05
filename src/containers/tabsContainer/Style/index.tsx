@@ -1,15 +1,19 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Button from '../../../components/Button';
 import ColorBox from '../../../components/ColorBox';
 import ToggleCollapse from '../../../components/ToggleCollapse';
 import { useConfigContext } from '../../../hooks/useConfigContext';
 
-import sun from '/images/sun.svg';
-import moon from '/images/moon.svg';
-import sunFilled from '/images/sunFilled.svg';
-import moonFilled from '/images/moonFilled.svg';
 import Input from '../../../components/Input';
+import {
+  BorderIcon,
+  Moon,
+  MoonFilled,
+  RoundedCorner,
+  Sun,
+  SunFilled,
+} from '../../../assets/Icons';
 
 const Style = () => {
   const { appearance, updateAppearance, theme, setTheme } = useConfigContext();
@@ -26,16 +30,32 @@ const Style = () => {
   };
 
   const themes = [
-    { name: 'light', logo: sun, activeLogo: sunFilled },
-    { name: 'dark', logo: moon, activeLogo: moonFilled },
+    {
+      name: 'light',
+      logo: <Sun fill={theme === 'dark' ? 'white' : '#0C1083'} />,
+      activeLogo: <SunFilled fill={theme === 'dark' ? 'white' : '#0C1083'} />,
+    },
+    {
+      name: 'dark',
+      logo: <Moon fill={theme === 'dark' ? 'white' : '#0C1083'} />,
+      activeLogo: <MoonFilled fill={theme === 'dark' ? 'white' : '#0C1083'} />,
+    },
   ];
 
+  useEffect(() => {
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [theme]);
+
   return (
-    <div className="flex flex-col space-y-4 text-primary">
+    <div className="flex flex-col space-y-4 text-primary dark:text-white/70">
       <p className="text-lg font-manrope-medium">Style</p>
 
       <div className="flex flex-col space-y-1">
-        <p className="text-xs text-[#0C1083B2]">Theme</p>
+        <p className="text-xs text-[#0C1083B2] dark:text-white">Theme</p>
         <div className="w-full gap-2 center">
           {themes.map((m) => (
             <Button
@@ -45,20 +65,14 @@ const Style = () => {
               active={theme === m.name}
               onClick={() => setTheme(m.name as 'light' | 'dark')}
             >
-              <img
-                src={theme === m.name ? m.activeLogo : m.logo}
-                alt="theme"
-                className="w-6 h-6"
-                width={24}
-                height={24}
-              />
+              {theme === m.name ? m.activeLogo : m.logo}
               {m.name.charAt(0).toUpperCase() + m.name.slice(1)}
             </Button>
           ))}
         </div>
       </div>
 
-      <hr className="border border-dashed border-lightPurple" />
+      <hr className="border border-dashed border-lightPurple dark:border-darkBorder" />
       <ToggleCollapse title="Color options">
         <div className="mt-3">
           <ColorBox
@@ -102,11 +116,13 @@ const Style = () => {
         </div>
       </ToggleCollapse>
 
-      <hr className="border border-dashed border-lightPurple" />
+      <hr className="border border-dashed border-lightPurple dark:border-darkBorder" />
 
       <ToggleCollapse title="Font options" defaultOpen={false}>
         <div className="flex flex-col mt-3 space-y-2">
-          <p className="capitalize text-xs text-[#0C1083B2]">Font family</p>
+          <p className="capitalize text-xs text-[#0C1083B2] dark:text-white/70">
+            Font family
+          </p>
           <div className="grid w-full grid-cols-2 gap-2">
             {[
               { name: 'Manrope', value: 'Manrope', class: 'font-manrope' },
@@ -144,7 +160,7 @@ const Style = () => {
         </div>
       </ToggleCollapse>
 
-      <hr className="border border-dashed border-lightPurple" />
+      <hr className="border border-dashed border-lightPurple dark:border-darkBorder" />
 
       <ToggleCollapse title="Border options">
         <div className="mt-3 space-y-2">
@@ -154,12 +170,7 @@ const Style = () => {
             maxValue={3}
             minValue={1}
             startIcon={
-              <img
-                src="/images/borderIcon.svg"
-                alt="border"
-                width={20}
-                height={20}
-              />
+              <BorderIcon fill={theme === 'dark' ? 'white' : '#0C1083'} />
             }
             label="Border width"
             onChange={(item) => {
@@ -172,12 +183,7 @@ const Style = () => {
             value={parseInt(appearance.borderRadius ?? '0')}
             maxValue={50}
             startIcon={
-              <img
-                src="/images/roundedCorner.svg"
-                alt="borderRadius"
-                width={20}
-                height={20}
-              />
+              <RoundedCorner fill={theme === 'dark' ? 'white' : '#0C1083'} />
             }
             label="Border Radius"
             onChange={(item) => {
@@ -186,7 +192,7 @@ const Style = () => {
           />
         </div>
       </ToggleCollapse>
-      <hr className="border border-dashed border-lightPurple " />
+      <hr className="border border-dashed border-lightPurple dark:border-darkBorder" />
 
       <ToggleCollapse title="Outline options" defaultOpen={false}>
         <div className="mt-3 space-y-2">
@@ -195,12 +201,7 @@ const Style = () => {
             value={parseInt(appearance.outlineWidth ?? '0')}
             maxValue={6}
             startIcon={
-              <img
-                src="/images/borderIcon.svg"
-                alt="border"
-                width={20}
-                height={20}
-              />
+              <BorderIcon fill={theme === 'dark' ? 'white' : '#0C1083'} />
             }
             label="outline width"
             onChange={(item) => {
@@ -213,12 +214,7 @@ const Style = () => {
             value={parseInt(appearance.outlineRadius ?? '0')}
             maxValue={38}
             startIcon={
-              <img
-                src="/images/roundedCorner.svg"
-                alt="borderRadius"
-                width={20}
-                height={20}
-              />
+              <RoundedCorner fill={theme === 'dark' ? 'white' : '#0C1083'} />
             }
             label="outline Radius"
             onChange={(item) => {
@@ -228,7 +224,7 @@ const Style = () => {
         </div>
       </ToggleCollapse>
 
-      <hr className="border border-dashed border-lightPurple " />
+      <hr className="border border-dashed border-lightPurple dark:border-darkBorder" />
 
       <ToggleCollapse title="Insert logo" defaultOpen={false}>
         <div className="mt-3 space-y-2">
@@ -238,7 +234,7 @@ const Style = () => {
                 style={{
                   background: appearance.background,
                 }}
-                className="flex border border-dashed border-lightPurple overflow-hidden p-2 max-h-[36px] max-w-[150px]"
+                className="flex border border-dashed border-lightPurple dark:border-darkBorder overflow-hidden p-2 max-h-[36px] max-w-[150px]"
               >
                 <img
                   src={appearance.logo}
@@ -257,16 +253,16 @@ const Style = () => {
               onKeyDown={handleKeyDown}
               onChange={(e) => setLogoInputValue(e.target.value)}
               placeholder="Paste your logo link here"
-              className="focus:outline-none placeholder:text-[#4D4D4D]"
+              className="focus:outline-none placeholder:text-[#4D4D4D] bg-transparent"
             />
             <button
               onClick={handleUpdateLogo}
-              className="absolute font-manrope-medium right-[10px] w-[62px] h-[32px] center rounded-[32px] border border-lightPurple text-primary text-xs"
+              className="absolute font-manrope-medium right-[10px] w-[62px] h-[32px] center rounded-[32px] border border-lightPurple dark:border-darkBorder text-primary dark:text-white text-xs"
             >
               Update
             </button>
           </div>
-          <div className="border inline-flex gap-3 bg-[#E5FBFF] text-xs p-[10px] font-manrope-medium border-[#99F0FF] text-[#333333]">
+          <div className="border inline-flex gap-3 bg-[#E5FBFF] text-xs p-[10px] font-manrope-medium border-[#99F0FF] text-[#333333] dark:text-primary">
             <img
               src="/images/exclamationCircle.svg"
               alt="exclamation"

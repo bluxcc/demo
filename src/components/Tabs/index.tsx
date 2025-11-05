@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
 // import settings from "/images/settings.svg";
 
 type Tab = {
   label: string;
-  activeImg: string;
-  inActiveImg: string;
+  activeImg: JSX.Element;
+  inActiveImg: JSX.Element;
   content: React.ReactNode;
 };
 
@@ -19,7 +19,7 @@ const Tabs = ({ tabs }: TabsProps) => {
 
   return (
     <div className="flex h-full">
-      <div className="flex !w-[81px] font-manrope-medium flex-col pt-4 pb-[17px] border-r border-lightPurple justify-between items-center text-primary">
+      <div className="flex !w-[81px] font-manrope-medium flex-col pt-4 pb-[17px] border-r border-lightPurple dark:border-darkBorder justify-between items-center text-primary dark:bg-darkBg dark:text-white">
         <div
           className="flex flex-col items-center"
           role="tablist"
@@ -49,20 +49,16 @@ const Tabs = ({ tabs }: TabsProps) => {
                     className={`absolute inset-0 rounded-full transition-colors 
                       ${
                         isActive
-                          ? "bg-[#FFCDCD]"
+                          ? 'bg-[#FFCDCD] dark:bg-primary'
                           : isHovered
-                          ? "bg-[#E4E4E4]"
-                          : "bg-transparent"
+                            ? 'bg-[#E4E4E4] dark:bg-darkGray'
+                            : 'bg-transparent'
                       }
                     `}
                   />
-                  <img
-                    src={
-                      isActive || isHovered ? tab.activeImg : tab.inActiveImg
-                    }
-                    alt={`${tab.label} icon`}
-                    className="relative z-10 w-6 h-6 transition-all duration-150"
-                  />
+                  <div className="relative z-10 w-6 h-6 transition-all duration-150">
+                    {isActive || isHovered ? tab.activeImg : tab.inActiveImg}
+                  </div>
                 </div>
 
                 {tab.label}
@@ -78,7 +74,7 @@ const Tabs = ({ tabs }: TabsProps) => {
       </div>
 
       <div
-        className="w-[294px] mobile:w-full text-primary p-4 mobile:border-r-hidden border-r border-lightPurple overflow-y-auto"
+        className="w-[294px] mobile:w-full text-primary p-4 mobile:border-r-hidden border-r border-lightPurple dark:border-darkBorder overflow-y-auto dark:bg-darkBg dark:text-white"
         role="tabpanel"
         aria-labelledby={`tab-${activeTab}`}
       >

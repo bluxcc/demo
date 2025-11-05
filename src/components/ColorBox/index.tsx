@@ -28,19 +28,21 @@ const ColorBox = ({
   const colorOptions = COLORS[mode][name];
 
   return (
-    <div className="flex flex-col w-full my-2">
-      <p className="capitalize text-xs text-[#0C1083B2] mb-1">{name}</p>
+    <div className="flex flex-col w-full my-2 dark:bg-darkBg dark:text-white">
+      <p className="capitalize text-xs text-[#0C1083B2] dark:text-white/70 mb-1">
+        {name}
+      </p>
       <div
-        className="relative flex items-center justify-between w-full h-10 p-2 border border-lightPurple"
+        className="relative flex items-center justify-between w-full h-10 p-2 border border-lightPurple dark:border-darkBorder"
         id="bluxcc-button"
       >
         <div
           onClick={openColorPicker}
-          className="flex items-center gap-1 bg-[#f2f2f2] p-0.5 rounded-full w-[92px]"
+          className="flex items-center gap-1 bg-[#f2f2f2] dark:bg-darkField dark:text-white p-0.5 rounded-full w-[92px]"
         >
           <div className="!size-5">
             <div
-              className="size-5 rounded-full border-[2px] border-lightPurple"
+              className="size-5 rounded-full border-[2px] border-lightPurple dark:border-darkBorder"
               style={{ background: color }}
             />
           </div>
@@ -69,7 +71,8 @@ const ColorBox = ({
             >
               <div
                 className={`size-3.5 rounded-full ${
-                  colorHex === '#ffffff' && 'border border-lightPurple'
+                  colorHex === '#ffffff' &&
+                  'border border-lightPurple dark:border-darkBorder'
                 }`}
                 style={{ background: colorHex }}
               />

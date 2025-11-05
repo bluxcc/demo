@@ -1,5 +1,7 @@
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
+import { DragHandle } from '../../../assets/Icons';
+import { useConfigContext } from '../../../hooks/useConfigContext';
 
 type SortableItemProps = {
   id: string;
@@ -8,6 +10,7 @@ type SortableItemProps = {
 };
 
 const SortableItem = ({ id, title, children }: SortableItemProps) => {
+  const { theme } = useConfigContext();
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id });
 
@@ -25,11 +28,10 @@ const SortableItem = ({ id, title, children }: SortableItemProps) => {
       className="flex flex-col pointer-events-auto cursor-grab"
     >
       <span className="flex items-center py-2 mb-3 text-sm">
-        <img
-          className="mr-2 cursor-grab"
-          src="/images/dragHandle.svg"
-          alt="Drag Handle"
-        />
+        <div className="mr-2 cursor-grab">
+          <DragHandle fill={theme == 'dark' ? 'white' : '#A2A4F6'} />
+        </div>
+
         {title && title}
       </span>
       <div

@@ -36,8 +36,10 @@ const Input: React.FC<InputProps> = ({
 
   return (
     <div className="flex items-center justify-between">
-      <div className="capitalize text-xs text-[#0C1083B2]">{label}</div>
-      <div className="border border-lightPurple w-full h-9 p-2 max-w-[138px] flex items-center gap-1 font-manrope-medium text-sm">
+      <div className="capitalize text-xs text-[#0C1083B2] dark:text-white/70">
+        {label}
+      </div>
+      <div className="border border-lightPurple dark:border-darkBorder w-full h-9 p-2 max-w-[138px] flex items-center gap-1 font-manrope-medium text-sm">
         {startIcon && (
           <div className="flex-shrink-0 w-5 h-5 mr-1">{startIcon}</div>
         )}
@@ -48,7 +50,7 @@ const Input: React.FC<InputProps> = ({
           type="number"
           value={Number.isNaN(value) ? internalValue : value}
           placeholder={defaultValue?.toString()}
-          className="flex-1 mr-1 font-medium bg-transparent border-none outline-none w-[40%] placeholder:text-primary text-primary"
+          className="flex-1 mr-1 font-medium bg-transparent border-none outline-none w-[40%] dark:placeholder:text-white placeholder:text-primary text-primary dark:text-white"
           onChange={handleChange}
         />
         <div className="flex-shrink-0">px</div>

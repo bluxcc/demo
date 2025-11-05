@@ -1,4 +1,6 @@
 import { useState, useRef, useLayoutEffect } from 'react';
+import { Minus, Plus } from '../../assets/Icons';
+import { useConfigContext } from '../../hooks/useConfigContext';
 
 type ToggleCollapseProps = {
   title?: string;
@@ -14,6 +16,7 @@ const ToggleCollapse = ({
   const [isOpen, setIsOpen] = useState(defaultOpen);
   const contentRef = useRef<HTMLDivElement>(null);
   const [height, setHeight] = useState<number | null>(null);
+  const { theme } = useConfigContext();
 
   const handleCollapse = () => {
     setIsOpen((prev) => !prev);
@@ -34,20 +37,20 @@ const ToggleCollapse = ({
       >
         <p className="text-sm font-manrope-medium">{title}</p>
         <div className="relative w-4 h-4">
-          <img
-            src="/images/minus.svg"
-            alt="Collapse"
+          <div
             className={`absolute top-0 left-0 transition-opacity duration-300 ${
               isOpen ? 'opacity-100' : 'opacity-0'
             }`}
-          />
-          <img
-            src="/images/plus.svg"
-            alt="Expand"
+          >
+            <Minus fill={theme === 'dark' ? 'white' : '#0C1083'} />
+          </div>
+          <div
             className={`absolute top-0 left-0 transition-opacity duration-300 ${
-              isOpen ? 'opacity-0' : 'opacity-100'
+              isOpen ? 'opacity-100' : 'opacity-0'
             }`}
-          />
+          >
+            <Plus fill={theme === 'dark' ? 'white' : '#0C1083'} />
+          </div>
         </div>
       </div>
 
