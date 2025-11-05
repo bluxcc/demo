@@ -46,7 +46,7 @@ const Tabs = ({ tabs }: TabsProps) => {
                   onMouseLeave={() => setHoveredTab(null)}
                 >
                   <div
-                    className={`absolute inset-0 rounded-full transition-colors 
+                    className={`absolute inset-0 rounded-full transition-colors duration-300
                       ${
                         isActive
                           ? 'bg-[#FFCDCD] dark:bg-primary'

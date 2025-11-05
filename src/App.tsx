@@ -174,7 +174,11 @@ function App() {
           </div>
         </div>
         <div
-          className={`h-full fixed !w-[470px] dark:bg-darkBg dark:text-white bg-white border-l p-4 border-lightPurple dark:border-darkBorder transition-all duration-500 mobile:hidden tablet:hidden ${
+          className={`h-full fixed !w-[470px] ${
+            theme === 'dark'
+              ? 'bg-darkBg text-white border-darkBorder'
+              : 'bg-white text-black border-lightPurple'
+          } border-l p-4 transition-all duration-500 mobile:hidden tablet:hidden ${
             isCodeOpen ? 'right-0 opacity-100 ' : 'right-[-470px] opacity-0'
           }`}
         >
