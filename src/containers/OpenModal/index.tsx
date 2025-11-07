@@ -37,7 +37,8 @@ const OpenModal = () => {
     const modal = document.querySelector(
       'div[class*="bluxcc:box-border"][class*="bluxcc:relative"]',
     );
-    if (modal) {
+
+    if (modal instanceof HTMLElement) {
       setHeight(modal.offsetHeight);
     } else {
       setHeight(377);
