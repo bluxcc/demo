@@ -78,29 +78,29 @@ body {
 button,
 a {
   cursor:
-    url('images/pointer.svg') 0 0,
+    url('/images/pointer.svg') 0 0,
     pointer;
 }
 
 .cursor-nwse-resize {
   cursor:
-    url('images/nwse-resize.svg') 0 0,
+    url('/images/nwse-resize.svg') 0 0,
     nwse-resize;
 }
 .cursor-nesw-resize {
   cursor:
-    url('images/nesw-resize.svg') 0 0,
+    url('/images/nesw-resize.svg') 0 0,
     nesw-resize;
 }
 
 .cursor-n-resize {
   cursor:
-    url('images/n-resize.svg') 0 0,
+    url('/images/n-resize.svg') 0 0,
     n-resize;
 }
 
 .cursor-e-resize {
   cursor:
-    url('images/e-resize.svg') 0 0,
+    url('/images/e-resize.svg') 0 0,
     e-resize;
 }
