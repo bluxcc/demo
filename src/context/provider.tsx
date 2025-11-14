@@ -39,7 +39,7 @@ export const ConfigProvider = ({ children }: { children: ReactNode }) => {
         logo: handleLogoColor(prev.background),
       }));
     }
-  }, [customLogo, appearance.background, setAppearance]);
+  }, [customLogo, appearance.background]);
 
   const updateLoginMethods = (methods: LoginMethodType) => {
     setLoginMethods(methods);

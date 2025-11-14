@@ -71,7 +71,7 @@ body {
 body {
   cursor:
     url('/images/default.svg') 0 0,
-    auto;
+    auto !important;
 }
 
 #bluxcc-button,
@@ -79,28 +79,28 @@ button,
 a {
   cursor:
     url('/images/pointer.svg') 0 0,
-    pointer;
+    pointer !important;
 }
 
 .cursor-nwse-resize {
   cursor:
     url('/images/nwse-resize.svg') 0 0,
-    nwse-resize;
+    nwse-resize !important;
 }
 .cursor-nesw-resize {
   cursor:
     url('/images/nesw-resize.svg') 0 0,
-    nesw-resize;
+    nesw-resize !important;
 }
 
 .cursor-n-resize {
   cursor:
     url('/images/n-resize.svg') 0 0,
-    n-resize;
+    n-resize !important;
 }
 
 .cursor-e-resize {
   cursor:
     url('/images/e-resize.svg') 0 0,
-    e-resize;
+    e-resize !important;
 }

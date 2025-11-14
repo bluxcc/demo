@@ -22,13 +22,13 @@ const Style = () => {
   const [logoInputValue, setLogoInputValue] = useState('');
 
   const handleUpdateLogo = () => {
-    setCustomLogo(logoInputValue);
     updateAppearance('logo', logoInputValue);
+    setCustomLogo(logoInputValue);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      updateAppearance('logo', logoInputValue);
+      handleUpdateLogo();
     }
   };
 

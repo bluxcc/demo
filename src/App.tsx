@@ -36,17 +36,14 @@ function App() {
   const isMobile = useIsMobile(770);
 
   useEffect(() => {
-    setAppearance(
-      theme === 'light'
-        ? customLogo
-          ? { ...defaultLightTheme, logo: customLogo }
-          : defaultLightTheme
-        : customLogo
-          ? { ...defaultDarkTheme, logo: customLogo }
-          : defaultDarkTheme,
-    );
-  }, [theme, setAppearance, customLogo]);
+    setAppearance((prev) => ({
+      ...prev,
+      ...(theme === 'light' ? defaultLightTheme : defaultDarkTheme),
+      logo: customLogo || prev.logo,
+    }));
+  }, [theme]);
 
+  console.log(appearance);
   const handleSpin = (
     e: React.MouseEvent<HTMLButtonElement>,
     duration = 500,
