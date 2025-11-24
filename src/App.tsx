@@ -43,7 +43,6 @@ function App() {
     }));
   }, [theme]);
 
-  console.log(appearance);
   const handleSpin = (
     e: React.MouseEvent<HTMLButtonElement>,
     duration = 500,

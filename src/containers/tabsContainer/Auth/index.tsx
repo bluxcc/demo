@@ -22,6 +22,7 @@ const Auth = () => {
           id: 'wallet',
           title: 'Stellar Wallets',
           checked: loginMethods.includes('wallet'),
+          disabled: false,
         },
       ],
     },
@@ -33,7 +34,7 @@ const Auth = () => {
           id: 'email',
           title: 'Email',
           checked: loginMethods.includes('email'),
-          disabled: false,
+          disabled: true,
         },
       ],
     },
@@ -121,6 +122,7 @@ const Auth = () => {
                       checked={loginMethods.includes(
                         item.id as (typeof loginMethods)[number],
                       )}
+                      disabled={item.disabled}
                       onChange={handleItemChange}
                     />
                   ))}
@@ -134,6 +136,7 @@ const Auth = () => {
 
           <hr className="my-2 border border-dashed border-lightPurple dark:border-darkBorder" />
           <CheckBoxItem
+            disabled
             title="Passkey"
             checked={passkeyChecked}
             onChange={handleItemChange}

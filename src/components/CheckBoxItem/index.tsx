@@ -26,9 +26,13 @@ CheckBoxItemProps) => {
 
   return (
     <div
-      onClick={toggleChecked}
+      onClick={disabled ? undefined : toggleChecked}
       id="bluxcc-button"
       className="flex items-center justify-between w-full h-12 p-3 border border-lightPurple dark:border-darkBorder"
+      style={{
+        cursor: disabled ? 'not-allowed' : 'default',
+        pointerEvents: disabled ? 'none' : 'auto',
+      }}
       // draggable={draggable}
     >
       <div className="flex items-center text-sm font-manrope-medium">
