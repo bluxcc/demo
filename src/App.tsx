@@ -85,6 +85,7 @@ function App() {
     appName: 'Blux Demo',
     loginMethods: loginMethods,
     networks: [networks.mainnet],
+    excludeWallets: ['lobstr'],
     promptOnWrongNetwork: false,
     walletConnect: {
       url: WC_URI,
