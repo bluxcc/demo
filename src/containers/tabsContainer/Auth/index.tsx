@@ -34,7 +34,7 @@ const Auth = () => {
           id: 'email',
           title: 'Email',
           checked: loginMethods.includes('email'),
-          disabled: true,
+          disabled: false,
         },
       ],
     },

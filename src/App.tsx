@@ -82,6 +82,7 @@ function App() {
 
   const bluxConfig = {
     appearance,
+    appId: import.meta.env.VITE_BLUX_APP_ID,
     appName: 'Blux Demo',
     loginMethods: loginMethods,
     networks: [networks.mainnet],
