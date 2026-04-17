@@ -17,18 +17,27 @@ export const generateCodeBlock = (
     .filter(([, , isDefault]) => !isDefault)
     .map(([key, val]) => `${indent}${key}: "${val}",`);
 
-  const showableFieldsText = showableFields.join('\n');
+  const hasEmailLogin = loginMethods.includes('email');
 
-  const showAppearance = () => {
-    if (showableFields.length === 0) {
-      return '';
-    }
+  // Build config safely
+  const configLines: string[] = [
+    `appName: "Blux Demo",`,
+    `networks: [networks.mainnet],`,
+  ];
 
-    return `
-        appearance: {
-${showableFieldsText}
-        },`;
-  };
+  if (showableFields.length > 0) {
+    configLines.push(`appearance: {\n${showableFields.join('\n')}\n        },`);
+  }
+
+  configLines.push(
+    `loginMethods: [${loginMethods.map((x) => `"${x}"`).join(', ')}],`,
+  );
+
+  if (hasEmailLogin) {
+    configLines.push(
+      `appId: "YOUR_APP_ID", // Required for email login (get it from dashboard.blux.cc)`,
+    );
+  }
 
   const codeBlock = `import { BluxProvider, useBlux, networks } from "@bluxcc/react";
 
@@ -42,9 +51,7 @@ const App = () => {
   return (
     <BluxProvider
       config={{
-        appName: "Blux Demo",
-        networks: [networks.mainnet],${showAppearance()}
-        loginMethods: [${loginMethods.map((x) => `"${x}"`).join(', ')}]
+        ${configLines.join('\n        ')}
       }}
     >
       <LoginButton />

@@ -17,6 +17,7 @@ import { useCornerResize } from './hooks/useCornerResize';
 import { Loading } from './assets/Loading';
 import { Reset, Swap } from './assets/Icons';
 import { useOutlineResize } from './hooks/useOutlineResize';
+import { handleSpin } from './utils/handleSpinSvg';
 
 function App() {
   const [isCodeOpen, setIsCodeOpen] = useState(false);
@@ -43,28 +44,17 @@ function App() {
     }));
   }, [theme]);
 
-  const handleSpin = (
-    e: React.MouseEvent<HTMLButtonElement>,
-    duration = 500,
-  ) => {
-    const img = e.currentTarget.querySelector('img');
-    if (!img) return;
-
-    img.classList.add('animate-spin');
-    setTimeout(() => img.classList.remove('animate-spin'), duration);
-  };
-
   const handleRandomize = () => {
     setAppearance(
       theme === 'dark'
         ? {
-          ...defaultDarkTheme,
-          ...generateRandomTheme(appearance.logo, 'dark'),
-        }
+            ...defaultDarkTheme,
+            ...generateRandomTheme(appearance.logo, 'dark'),
+          }
         : {
-          ...defaultLightTheme,
-          ...generateRandomTheme(appearance.logo, 'light'),
-        },
+            ...defaultLightTheme,
+            ...generateRandomTheme(appearance.logo, 'light'),
+          },
     );
   };
 
@@ -121,8 +111,9 @@ function App() {
           )}
         </div>
         <div
-          className={`${isCodeOpen && 'desktop:mr-[470px]'
-            } relative h-full overflow-hidden mobile:hidden w-full transition-all duration-500`}
+          className={`${
+            isCodeOpen && 'desktop:mr-[470px]'
+          } relative h-full overflow-hidden mobile:hidden w-full transition-all duration-500`}
         >
           <div
             style={{
@@ -170,19 +161,23 @@ function App() {
               <button
                 aria-label="reset"
                 type="button"
-                onClick={() => {
+                onClick={(e) => {
+                  // handleSpin(e, { rotate: -360 });
                   resetAppearance();
                 }}
                 className="inline-flex text-sm bg-white dark:bg-darkBg dark:border-darkBorder dark:text-white mobile:hidden font-manrope-medium gap-2 justify-center items-center text-primary border-[#CDCEEE] hover:border-primary transition-all duration-300 border h-12 pl-2 pr-4"
               >
-                <Reset fill={theme === 'dark' ? 'white' : '#0C1083'} /> Reset
+                <div>
+                  <Reset fill={theme === 'dark' ? 'white' : '#0C1083'} />
+                </div>
+                Reset
               </button>
 
               <button
                 aria-label="randomize"
                 type="button"
                 onClick={(e) => {
-                  handleSpin(e);
+                  handleSpin(e, { rotate: 180 });
                   handleRandomize();
                 }}
                 className="inline-flex text-sm bg-white dark:bg-darkBg dark:border-darkBorder dark:text-white mobile:hidden font-manrope-medium gap-2 justify-center items-center text-primary border-[#CDCEEE] hover:border-primary transition-all duration-300 border h-12 pl-2 pr-4"
@@ -193,11 +188,13 @@ function App() {
           </div>
         </div>
         <div
-          className={`h-full fixed !w-[470px] ${theme === 'dark'
-            ? 'bg-darkBg text-white border-darkBorder'
-            : 'bg-white text-black border-lightPurple'
-            } border-l p-4 transition-all duration-500 mobile:hidden tablet:hidden ${isCodeOpen ? 'right-0 opacity-100 ' : 'right-[-470px] opacity-0'
-            }`}
+          className={`h-full fixed !w-[470px] ${
+            theme === 'dark'
+              ? 'bg-darkBg text-white border-darkBorder'
+              : 'bg-white text-black border-lightPurple'
+          } border-l p-4 transition-all duration-500 mobile:hidden tablet:hidden ${
+            isCodeOpen ? 'right-0 opacity-100 ' : 'right-[-470px] opacity-0'
+          }`}
         >
           <div className="border border-lightPurple dark:border-darkBorder">
             <Highlight
