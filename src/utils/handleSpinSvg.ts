@@ -13,9 +13,11 @@ export const handleSpin = (
   const el = e.currentTarget.querySelector('svg');
   if (!el) return;
 
+  // @ts-ignore
   const current = rotationMap.get(el) || 0;
   const next = current + rotate;
 
+  // @ts-ignore
   rotationMap.set(el, next);
 
   el.style.transition = `transform ${duration}ms ease-in-out`;
