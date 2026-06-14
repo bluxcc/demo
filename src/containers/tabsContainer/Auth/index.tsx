@@ -38,6 +38,18 @@ const Auth = () => {
         },
       ],
     },
+    {
+      id: 'google',
+      title: 'Google',
+      items: [
+        {
+          id: 'google',
+          title: 'Google',
+          checked: loginMethods.includes('google'),
+          disabled: false,
+        },
+      ],
+    },
   ]);
 
   const [passkeyChecked, setPasskeyChecked] = useState(
@@ -136,7 +148,6 @@ const Auth = () => {
 
           <hr className="my-2 border border-dashed border-lightPurple dark:border-darkBorder" />
           <CheckBoxItem
-            disabled
             title="Passkey"
             checked={passkeyChecked}
             onChange={handleItemChange}

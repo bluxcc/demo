@@ -11,7 +11,11 @@ export const ConfigProvider = ({ children }: { children: ReactNode }) => {
   const [height, setHeight] = useState(377);
   const [customLogo, setCustomLogo] = useState('');
   const [appearance, setAppearance] = useState<IAppearance>(defaultLightTheme);
-  const [loginMethods, setLoginMethods] = useState<LoginMethodType>(['wallet']);
+  const [loginMethods, setLoginMethods] = useState<LoginMethodType>([
+    'wallet',
+    'passkey',
+    'google',
+  ]);
 
   const updateAppearance = (
     property: keyof IAppearance,
