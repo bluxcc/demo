@@ -4,7 +4,7 @@ import { useConfigContext } from '../../hooks/useConfigContext';
 
 type SelectProps = {
   name: string;
-  startItem: ReactNode;
+  startItem?: ReactNode;
   values: {
     name: string;
     value: string;
@@ -74,10 +74,10 @@ const Select = ({
         className="flex items-center justify-between border border-lightPurple dark:border-darkBorder w-full h-9 p-2 max-w-[138px] relative"
         onClick={() => setIsSelectOpen((prev) => !prev)}
       >
-        <div className="flex items-center gap-2">
-          <div className="!size-5">{startItem}</div>
+        <div className="flex items-center min-w-0 gap-2">
+          {startItem && <div className="!size-5">{startItem}</div>}
           <span
-            className={`text-sm font-medium ${
+            className={`text-sm font-medium truncate ${
               name === 'Font'
                 ? `${fontClasses[selected.value]}`
                 : 'font-manrope-medium'

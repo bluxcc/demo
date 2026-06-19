@@ -5,8 +5,23 @@ import { defaultLightTheme } from '../constants/themes';
 export const generateCodeBlock = (
   appearance: IAppearance,
   loginMethods: LoginMethodType,
+  options?: {
+    language?: string;
+    explorer?: string;
+    excludeWallets?: string[];
+    orderWallets?: string[];
+    promptOnWrongNetwork?: boolean;
+  },
 ) => {
   const indent = '          ';
+
+  const {
+    language = 'en',
+    explorer = 'stellarchain',
+    excludeWallets = [],
+    orderWallets = [],
+    promptOnWrongNetwork = true,
+  } = options ?? {};
 
   const showableFields = Object.entries(appearance)
     .map(([key, val]) => [
@@ -37,6 +52,30 @@ export const generateCodeBlock = (
     configLines.push(
       `appId: "YOUR_APP_ID", // Required for email login (get it from dashboard.blux.cc)`,
     );
+  }
+
+  if (language !== 'en') {
+    configLines.push(`lang: "${language}",`);
+  }
+
+  if (explorer !== 'stellarchain') {
+    configLines.push(`explorer: "${explorer}",`);
+  }
+
+  if (excludeWallets.length > 0) {
+    configLines.push(
+      `excludeWallets: [${excludeWallets.map((x) => `"${x}"`).join(', ')}],`,
+    );
+  }
+
+  if (orderWallets.length > 0) {
+    configLines.push(
+      `orderWallets: [${orderWallets.map((x) => `"${x}"`).join(', ')}],`,
+    );
+  }
+
+  if (!promptOnWrongNetwork) {
+    configLines.push(`promptOnWrongNetwork: false,`);
   }
 
   const codeBlock = `import { BluxProvider, useBlux, networks } from "@bluxcc/react";

@@ -51,6 +51,40 @@ export type ColorType =
   | 'borderColor'
   | 'outlineColor';
 
+// Options for the "Other" tab.
+export const LANGUAGES: { name: string; value: string }[] = [
+  { name: 'English', value: 'en' },
+  { name: 'Spanish', value: 'es' },
+  { name: 'Portuguese', value: 'pt' },
+  { name: 'French', value: 'fr' },
+  { name: 'German', value: 'de' },
+  { name: 'Russian', value: 'ru' },
+  { name: 'Chinese', value: 'zh' },
+  { name: 'Japanese', value: 'ja' },
+  { name: 'Korean', value: 'ko' },
+];
+
+export const EXPLORERS: { name: string; value: string }[] = [
+  { name: 'Steexp', value: 'steexp' },
+  { name: 'Stellarchain', value: 'stellarchain' },
+  { name: 'Stellarexpert', value: 'stellarexpert' },
+  { name: 'Lumenscan', value: 'lumenscan' },
+];
+
+export const WALLETS: { name: string; value: string }[] = [
+  { name: 'Rabet', value: 'rabet' },
+  { name: 'Albedo', value: 'albedo' },
+  { name: 'Freighter', value: 'freighter' },
+  { name: 'xBull', value: 'xbull' },
+  { name: 'LOBSTR', value: 'lobstr' },
+  { name: 'Hana', value: 'hana' },
+  { name: 'Hot', value: 'hot' },
+  { name: 'Klever', value: 'klever' },
+  { name: 'Cactus Link', value: 'cactuslink' },
+  { name: 'Fordefi', value: 'fordefi' },
+  { name: 'Trezor', value: 'trezor' },
+];
+
 // export const CUSTOM_GRADIENT =
 //   "conic-gradient(from 180deg at 50% 50%, #0D1292 0deg, #FFCDCD 180deg, #53E5FF 360deg)";
 export type RadiusValues = 'sm' | 'md' | 'lg' | 'none' | 'full';

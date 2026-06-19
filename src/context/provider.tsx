@@ -1,6 +1,6 @@
 import { useState, ReactNode, useEffect } from 'react';
 
-import { IAppearance } from '../types';
+import { IAppearance, IExplorer, LanguageKey } from '../types';
 import { ConfigContext } from './index';
 import { LoginMethodType } from '../constants';
 import { defaultLightTheme } from '../constants/themes';
@@ -16,6 +16,12 @@ export const ConfigProvider = ({ children }: { children: ReactNode }) => {
     'passkey',
     'google',
   ]);
+  const [language, setLanguage] = useState<LanguageKey>('en');
+  const [explorer, setExplorer] = useState<IExplorer>('stellarchain');
+  const [excludeWallets, setExcludeWallets] = useState<string[]>([]);
+  const [orderWallets, setOrderWallets] = useState<string[]>([]);
+  const [promptOnWrongNetwork, setPromptOnWrongNetwork] =
+    useState<boolean>(true);
 
   const updateAppearance = (
     property: keyof IAppearance,
@@ -64,6 +70,16 @@ export const ConfigProvider = ({ children }: { children: ReactNode }) => {
         resetAppearance,
         updateAppearance,
         updateLoginMethods,
+        language,
+        setLanguage,
+        explorer,
+        setExplorer,
+        excludeWallets,
+        setExcludeWallets,
+        orderWallets,
+        setOrderWallets,
+        promptOnWrongNetwork,
+        setPromptOnWrongNetwork,
       }}
     >
       {children}

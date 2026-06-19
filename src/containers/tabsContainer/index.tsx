@@ -3,12 +3,15 @@ import Tabs from '../../components/Tabs';
 // pages
 import Auth from './Auth';
 import Style from './Style';
+import Other from './Other';
 // import Features from "./Features";
 import {
   ActiveAuth,
   ActivePalette,
+  ActivePuzzle,
   InActiveAuth,
   InActivePalette,
+  InActivePuzzle,
 } from '../../assets/TabsIcon';
 import { useConfigContext } from '../../hooks/useConfigContext';
 
@@ -40,6 +43,16 @@ const TabsContainer = () => {
         <ActivePalette fill={theme === 'dark' ? 'white' : '#0C1083'} />
       ),
       content: <Style />,
+    },
+    {
+      label: 'Other',
+      inActiveImg: (
+        <InActivePuzzle fill={theme === 'dark' ? 'white' : '#0C1083'} />
+      ),
+      activeImg: (
+        <ActivePuzzle fill={theme === 'dark' ? 'white' : '#0C1083'} />
+      ),
+      content: <Other />,
     },
   ];
 

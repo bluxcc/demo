@@ -30,6 +30,11 @@ function App() {
     theme,
     height,
     customLogo,
+    language,
+    explorer,
+    excludeWallets,
+    orderWallets,
+    promptOnWrongNetwork,
   } = useConfigContext();
   const { isReady } = useBlux();
 
@@ -58,7 +63,13 @@ function App() {
     );
   };
 
-  const codeBlock = generateCodeBlock(appearance, loginMethods);
+  const codeBlock = generateCodeBlock(appearance, loginMethods, {
+    language,
+    explorer,
+    excludeWallets,
+    orderWallets,
+    promptOnWrongNetwork,
+  });
   const { radius, handleResizeRadius } = useCornerResize(32, 0, 40);
   const { width, handleResizeOutlineWidth } = useOutlineResize(1, 0, 6);
 
@@ -76,8 +87,11 @@ function App() {
     appName: 'Blux Demo',
     loginMethods: loginMethods,
     networks: [networks.mainnet],
-    excludeWallets: ['lobstr'],
-    promptOnWrongNetwork: false,
+    lang: language,
+    explorer,
+    excludeWallets,
+    orderWallets,
+    promptOnWrongNetwork,
     walletConnect: {
       url: WC_URI,
       description: 'Blux',
