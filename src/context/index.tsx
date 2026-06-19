@@ -10,6 +10,7 @@ interface IConfigContext {
   setCustomLogo: (logo: string) => void;
   height: number;
   setHeight: (height: number) => void;
+  resetKey: number;
   appearance: IAppearance;
   loginMethods: LoginMethodType;
   updateAppearance: (

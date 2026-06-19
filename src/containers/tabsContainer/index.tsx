@@ -16,7 +16,7 @@ import {
 import { useConfigContext } from '../../hooks/useConfigContext';
 
 const TabsContainer = () => {
-  const { theme } = useConfigContext();
+  const { theme, resetKey } = useConfigContext();
 
   const tabsContent = [
     {
@@ -25,7 +25,7 @@ const TabsContainer = () => {
         <InActiveAuth fill={theme === 'dark' ? 'white' : '#0C1083'} />
       ),
       activeImg: <ActiveAuth fill={theme === 'dark' ? 'white' : '#0C1083'} />,
-      content: <Auth />,
+      content: <Auth key={resetKey} />,
     },
     // {
     //   label: "Features",
