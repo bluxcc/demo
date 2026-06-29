@@ -149,9 +149,8 @@ const Style = () => {
               return (
                 <Button
                   key={font.name}
-                  className={`h-8 text-xs ${font.class} ${
-                    isActive ? 'font-medium border border-[#0C1083B2]' : ''
-                  }`}
+                  className={`h-8 text-xs ${font.class} ${isActive ? 'font-medium border border-[#0C1083B2]' : ''
+                    }`}
                   active={isActive}
                   onClick={() => updateAppearance('fontFamily', font.value)}
                 >
