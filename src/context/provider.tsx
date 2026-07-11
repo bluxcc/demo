@@ -8,7 +8,12 @@ import { handleLogoColor } from '../utils/handleLogoColor';
 
 // Defaults shared between the initial state and resetAppearance so the two
 // can't drift apart.
-const DEFAULT_LOGIN_METHODS: LoginMethodType = ['wallet', 'passkey', 'google'];
+const DEFAULT_LOGIN_METHODS: LoginMethodType = [
+  'wallet',
+  'email',
+  'passkey',
+  'google',
+];
 const DEFAULT_LANGUAGE: LanguageKey = 'en';
 const DEFAULT_EXPLORER: IExplorer = 'stellarchain';
 const DEFAULT_EXCLUDE_WALLETS: string[] = [];
