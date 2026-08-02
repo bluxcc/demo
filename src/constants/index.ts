@@ -83,6 +83,7 @@ export const WALLETS: { name: string; value: string }[] = [
   { name: 'Cactus Link', value: 'cactuslink' },
   { name: 'Fordefi', value: 'fordefi' },
   { name: 'Trezor', value: 'trezor' },
+  { name: 'Ledger', value: 'ledger' },
 ];
 
 // export const CUSTOM_GRADIENT =
