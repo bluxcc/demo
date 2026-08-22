@@ -8,6 +8,7 @@ import { useConfigContext } from '../../../hooks/useConfigContext';
 import Input from '../../../components/Input';
 import {
   BorderIcon,
+  Close,
   ExclamationCircle,
   Moon,
   MoonFilled,
@@ -44,7 +45,10 @@ const Style = () => {
       activeLogo: <MoonFilled fill={theme === 'dark' ? 'white' : '#0C1083'} />,
     },
   ];
-
+  const handleRemoveLogo = () => {
+    updateAppearance('logo', '');
+    setCustomLogo('');
+  };
   useEffect(() => {
     if (theme === 'dark') {
       document.documentElement.classList.add('dark');
@@ -121,7 +125,11 @@ const Style = () => {
 
       <hr className="border border-dashed border-lightPurple dark:border-darkBorder" />
 
-      <ToggleCollapse title="Font options" defaultOpen={false}>
+      <ToggleCollapse
+        title="Font options"
+        defaultOpen={false}
+        info="Choose a preset or use any custom font you prefer."
+      >
         <div className="flex flex-col mt-3 space-y-2">
           <p className="capitalize text-xs text-[#0C1083B2] dark:text-white/70">
             Font family
@@ -149,8 +157,9 @@ const Style = () => {
               return (
                 <Button
                   key={font.name}
-                  className={`h-8 text-xs ${font.class} ${isActive ? 'font-medium border border-[#0C1083B2]' : ''
-                    }`}
+                  className={`h-8 text-xs ${font.class} ${
+                    isActive ? 'font-medium border border-[#0C1083B2]' : ''
+                  }`}
                   active={isActive}
                   onClick={() => updateAppearance('fontFamily', font.value)}
                 >
@@ -228,24 +237,37 @@ const Style = () => {
 
       <hr className="border border-dashed border-lightPurple dark:border-darkBorder" />
 
-      <ToggleCollapse title="Insert logo" defaultOpen={false}>
+      <ToggleCollapse
+        title="Insert logo"
+        defaultOpen={false}
+        info="Add your own logo to replace the default Blux branding."
+      >
         <div className="mt-3 space-y-2">
           {appearance.logo && (
-            <div className="flex justify-end w-full">
+            <div className="flex justify-start w-full gap-1.5">
               <div
                 style={{
                   background: appearance.background,
                 }}
-                className="flex border border-dashed border-lightPurple dark:border-darkBorder overflow-hidden p-2 max-h-[36px] max-w-[150px]"
+                className="flex items-center border border-dashed border-lightPurple dark:border-darkBorder overflow-hidden p-2 max-h-[44px] max-w-[165px]"
               >
                 <img
                   src={appearance.logo}
                   alt="Logo"
-                  height={60}
+                  height={50}
                   width={152}
                   className="max-w-[180px] max-h-[80px]"
                 />
               </div>
+
+              <button
+                type="button"
+                onClick={handleRemoveLogo}
+                aria-label="Remove logo"
+                className="flex shrink-0 items-center justify-center size-4 border border-dashed border-lightPurple dark:border-darkBorder text-[#4D4D4D] dark:text-white hover:bg-[#F5F5F5] dark:hover:bg-darkGray transition-colors"
+              >
+                <Close fill={theme === 'dark' ? 'white' : '#0D1292'} />
+              </button>
             </div>
           )}
           <div className="relative flex items-center w-full h-12 px-3 py-4 text-sm border font-manrope border-lightPurple dark:border-darkBorder">

@@ -91,7 +91,17 @@ const Header = ({
               href="https://docs.blux.cc/"
               target="_blank"
             >
-              Documentation
+              Docs
+            </a>
+
+            {/* Docs Button */}
+            <a
+              aria-label="docs"
+              className="hover:bg-[#F2F2F2] border border-lightPurple dark:border-darkBorder dark:text-white dark:hover:bg-darkFieldGray transition-all duration-500 px-4 h-12 text-primary center gap-2 font-manrope-medium"
+              href="https://dashboard.blux.cc/"
+              target="_blank"
+            >
+              Dashboard
             </a>
 
             {/* Live Code Button */}

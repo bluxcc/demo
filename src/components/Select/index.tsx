@@ -90,13 +90,13 @@ const Select = ({
         <DropDown fill={theme === 'dark' ? 'white' : '#CDCEEE'} />
 
         {isSelectOpen && (
-          <div className="absolute top-10 left-[-1px] right-[-1px] w-[calc(100%+2px)] z-10 bg-white dark:bg-darkBg dark:text-white border border-lightPurple dark:border-darkBorder">
+          <div className="absolute top-10 left-[-1px] right-[-1px] w-[calc(100%+2px)] z-10 bg-white dark:bg-darkBg border border-lightPurple dark:border-darkBorder">
             {values.map((item, idx) => {
               const isSelected = selected.value === item.value;
               return (
                 <div
                   key={idx}
-                  className="group w-full h-7 flex items-center justify-start gap-2 px-2 py-1 hover:bg-[#E6E6E6]"
+                  className="group w-full h-7 flex items-center justify-start gap-2 px-2 py-1 hover:bg-[#E6E6E6] dark:hover:bg-[#6e6e6e]"
                   onClick={(e) => {
                     e.stopPropagation();
                     handleSelect(item);

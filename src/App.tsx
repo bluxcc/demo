@@ -53,13 +53,13 @@ function App() {
     setAppearance(
       theme === 'dark'
         ? {
-          ...defaultDarkTheme,
-          ...generateRandomTheme(appearance.logo, 'dark'),
-        }
+            ...defaultDarkTheme,
+            ...generateRandomTheme(appearance.logo, 'dark'),
+          }
         : {
-          ...defaultLightTheme,
-          ...generateRandomTheme(appearance.logo, 'light'),
-        },
+            ...defaultLightTheme,
+            ...generateRandomTheme(appearance.logo, 'light'),
+          },
     );
   };
 
@@ -83,6 +83,7 @@ function App() {
 
   const bluxConfig = {
     appearance,
+    defaultNetwork: networks.mainnet,
     appId: import.meta.env.VITE_BLUX_APP_ID,
     appName: 'Blux Demo',
     loginMethods: loginMethods,
@@ -125,8 +126,9 @@ function App() {
           )}
         </div>
         <div
-          className={`${isCodeOpen && 'desktop:mr-[470px]'
-            } relative h-full overflow-hidden mobile:hidden w-full transition-all duration-500`}
+          className={`${
+            isCodeOpen && 'desktop:mr-[470px]'
+          } relative h-full overflow-hidden mobile:hidden w-full transition-all duration-500`}
         >
           <div
             style={{
@@ -201,11 +203,13 @@ function App() {
           </div>
         </div>
         <div
-          className={`h-full fixed !w-[470px] ${theme === 'dark'
+          className={`h-full fixed !w-[470px] ${
+            theme === 'dark'
               ? 'bg-darkBg text-white border-darkBorder'
               : 'bg-white text-black border-lightPurple'
-            } border-l p-4 transition-all duration-500 mobile:hidden tablet:hidden ${isCodeOpen ? 'right-0 opacity-100 ' : 'right-[-470px] opacity-0'
-            }`}
+          } border-l p-4 transition-all duration-500 mobile:hidden tablet:hidden ${
+            isCodeOpen ? 'right-0 opacity-100 ' : 'right-[-470px] opacity-0'
+          }`}
         >
           <div className="border border-lightPurple dark:border-darkBorder">
             <Highlight

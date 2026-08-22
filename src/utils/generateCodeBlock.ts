@@ -38,6 +38,7 @@ export const generateCodeBlock = (
   const configLines: string[] = [
     `appName: "Blux Demo",`,
     `networks: [networks.mainnet],`,
+    `isPersistent: false, // Set to true only if you want the modal to persist in the middle of the page`,
   ];
 
   if (showableFields.length > 0) {
