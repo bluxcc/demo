@@ -13,14 +13,23 @@ import {
   InfoIcon,
   Moon,
   MoonFilled,
+  NeptunePlanet,
   RoundedCorner,
+  Sparkles,
   Sun,
   SunFilled,
 } from '../../../assets/Icons';
+import { ThemeName } from '../../../types';
 
 const Style = () => {
-  const { appearance, updateAppearance, theme, setTheme, setCustomLogo } =
-    useConfigContext();
+  const {
+    appearance,
+    updateAppearance,
+    theme,
+    isDarkMode,
+    setTheme,
+    setCustomLogo,
+  } = useConfigContext();
   const [logoInputValue, setLogoInputValue] = useState('');
 
   const handleUpdateLogo = () => {
@@ -34,16 +43,36 @@ const Style = () => {
     }
   };
 
-  const themes = [
+  const iconColor = isDarkMode ? 'white' : '#0C1083';
+  const themes: Array<{
+    name: ThemeName;
+    label: string;
+    logo: React.ReactNode;
+    activeLogo: React.ReactNode;
+  }> = [
     {
       name: 'light',
-      logo: <Sun fill={theme === 'dark' ? 'white' : '#0C1083'} />,
-      activeLogo: <SunFilled fill={theme === 'dark' ? 'white' : '#0C1083'} />,
+      label: 'Light',
+      logo: <Sun fill={iconColor} />,
+      activeLogo: <SunFilled fill={iconColor} />,
     },
     {
       name: 'dark',
-      logo: <Moon fill={theme === 'dark' ? 'white' : '#0C1083'} />,
-      activeLogo: <MoonFilled fill={theme === 'dark' ? 'white' : '#0C1083'} />,
+      label: 'Dark',
+      logo: <Moon fill={iconColor} />,
+      activeLogo: <MoonFilled fill={iconColor} />,
+    },
+    {
+      name: 'retro',
+      label: 'Neptune',
+      logo: <NeptunePlanet fill={iconColor} />,
+      activeLogo: <NeptunePlanet fill="white" />,
+    },
+    {
+      name: 'modern',
+      label: 'Modern',
+      logo: <Sparkles fill={iconColor} />,
+      activeLogo: <Sparkles fill={iconColor} />,
     },
   ];
   const handleRemoveLogo = () => {
@@ -64,7 +93,7 @@ const Style = () => {
               aria-label="Theme information"
               className="flex items-center justify-center"
             >
-              <InfoIcon fill={theme === 'dark' ? 'white' : '#0C1083B2'} />
+              <InfoIcon fill={isDarkMode ? 'white' : '#0C1083B2'} />
             </button>
 
             <div
@@ -77,17 +106,21 @@ const Style = () => {
           </div>
         </div>
 
-        <div className="w-full gap-2 center">
+        <div className="grid w-full grid-cols-2 gap-2">
           {themes.map((m) => (
             <Button
               label={m.name}
               key={m.name}
-              className={`w-full h-12 font-manrope-medium center gap-1 select-none`}
+              className={`w-full h-12 font-manrope-medium center gap-1 select-none ${
+                m.name === 'retro' && theme === 'retro'
+                  ? '!border-[#00f0ff] !bg-[#090d24] !text-white shadow-[3px_3px_0_#ff2bd6]'
+                  : ''
+              }`}
               active={theme === m.name}
-              onClick={() => setTheme(m.name as 'light' | 'dark')}
+              onClick={() => setTheme(m.name)}
             >
               {theme === m.name ? m.activeLogo : m.logo}
-              {m.name.charAt(0).toUpperCase() + m.name.slice(1)}
+              {m.label}
             </Button>
           ))}
         </div>
@@ -97,19 +130,19 @@ const Style = () => {
       <ToggleCollapse title="Color options">
         <div className="mt-3">
           <ColorBox
-            mode={theme}
+            mode={isDarkMode ? 'dark' : 'light'}
             name="background"
             color={appearance.background}
             onColorChange={(color) => updateAppearance('background', color)}
           />
           <ColorBox
-            mode={theme}
+            mode={isDarkMode ? 'dark' : 'light'}
             name="accentColor"
             color={appearance.accentColor}
             onColorChange={(color) => updateAppearance('accentColor', color)}
           />
           <ColorBox
-            mode={theme}
+            mode={isDarkMode ? 'dark' : 'light'}
             name="fieldBackground"
             color={appearance.fieldBackground}
             onColorChange={(color) =>
@@ -117,19 +150,19 @@ const Style = () => {
             }
           />
           <ColorBox
-            mode={theme}
+            mode={isDarkMode ? 'dark' : 'light'}
             name="textColor"
             color={appearance.textColor}
             onColorChange={(color) => updateAppearance('textColor', color)}
           />
           <ColorBox
-            mode={theme}
+            mode={isDarkMode ? 'dark' : 'light'}
             name="borderColor"
             color={appearance.borderColor}
             onColorChange={(color) => updateAppearance('borderColor', color)}
           />
           <ColorBox
-            mode={theme}
+            mode={isDarkMode ? 'dark' : 'light'}
             name="outlineColor"
             color={appearance.outlineColor ?? '0'}
             onColorChange={(color) => updateAppearance('outlineColor', color)}
@@ -152,11 +185,6 @@ const Style = () => {
             {[
               { name: 'Manrope', value: 'Manrope', class: 'font-manrope' },
               {
-                name: 'Comic Neue',
-                value: 'ComicNeue',
-                class: 'font-comicNeue',
-              },
-              {
                 name: 'Playfair Display',
                 value: 'Playfair',
                 class: 'font-playfair',
@@ -165,6 +193,11 @@ const Style = () => {
                 name: 'JetBrains Mono',
                 value: 'JetbrainsMono',
                 class: 'font-jetbrainsMono',
+              },
+              {
+                name: 'Space Grotesk',
+                value: 'Space Grotesk',
+                class: 'font-spaceGrotesk',
               },
             ].map((font) => {
               const isActive = appearance.fontFamily === font.value;
@@ -195,7 +228,7 @@ const Style = () => {
             maxValue={3}
             minValue={1}
             startIcon={
-              <BorderIcon fill={theme === 'dark' ? 'white' : '#0C1083'} />
+              <BorderIcon fill={isDarkMode ? 'white' : '#0C1083'} />
             }
             label="Border width"
             onChange={(item) => {
@@ -208,7 +241,7 @@ const Style = () => {
             value={parseInt(appearance.borderRadius ?? '0')}
             maxValue={50}
             startIcon={
-              <RoundedCorner fill={theme === 'dark' ? 'white' : '#0C1083'} />
+              <RoundedCorner fill={isDarkMode ? 'white' : '#0C1083'} />
             }
             label="Border Radius"
             onChange={(item) => {
@@ -226,7 +259,7 @@ const Style = () => {
             value={parseInt(appearance.outlineWidth ?? '0')}
             maxValue={6}
             startIcon={
-              <BorderIcon fill={theme === 'dark' ? 'white' : '#0C1083'} />
+              <BorderIcon fill={isDarkMode ? 'white' : '#0C1083'} />
             }
             label="outline width"
             onChange={(item) => {
@@ -239,7 +272,7 @@ const Style = () => {
             value={parseInt(appearance.outlineRadius ?? '0')}
             maxValue={38}
             startIcon={
-              <RoundedCorner fill={theme === 'dark' ? 'white' : '#0C1083'} />
+              <RoundedCorner fill={isDarkMode ? 'white' : '#0C1083'} />
             }
             label="outline Radius"
             onChange={(item) => {
@@ -280,7 +313,7 @@ const Style = () => {
                 aria-label="Remove logo"
                 className="flex shrink-0 items-center justify-center size-4 border border-dashed border-lightPurple dark:border-darkBorder text-[#4D4D4D] dark:text-white hover:bg-[#F5F5F5] dark:hover:bg-darkGray transition-colors"
               >
-                <Close fill={theme === 'dark' ? 'white' : '#0D1292'} />
+                <Close fill={isDarkMode ? 'white' : '#0D1292'} />
               </button>
             </div>
           )}
@@ -301,7 +334,7 @@ const Style = () => {
             </button>
           </div>
           <div className="border inline-flex gap-3 bg-[#E5FBFF] text-xs p-[10px] font-manrope-medium border-[#99F0FF] dark:border-darkBorder dark:bg-darkGray text-[#333333] dark:text-white">
-            <ExclamationCircle fill={theme === 'dark' ? 'white' : '#0C1083'} />
+            <ExclamationCircle fill={isDarkMode ? 'white' : '#0C1083'} />
             Use a logo sized 40 × 152 px for best results.
           </div>
         </div>
@@ -317,7 +350,6 @@ export default Style;
           name="Font family"
           values={[
             { name: 'Manrope', value: 'Manrope' },
-            { name: 'ComicNeue', value: 'ComicNeue' },
             { name: 'Playfair', value: 'Playfair' },
             { name: 'JetBrains', value: 'JetbrainsMono' },
           ]}

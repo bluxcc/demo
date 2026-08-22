@@ -37,14 +37,6 @@ body {
 }
 
 @font-face {
-  font-family: 'ComicNeue';
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url('/fonts/ComicNeue-Regular.ttf') format('truetype');
-}
-
-@font-face {
   font-family: 'Manrope';
   font-style: normal;
   font-weight: 400;

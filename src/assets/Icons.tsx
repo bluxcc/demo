@@ -104,6 +104,54 @@ export const MoonFilled = ({ fill = '#0C1083' }: { fill?: string }) => (
     </g>
   </svg>
 );
+
+export const NeptunePlanet = ({ fill = '#0C1083' }: { fill?: string }) => (
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <circle cx="12" cy="12" r="7" fill="#111a3a" stroke={fill} strokeWidth="1.5" />
+    <path
+      d="M6.5 9.5C9 10.8 15 10.8 17.5 9.5M5.5 13.5C9 15 15 15 18.5 13.5"
+      stroke="#00f0ff"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+    />
+    <path
+      d="M3 16C6.5 18.5 16.5 18 21 11"
+      stroke="#7c3aed"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+    />
+    <circle cx="19.5" cy="5" r="1.5" fill="#ff2bd6" />
+  </svg>
+);
+
+export const Sparkles = ({ fill = '#0C1083' }: { fill?: string }) => (
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M12 3.5C12.7 7.3 14.7 9.3 18.5 10C14.7 10.7 12.7 12.7 12 16.5C11.3 12.7 9.3 10.7 5.5 10C9.3 9.3 11.3 7.3 12 3.5Z"
+      stroke={fill}
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M18.5 15.5C18.8 17.2 19.8 18.2 21.5 18.5C19.8 18.8 18.8 19.8 18.5 21.5C18.2 19.8 17.2 18.8 15.5 18.5C17.2 18.2 18.2 17.2 18.5 15.5Z"
+      fill={fill}
+    />
+    <circle cx="5" cy="5" r="1.25" fill={fill} />
+  </svg>
+);
+
 export const Swap = ({ fill = '#0C1083' }: { fill?: string }) => (
   <svg
     width="24"

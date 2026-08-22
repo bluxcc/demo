@@ -14,7 +14,6 @@ type SelectProps = {
 };
 
 const fontClasses: Record<string, string> = {
-  ComicNeue: 'font-comicNeue',
   JetbrainsMono: 'font-jetbrainsMono',
   Playfair: 'font-playfair',
   Manrope: 'font-manrope',
@@ -32,7 +31,7 @@ const Select = ({
     () => values.find((v) => v.value === defaultValue?.value) || values[0],
   );
 
-  const { theme } = useConfigContext();
+  const { isDarkMode } = useConfigContext();
 
   useEffect(() => {
     if (defaultValue && defaultValue.value !== selected.value) {
@@ -87,7 +86,7 @@ const Select = ({
           </span>
         </div>
 
-        <DropDown fill={theme === 'dark' ? 'white' : '#CDCEEE'} />
+        <DropDown fill={isDarkMode ? 'white' : '#CDCEEE'} />
 
         {isSelectOpen && (
           <div className="absolute top-10 left-[-1px] right-[-1px] w-[calc(100%+2px)] z-10 bg-white dark:bg-darkBg border border-lightPurple dark:border-darkBorder">

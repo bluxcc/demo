@@ -1,11 +1,12 @@
 import { createContext } from 'react';
 
-import { IAppearance, IExplorer, LanguageKey } from '../types';
+import { IAppearance, IExplorer, LanguageKey, ThemeName } from '../types';
 import { LoginMethodType } from '../constants';
 
 interface IConfigContext {
-  theme: 'dark' | 'light';
-  setTheme: (theme: 'dark' | 'light') => void;
+  theme: ThemeName;
+  isDarkMode: boolean;
+  setTheme: (theme: ThemeName) => void;
   customLogo: string;
   setCustomLogo: (logo: string) => void;
   height: number;

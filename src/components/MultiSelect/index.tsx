@@ -28,7 +28,7 @@ const MultiSelect = ({
   onChange,
 }: MultiSelectProps) => {
   const [isSelectOpen, setIsSelectOpen] = useState(false);
-  const { theme } = useConfigContext();
+  const { isDarkMode } = useConfigContext();
   const ref = useRef<HTMLDivElement>(null);
 
   const toggleValue = (value: string) => {
@@ -79,7 +79,7 @@ const MultiSelect = ({
           </span>
         </div>
 
-        <DropDown fill={theme === 'dark' ? 'white' : '#CDCEEE'} />
+        <DropDown fill={isDarkMode ? 'white' : '#CDCEEE'} />
 
         {isSelectOpen && (
           <div className="absolute top-10 left-[-1px] right-[-1px] w-[calc(100%+2px)] z-10 max-h-[180px] overflow-y-auto bg-white dark:bg-darkBg border border-lightPurple dark:border-darkBorder">

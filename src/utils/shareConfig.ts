@@ -1,10 +1,10 @@
 import { LoginMethodType } from '../constants';
-import { defaultDarkTheme, defaultLightTheme } from '../constants/themes';
-import { IAppearance, IExplorer, LanguageKey } from '../types';
+import { getThemeAppearance } from '../constants/themes';
+import { IAppearance, IExplorer, LanguageKey, ThemeName } from '../types';
 
 export type ShareableConfig = {
   version: 1;
-  theme: 'light' | 'dark';
+  theme: ThemeName;
   themeExplicit: boolean;
   customLogo: string;
   appearance: IAppearance;
@@ -18,7 +18,7 @@ export type ShareableConfig = {
 
 type CompactConfig = {
   v: 1;
-  t?: 'd';
+  t?: 'd' | 'x' | 'm';
   q?: 1;
   a?: Array<[number, string]>;
   b?: string;
@@ -91,8 +91,7 @@ export const createSharePath = (
 ) => {
   // TODO: Persist configurations in the backend and replace the encoded state
   // with a short, human-friendly `/custom/:slug` route once the API is ready.
-  const defaultAppearance =
-    config.theme === 'dark' ? defaultDarkTheme : defaultLightTheme;
+  const defaultAppearance = getThemeAppearance(config.theme);
   const appearanceChanges = APPEARANCE_KEYS.flatMap((key, index) => {
     if (key === 'logo' && config.customLogo) return [];
     if (key === 'borderWidth') return [];
@@ -104,7 +103,9 @@ export const createSharePath = (
   });
   const compact: CompactConfig = {
     v: 1,
-    ...(config.theme === 'dark' && { t: 'd' as const }),
+    ...(config.theme !== 'light' && {
+      t: ({ dark: 'd', retro: 'x', modern: 'm' } as const)[config.theme],
+    }),
     ...(config.themeExplicit && { q: 1 as const }),
     ...(appearanceChanges.length > 0 && { a: appearanceChanges }),
     ...(config.appearance.borderWidth !== defaultAppearance.borderWidth && {
@@ -145,14 +146,22 @@ export const readShareableConfig = (
   try {
     const compact = JSON.parse(fromBase64Url(encodedState)) as CompactConfig;
 
-    if (compact.v !== 1 || (compact.t !== undefined && compact.t !== 'd')) {
+    if (
+      compact.v !== 1 ||
+      (compact.t !== undefined && !['d', 'x', 'm'].includes(compact.t))
+    ) {
       return null;
     }
 
-    const theme = compact.t === 'd' ? 'dark' : 'light';
-    const appearance: IAppearance = {
-      ...(theme === 'dark' ? defaultDarkTheme : defaultLightTheme),
-    };
+    const theme: ThemeName =
+      compact.t === 'd'
+        ? 'dark'
+        : compact.t === 'x'
+          ? 'retro'
+          : compact.t === 'm'
+            ? 'modern'
+            : 'light';
+    const appearance: IAppearance = { ...getThemeAppearance(theme) };
 
     compact.a?.forEach(([index, value]) => {
       const key = APPEARANCE_KEYS[index];

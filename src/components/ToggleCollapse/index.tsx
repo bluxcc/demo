@@ -18,7 +18,7 @@ const ToggleCollapse = ({
   const [isOpen, setIsOpen] = useState(defaultOpen);
   const contentRef = useRef<HTMLDivElement>(null);
   const [height, setHeight] = useState<number | null>(null);
-  const { theme } = useConfigContext();
+  const { isDarkMode } = useConfigContext();
 
   const handleCollapse = () => {
     setIsOpen((prev) => !prev);
@@ -42,7 +42,7 @@ const ToggleCollapse = ({
 
           {info && (
             <div className="relative flex items-center group">
-              <InfoIcon fill={theme === 'dark' ? 'white' : '#0C1083'} />
+              <InfoIcon fill={isDarkMode ? 'white' : '#0C1083'} />
 
               <div
                 className="
@@ -72,9 +72,9 @@ const ToggleCollapse = ({
 
         <div className="flex items-center justify-center">
           {isOpen ? (
-            <Minus fill={theme === 'dark' ? 'white' : '#0C1083'} />
+            <Minus fill={isDarkMode ? 'white' : '#0C1083'} />
           ) : (
-            <Plus fill={theme === 'dark' ? 'white' : '#0C1083'} />
+            <Plus fill={isDarkMode ? 'white' : '#0C1083'} />
           )}
         </div>
       </div>

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { BluxProvider, networks, useBlux } from '@bluxcc/react';
 import { Highlight, themes } from 'prism-react-renderer';
+import '@fontsource/space-grotesk/latin-500.css';
 
 import { centers, corners, WC_URI } from './constants';
 import Header from './components/Header';
@@ -8,7 +9,7 @@ import OpenModal from './containers/OpenModal';
 import TabsContainer from './containers/tabsContainer';
 import { generateCodeBlock } from './utils/generateCodeBlock';
 import { useConfigContext } from './hooks/useConfigContext';
-import { defaultDarkTheme, defaultLightTheme } from './constants/themes';
+import { getThemeAppearance } from './constants/themes';
 
 import './style/index.css';
 import { generateRandomTheme } from './utils/randomTheme';
@@ -32,6 +33,7 @@ function App() {
     setAppearance,
     loginMethods,
     theme,
+    isDarkMode,
     height,
     language,
     explorer,
@@ -54,23 +56,19 @@ function App() {
 
     setAppearance((prev) => ({
       ...prev,
-      ...(theme === 'light' ? defaultLightTheme : defaultDarkTheme),
+      ...getThemeAppearance(theme),
       logo: prev.logo,
     }));
   }, [theme, setAppearance]);
 
   const handleRandomize = () => {
-    setAppearance(
-      theme === 'dark'
-        ? {
-            ...defaultDarkTheme,
-            ...generateRandomTheme(appearance.logo, 'dark'),
-          }
-        : {
-            ...defaultLightTheme,
-            ...generateRandomTheme(appearance.logo, 'light'),
-          },
-    );
+    setAppearance({
+      ...getThemeAppearance(theme),
+      ...generateRandomTheme(
+        appearance.logo,
+        isDarkMode ? 'dark' : 'light',
+      ),
+    });
   };
 
   const handleShare = async (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -107,7 +105,11 @@ function App() {
     orderWallets,
     promptOnWrongNetwork,
   });
-  const { radius, handleResizeRadius } = useCornerResize(32, 0, 40);
+  const { radius, handleResizeRadius } = useCornerResize(
+    Number.parseFloat(appearance.outlineRadius ?? '32'),
+    0,
+    40,
+  );
   const { width, handleResizeOutlineWidth } = useOutlineResize(
     Number.parseFloat(appearance.outlineWidth ?? '1'),
     0,
@@ -173,7 +175,7 @@ function App() {
         >
           <div
             style={{
-              backgroundImage: `radial-gradient(${theme === 'dark' ? '#333333' : '#e5e7eb'} 1px,transparent 1px)`,
+              backgroundImage: `radial-gradient(${isDarkMode ? '#333333' : '#e5e7eb'} 1px,transparent 1px)`,
             }}
             className="absolute py-6 flex flex-col justify-between items-center inset-0 h-full w-full bg-white dark:bg-darkGray dark:text-white [background-size:16px_16px]"
           >
@@ -237,7 +239,7 @@ function App() {
                 className="inline-flex text-sm bg-white dark:bg-darkBg dark:border-darkBorder dark:text-white mobile:hidden font-manrope-medium gap-2 justify-center items-center text-primary border-[#CDCEEE] hover:border-primary transition-all duration-300 border h-12 pl-2 pr-4"
               >
                 <div>
-                  <Reset fill={theme === 'dark' ? 'white' : '#0C1083'} />
+                  <Reset fill={isDarkMode ? 'white' : '#0C1083'} />
                 </div>
                 Reset
               </button>
@@ -251,7 +253,7 @@ function App() {
                 }}
                 className="inline-flex text-sm bg-white dark:bg-darkBg dark:border-darkBorder dark:text-white mobile:hidden font-manrope-medium gap-2 justify-center items-center text-primary border-[#CDCEEE] hover:border-primary transition-all duration-300 border h-12 pl-2 pr-4"
               >
-                <Swap fill={theme === 'dark' ? 'white' : '#0C1083'} /> Randomize
+                <Swap fill={isDarkMode ? 'white' : '#0C1083'} /> Randomize
               </button>
 
               <button
@@ -260,14 +262,14 @@ function App() {
                 onClick={handleShare}
                 className="inline-flex h-12 items-center justify-center gap-2 border border-[#CDCEEE] bg-white pl-2 pr-4 text-sm text-primary transition-all duration-300 hover:border-primary mobile:hidden font-manrope-medium dark:border-darkBorder dark:bg-darkBg dark:text-white"
               >
-                <Share fill={theme === 'dark' ? 'white' : '#0C1083'} /> Share
+                <Share fill={isDarkMode ? 'white' : '#0C1083'} /> Share
               </button>
             </div>
           </div>
         </div>
         <div
           className={`h-full fixed !w-[470px] ${
-            theme === 'dark'
+            isDarkMode
               ? 'bg-darkBg text-white border-darkBorder'
               : 'bg-white text-black border-lightPurple'
           } right-0 border-l p-4 transition-transform duration-[600ms] ease-in-out mobile:hidden tablet:hidden ${
@@ -278,7 +280,7 @@ function App() {
             <Highlight
               language="tsx"
               code={codeBlock}
-              theme={theme === 'dark' ? themes.vsDark : themes.vsLight}
+              theme={isDarkMode ? themes.vsDark : themes.vsLight}
             >
               {({ className, style, tokens, getLineProps, getTokenProps }) => (
                 <pre

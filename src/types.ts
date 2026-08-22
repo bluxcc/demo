@@ -16,6 +16,8 @@ export interface IAppearance {
   boxShadow: string;
 }
 
+export type ThemeName = 'light' | 'dark' | 'retro' | 'modern';
+
 // Supported UI language codes (ISO 639-1).
 export type LanguageKey =
   | 'en'

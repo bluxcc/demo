@@ -17,7 +17,7 @@ const Header = ({
   handleCloseCode,
 }: HeaderProps) => {
   const [copied, setCopied] = useState(false);
-  const { theme } = useConfigContext();
+  const { isDarkMode } = useConfigContext();
 
   const handleCopyCode = () => {
     navigator.clipboard
@@ -38,7 +38,7 @@ const Header = ({
           rel="noopener noreferrer"
           aria-label="Blux website (opens in a new tab)"
         >
-          <Logo fill={theme === 'dark' ? 'white' : '#0D1292'} />
+          <Logo fill={isDarkMode ? 'white' : '#0D1292'} />
         </a>
       </div>
 
@@ -58,7 +58,7 @@ const Header = ({
               className="bg-[#E6E6E6] dark:bg-darkFieldGray dark:text-white center size-12"
               onClick={handleCloseCode}
             >
-              <Close fill={theme === 'dark' ? 'white' : '#090B5D'} />
+              <Close fill={isDarkMode ? 'white' : '#090B5D'} />
             </button>
             <button
               type="button"
@@ -71,7 +71,7 @@ const Header = ({
               ) : (
                 <span className="flex gap-1 whitespace-nowrap">
                   Copy Code{' '}
-                  <Copy fill={theme === 'dark' ? 'white' : '#0C1083'} />
+                  <Copy fill={isDarkMode ? 'white' : '#0C1083'} />
                 </span>
               )}
             </button>

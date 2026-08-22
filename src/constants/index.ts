@@ -27,7 +27,6 @@ export const COLORS = {
 
 export const Fonts: { name: string; value: string }[] = [
   { name: 'Manrope', value: 'Manrope' },
-  { name: 'ComicNeue', value: 'ComicNeue' },
   { name: 'JetBrains', value: 'JetBrains Mono' },
   { name: 'Playfair', value: 'Playfair' },
 ];

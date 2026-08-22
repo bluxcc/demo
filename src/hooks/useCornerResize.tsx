@@ -12,6 +12,10 @@ export const useCornerResize = (
   );
 
   useEffect(() => {
+    setRadius(Math.max(min, Math.min(max, initialRadius)));
+  }, [initialRadius, min, max]);
+
+  useEffect(() => {
     if (!resizingCorner || !startPos) return;
 
     const handleMove = (e: MouseEvent) => {

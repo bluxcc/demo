@@ -12,6 +12,10 @@ export const useOutlineResize = (
   );
 
   useEffect(() => {
+    setWidth(Math.max(min, Math.min(max, initialWidth)));
+  }, [initialWidth, min, max]);
+
+  useEffect(() => {
     if (!activeHandle || !startPos) return;
 
     const handleMove = (e: MouseEvent) => {

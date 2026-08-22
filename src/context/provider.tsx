@@ -1,9 +1,9 @@
 import { useState, ReactNode, useEffect, useLayoutEffect } from 'react';
 
-import { IAppearance, IExplorer, LanguageKey } from '../types';
+import { IAppearance, IExplorer, LanguageKey, ThemeName } from '../types';
 import { ConfigContext } from './index';
 import { LoginMethodType } from '../constants';
-import { defaultDarkTheme, defaultLightTheme } from '../constants/themes';
+import { getThemeAppearance } from '../constants/themes';
 import { handleLogoColor } from '../utils/handleLogoColor';
 import {
   createSharePath,
@@ -32,17 +32,18 @@ export const ConfigProvider = ({ children }: { children: ReactNode }) => {
   const [sharedConfig] = useState(() =>
     readShareableConfig(window.location.pathname),
   );
-  const [theme, setTheme] = useState<'light' | 'dark'>(
+  const [theme, setTheme] = useState<ThemeName>(
     sharedConfig?.theme ?? systemTheme,
   );
   const [themeExplicit, setThemeExplicit] = useState(
     sharedConfig?.themeExplicit ?? false,
   );
+  const isDarkMode = theme === 'dark' || theme === 'retro';
   const [height, setHeight] = useState(0);
   const [customLogo, setCustomLogo] = useState(sharedConfig?.customLogo ?? '');
   const [appearance, setAppearance] = useState<IAppearance>(
     sharedConfig?.appearance ??
-      (systemTheme === 'dark' ? defaultDarkTheme : defaultLightTheme),
+      getThemeAppearance(systemTheme),
   );
   // Bumped on reset to remount the Auth tab so it rebuilds its local
   // section order / checkbox state from the defaults below.
@@ -95,9 +96,7 @@ export const ConfigProvider = ({ children }: { children: ReactNode }) => {
 
   const resetAppearance = () => {
     window.history.replaceState(null, '', DEFAULT_CUSTOM_PATH);
-    setAppearance(
-      systemTheme === 'dark' ? { ...defaultDarkTheme } : { ...defaultLightTheme },
-    );
+    setAppearance({ ...getThemeAppearance(systemTheme) });
     setTheme(systemTheme);
     setThemeExplicit(false);
     setCustomLogo('');
@@ -116,8 +115,8 @@ export const ConfigProvider = ({ children }: { children: ReactNode }) => {
   };
 
   useLayoutEffect(() => {
-    document.documentElement.classList.toggle('dark', theme === 'dark');
-  }, [theme]);
+    document.documentElement.classList.toggle('dark', isDarkMode);
+  }, [isDarkMode]);
 
   useEffect(() => {
     if (!customLogo) {
@@ -142,7 +141,7 @@ export const ConfigProvider = ({ children }: { children: ReactNode }) => {
     setLoginMethods(methods);
   };
 
-  const selectTheme = (selectedTheme: 'light' | 'dark') => {
+  const selectTheme = (selectedTheme: ThemeName) => {
     setTheme(selectedTheme);
     setThemeExplicit(true);
   };
@@ -157,6 +156,7 @@ export const ConfigProvider = ({ children }: { children: ReactNode }) => {
         customLogo,
         setCustomLogo,
         theme,
+        isDarkMode,
         setTheme: selectTheme,
         appearance,
         loginMethods,

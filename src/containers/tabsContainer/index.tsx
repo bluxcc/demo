@@ -16,15 +16,15 @@ import {
 import { useConfigContext } from '../../hooks/useConfigContext';
 
 const TabsContainer = () => {
-  const { theme, resetKey } = useConfigContext();
+  const { isDarkMode, resetKey } = useConfigContext();
 
   const tabsContent = [
     {
       label: 'Auth',
       inActiveImg: (
-        <InActiveAuth fill={theme === 'dark' ? 'white' : '#0C1083'} />
+        <InActiveAuth fill={isDarkMode ? 'white' : '#0C1083'} />
       ),
-      activeImg: <ActiveAuth fill={theme === 'dark' ? 'white' : '#0C1083'} />,
+      activeImg: <ActiveAuth fill={isDarkMode ? 'white' : '#0C1083'} />,
       content: <Auth key={resetKey} />,
     },
     // {
@@ -37,20 +37,20 @@ const TabsContainer = () => {
     {
       label: 'Style',
       inActiveImg: (
-        <InActivePalette fill={theme === 'dark' ? 'white' : '#0C1083'} />
+        <InActivePalette fill={isDarkMode ? 'white' : '#0C1083'} />
       ),
       activeImg: (
-        <ActivePalette fill={theme === 'dark' ? 'white' : '#0C1083'} />
+        <ActivePalette fill={isDarkMode ? 'white' : '#0C1083'} />
       ),
       content: <Style />,
     },
     {
       label: 'Other',
       inActiveImg: (
-        <InActivePuzzle fill={theme === 'dark' ? 'white' : '#0C1083'} />
+        <InActivePuzzle fill={isDarkMode ? 'white' : '#0C1083'} />
       ),
       activeImg: (
-        <ActivePuzzle fill={theme === 'dark' ? 'white' : '#0C1083'} />
+        <ActivePuzzle fill={isDarkMode ? 'white' : '#0C1083'} />
       ),
       content: <Other />,
     },

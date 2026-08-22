@@ -15,7 +15,7 @@ const CheckBox: React.FC<CheckBoxProps> = ({
   disabled = false,
   borderColor = '#0d1292',
 }) => {
-  const { theme } = useConfigContext();
+  const { isDarkMode } = useConfigContext();
 
   const toggleChecked = () => {
     onChange();
@@ -35,7 +35,7 @@ const CheckBox: React.FC<CheckBoxProps> = ({
       <button
         id="bluxcc-button"
         onClick={!disabled ? toggleChecked : undefined}
-        style={{ borderColor: theme === 'dark' ? 'white' : borderColor }}
+        style={{ borderColor: isDarkMode ? 'white' : borderColor }}
         className={`flex size-5 border items-center justify-center transition duration-100 ease-in-out transform ${
           checked
             ? 'bg-primary !border-primary dark:!border-white dark:bg-white'
@@ -44,7 +44,7 @@ const CheckBox: React.FC<CheckBoxProps> = ({
       >
         {checked && (
           <div className="select-none">
-            <WhiteCheck fill={theme === 'dark' ? 'black' : 'white'} />
+            <WhiteCheck fill={isDarkMode ? 'black' : 'white'} />
           </div>
         )}
       </button>

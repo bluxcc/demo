@@ -6,10 +6,10 @@ export default {
     extend: {
       fontFamily: {
         playfair: ['playfair', 'serif'],
-        comicNeue: ['comicNeue', 'cursive'],
         manrope: ['Manrope', 'sans-serif'],
         'manrope-medium': ['Manrope-Medium', 'sans-serif'],
         jetbrainsMono: ['JetBrainsMono', 'monospace'],
+        spaceGrotesk: ['Space Grotesk', 'sans-serif'],
       },
       colors: {
         white: '#ffffff',

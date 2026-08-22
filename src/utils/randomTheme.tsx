@@ -7,7 +7,7 @@ const randomPx = (min: number, max: number) =>
   `${Math.floor(Math.random() * (max - min + 1) + min)}px`;
 
 const randomFont = () =>
-  randomFrom(['Manrope', 'JetbrainsMono', 'Playfair', 'ComicNeue']);
+  randomFrom(['Manrope', 'JetbrainsMono', 'Playfair', 'Space Grotesk']);
 
 const randomHex = (min: number, max: number) => {
   const r = Math.floor(Math.random() * (max - min) + min);
