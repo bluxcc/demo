@@ -45,10 +45,11 @@ const Header = ({
       <div className="relative hidden font-manrope desktop:flex">
         <div className="relative w-[470px] overflow-hidden">
           <div
-            className={`flex w-full px-4 items-center justify-between border-l border-l-lightPurple dark:border-l-darkBorder absolute top-0 right-0 transition-transform duration-500 ${
+            aria-hidden={!isCodeOpen}
+            className={`absolute inset-0 z-10 flex w-full items-center justify-between border-l border-l-lightPurple bg-white px-4 transition-transform duration-[600ms] ease-in-out dark:border-l-darkBorder dark:bg-darkBg ${
               isCodeOpen
-                ? 'translate-x-0 opacity-100 h-full'
-                : 'translate-x-full opacity-0'
+                ? 'translate-x-0'
+                : 'pointer-events-none translate-x-full'
             }`}
           >
             <button
@@ -78,10 +79,9 @@ const Header = ({
 
           {/* When code panel is closed */}
           <div
-            className={`absolute top-0 right-4 flex items-center justify-end h-full w-full gap-3 transition-transform duration-500 ease-in-out ${
-              isCodeOpen
-                ? 'translate-x-full opacity-0'
-                : 'translate-x-0 opacity-100'
+            aria-hidden={isCodeOpen}
+            className={`absolute inset-0 flex items-center justify-end gap-3 pr-4 ${
+              isCodeOpen ? 'pointer-events-none' : ''
             }`}
           >
             {/* Docs Button */}

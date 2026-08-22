@@ -10,10 +10,8 @@ import CheckBoxItem from '../../../components/CheckBoxItem';
 import { useConfigContext } from '../../../hooks/useConfigContext';
 import { LoginMethodType } from '../../../constants';
 
-const Auth = () => {
-  const { updateLoginMethods, loginMethods } = useConfigContext();
-
-  const [sections, setSections] = useState([
+const createSections = (loginMethods: LoginMethodType) => {
+  const sections = [
     {
       id: 'wallet',
       title: 'Wallet',
@@ -50,7 +48,29 @@ const Auth = () => {
         },
       ],
     },
-  ]);
+  ];
+
+  return sections.sort((first, second) => {
+    const firstIndex = loginMethods.indexOf(
+      first.id as LoginMethodType[number],
+    );
+    const secondIndex = loginMethods.indexOf(
+      second.id as LoginMethodType[number],
+    );
+
+    if (firstIndex === -1 && secondIndex === -1) return 0;
+    if (firstIndex === -1) return 1;
+    if (secondIndex === -1) return -1;
+    return firstIndex - secondIndex;
+  });
+};
+
+const Auth = () => {
+  const { updateLoginMethods, loginMethods } = useConfigContext();
+
+  const [sections, setSections] = useState(() =>
+    createSections(loginMethods),
+  );
 
   const [passkeyChecked, setPasskeyChecked] = useState(
     loginMethods.includes('passkey'),

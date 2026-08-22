@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import Button from '../../../components/Button';
 import ColorBox from '../../../components/ColorBox';
@@ -10,6 +10,7 @@ import {
   BorderIcon,
   Close,
   ExclamationCircle,
+  InfoIcon,
   Moon,
   MoonFilled,
   RoundedCorner,
@@ -49,20 +50,33 @@ const Style = () => {
     updateAppearance('logo', '');
     setCustomLogo('');
   };
-  useEffect(() => {
-    if (theme === 'dark') {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }, [theme]);
-
   return (
     <div className="flex flex-col space-y-4 text-primary dark:text-white/70">
       <p className="text-lg font-manrope-medium">Style</p>
 
       <div className="flex flex-col space-y-1">
-        <p className="text-xs text-[#0C1083B2] dark:text-white">Theme</p>
+        <div className="flex items-center gap-1.5">
+          <p className="text-xs text-[#0C1083B2] dark:text-white">Theme</p>
+
+          <div className="relative flex items-center group">
+            <button
+              type="button"
+              aria-label="Theme information"
+              className="flex items-center justify-center"
+            >
+              <InfoIcon fill={theme === 'dark' ? 'white' : '#0C1083B2'} />
+            </button>
+
+            <div
+              role="tooltip"
+              className="pointer-events-none invisible absolute left-0 top-full z-50 mt-2 w-[220px] rounded-md border border-lightPurple bg-white px-3 py-2 text-xs leading-relaxed text-[#4D4D4D] opacity-0 shadow-sm transition-opacity duration-150 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100 dark:border-darkBorder dark:bg-darkGray dark:text-white"
+            >
+              Selecting a theme resets all styles to the default theme provided
+              by Blux.
+            </div>
+          </div>
+        </div>
+
         <div className="w-full gap-2 center">
           {themes.map((m) => (
             <Button

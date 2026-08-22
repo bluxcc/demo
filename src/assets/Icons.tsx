@@ -325,6 +325,26 @@ export const Copy = ({ fill = '#0C1083' }: { fill?: string }) => (
     </g>
   </svg>
 );
+export const Share = ({ fill = '#0C1083' }: { fill?: string }) => (
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      data-share-arrow
+      d="M11.25 15.5V5.81L8.28 8.78L7.22 7.72L12 2.94L16.78 7.72L15.72 8.78L12.75 5.81V15.5H11.25Z"
+      fill={fill}
+    />
+    <path
+      d="M5.5 21C5.0875 21 4.73438 20.8531 4.44063 20.5594C4.14688 20.2656 4 19.9125 4 19.5V10.5H8.25V12H5.5V19.5H18.5V12H15.75V10.5H20V19.5C20 19.9125 19.8531 20.2656 19.5594 20.5594C19.2656 20.8531 18.9125 21 18.5 21H5.5Z"
+      fill={fill}
+    />
+  </svg>
+);
+
 export const Code = ({ fill = 'white' }: { fill?: string }) => (
   <svg
     width="24"

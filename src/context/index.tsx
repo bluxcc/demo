@@ -11,6 +11,7 @@ interface IConfigContext {
   height: number;
   setHeight: (height: number) => void;
   resetKey: number;
+  shareUrl: string;
   appearance: IAppearance;
   loginMethods: LoginMethodType;
   updateAppearance: (

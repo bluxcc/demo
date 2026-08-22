@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { BluxProvider, networks, useBlux } from '@bluxcc/react';
 import { Highlight, themes } from 'prism-react-renderer';
 
@@ -15,12 +15,16 @@ import { generateRandomTheme } from './utils/randomTheme';
 import { useIsMobile } from './hooks/useIsMobile';
 import { useCornerResize } from './hooks/useCornerResize';
 import { Loading } from './assets/Loading';
-import { Reset, Swap } from './assets/Icons';
+import { Reset, Share, Swap } from './assets/Icons';
 import { useOutlineResize } from './hooks/useOutlineResize';
 import { handleSpin } from './utils/handleSpinSvg';
+import { animateResetIcon, animateShareIcon } from './utils/animateActionIcon';
 
 function App() {
   const [isCodeOpen, setIsCodeOpen] = useState(false);
+  const [isShareConfirmationVisible, setIsShareConfirmationVisible] =
+    useState(false);
+  const shareConfirmationTimeout = useRef<number | null>(null);
   const handleOpenCode = () => setIsCodeOpen(!isCodeOpen);
   const {
     appearance,
@@ -29,25 +33,31 @@ function App() {
     loginMethods,
     theme,
     height,
-    customLogo,
     language,
     explorer,
     excludeWallets,
     orderWallets,
     promptOnWrongNetwork,
+    shareUrl,
   } = useConfigContext();
   const { isReady } = useBlux();
+  const isInitialThemeRender = useRef(true);
 
   const handleCloseCode = () => setIsCodeOpen(false);
   const isMobile = useIsMobile(770);
 
   useEffect(() => {
+    if (isInitialThemeRender.current) {
+      isInitialThemeRender.current = false;
+      return;
+    }
+
     setAppearance((prev) => ({
       ...prev,
       ...(theme === 'light' ? defaultLightTheme : defaultDarkTheme),
-      logo: customLogo || prev.logo,
+      logo: prev.logo,
     }));
-  }, [theme]);
+  }, [theme, setAppearance]);
 
   const handleRandomize = () => {
     setAppearance(
@@ -63,6 +73,33 @@ function App() {
     );
   };
 
+  const handleShare = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    animateShareIcon(event.currentTarget);
+
+    try {
+      await navigator.clipboard.writeText(shareUrl);
+      setIsShareConfirmationVisible(true);
+
+      if (shareConfirmationTimeout.current) {
+        window.clearTimeout(shareConfirmationTimeout.current);
+      }
+      shareConfirmationTimeout.current = window.setTimeout(() => {
+        setIsShareConfirmationVisible(false);
+      }, 2500);
+    } catch (error) {
+      console.error('Failed to copy share link:', error);
+    }
+  };
+
+  useEffect(
+    () => () => {
+      if (shareConfirmationTimeout.current) {
+        window.clearTimeout(shareConfirmationTimeout.current);
+      }
+    },
+    [],
+  );
+
   const codeBlock = generateCodeBlock(appearance, loginMethods, {
     language,
     explorer,
@@ -71,7 +108,11 @@ function App() {
     promptOnWrongNetwork,
   });
   const { radius, handleResizeRadius } = useCornerResize(32, 0, 40);
-  const { width, handleResizeOutlineWidth } = useOutlineResize(1, 0, 6);
+  const { width, handleResizeOutlineWidth } = useOutlineResize(
+    Number.parseFloat(appearance.outlineWidth ?? '1'),
+    0,
+    6,
+  );
 
   useEffect(() => {
     setAppearance((prev) => ({
@@ -128,7 +169,7 @@ function App() {
         <div
           className={`${
             isCodeOpen && 'desktop:mr-[470px]'
-          } relative h-full overflow-hidden mobile:hidden w-full transition-all duration-500`}
+          } relative h-full overflow-hidden mobile:hidden w-full transition-[margin] duration-[600ms] ease-in-out`}
         >
           <div
             style={{
@@ -143,7 +184,10 @@ function App() {
                   <>
                     <OpenModal />
                     <div
-                      className="relative transition-[height] duration-300"
+                      aria-hidden={height === 0}
+                      className={`pointer-events-none relative z-[10000000] transition-[height,opacity] duration-300 ${
+                        height === 0 ? 'opacity-0' : 'opacity-100'
+                      }`}
                       style={{
                         height: `${height + 40}px`,
                         width: '400px',
@@ -153,14 +197,14 @@ function App() {
                         <div
                           key={pos}
                           onMouseDown={(e) => handleResizeRadius(pos, e)}
-                          className={`absolute h-14 w-9 select-none z-[9999999] ${classes}`}
+                          className={`pointer-events-auto absolute h-14 w-9 select-none ${classes}`}
                         />
                       ))}
                       {centers.map(({ pos, classes }) => (
                         <div
                           key={pos}
                           onMouseDown={(e) => handleResizeOutlineWidth(pos, e)}
-                          className={`absolute h-7 w-[200px] select-none z-[9999999] ${classes}`}
+                          className={`pointer-events-auto absolute h-7 w-[200px] select-none ${classes}`}
                         />
                       ))}
                     </div>
@@ -172,12 +216,22 @@ function App() {
                 )}
               </BluxProvider>
             </div>
-            <div className="space-x-2">
+            <div className="relative flex gap-2">
+              {isShareConfirmationVisible && (
+                <div
+                  role="status"
+                  aria-live="polite"
+                  className="absolute px-3 py-2 text-xs -translate-x-1/2 bg-white border shadow-sm bottom-14 left-1/2 whitespace-nowrap border-lightPurple font-manrope-medium text-primary dark:border-darkBorder dark:bg-darkBg dark:text-white"
+                >
+                  Custom Blux configuration link — copied to your clipboard
+                </div>
+              )}
+
               <button
                 aria-label="reset"
                 type="button"
-                onClick={() => {
-                  // handleSpin(e, { rotate: -360 });
+                onClick={(event) => {
+                  animateResetIcon(event.currentTarget);
                   resetAppearance();
                 }}
                 className="inline-flex text-sm bg-white dark:bg-darkBg dark:border-darkBorder dark:text-white mobile:hidden font-manrope-medium gap-2 justify-center items-center text-primary border-[#CDCEEE] hover:border-primary transition-all duration-300 border h-12 pl-2 pr-4"
@@ -199,6 +253,15 @@ function App() {
               >
                 <Swap fill={theme === 'dark' ? 'white' : '#0C1083'} /> Randomize
               </button>
+
+              <button
+                aria-label="share customization"
+                type="button"
+                onClick={handleShare}
+                className="inline-flex h-12 items-center justify-center gap-2 border border-[#CDCEEE] bg-white pl-2 pr-4 text-sm text-primary transition-all duration-300 hover:border-primary mobile:hidden font-manrope-medium dark:border-darkBorder dark:bg-darkBg dark:text-white"
+              >
+                <Share fill={theme === 'dark' ? 'white' : '#0C1083'} /> Share
+              </button>
             </div>
           </div>
         </div>
@@ -207,8 +270,8 @@ function App() {
             theme === 'dark'
               ? 'bg-darkBg text-white border-darkBorder'
               : 'bg-white text-black border-lightPurple'
-          } border-l p-4 transition-all duration-500 mobile:hidden tablet:hidden ${
-            isCodeOpen ? 'right-0 opacity-100 ' : 'right-[-470px] opacity-0'
+          } right-0 border-l p-4 transition-transform duration-[600ms] ease-in-out mobile:hidden tablet:hidden ${
+            isCodeOpen ? 'translate-x-0' : 'translate-x-full'
           }`}
         >
           <div className="border border-lightPurple dark:border-darkBorder">

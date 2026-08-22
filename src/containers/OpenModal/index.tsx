@@ -10,18 +10,20 @@ const OpenModal = () => {
   const isMobile = window.innerWidth < 768;
 
   useEffect(() => {
-    let i: any;
+    let loginInterval: ReturnType<typeof setInterval> | undefined;
 
     if (isReady && !isMobile && !isAuthenticated) {
-      i = setInterval(() => {
+      loginInterval = setInterval(() => {
         try {
           login();
-        } catch {}
+        } catch {
+          // Ignore repeated requests while the login modal is opening.
+        }
       }, 1000);
     }
 
     return () => {
-      clearInterval(i);
+      if (loginInterval) clearInterval(loginInterval);
     };
   }, [isReady, user, login, isMobile, isAuthenticated]);
 
@@ -33,17 +35,44 @@ const OpenModal = () => {
     }
   }, [isAuthenticated, profile]);
 
-  setTimeout(() => {
-    const modal = document.querySelector(
-      'div[class*="bluxcc:box-border"][class*="bluxcc:relative"]',
-    );
+  useEffect(() => {
+    if (isMobile) return;
 
-    if (modal instanceof HTMLElement) {
-      setHeight(modal.offsetHeight);
-    } else {
-      setHeight(377);
-    }
-  }, 400);
+    let lastHeight = 0;
+    let stableMeasurements = 0;
+    let committedHeight = 0;
+
+    setHeight(0);
+
+    const measurementInterval = window.setInterval(() => {
+      const modal = document.querySelector(
+        'div[class*="bluxcc:box-border"][class*="bluxcc:relative"]',
+      );
+
+      if (modal instanceof HTMLElement && modal.offsetHeight > 0) {
+        if (modal.offsetHeight === lastHeight) {
+          stableMeasurements += 1;
+        } else {
+          lastHeight = modal.offsetHeight;
+          stableMeasurements = 0;
+
+          if (committedHeight > 0) {
+            setHeight(0);
+          }
+        }
+
+        if (
+          stableMeasurements >= 3 &&
+          lastHeight !== committedHeight
+        ) {
+          committedHeight = lastHeight;
+          setHeight(lastHeight);
+        }
+      }
+    }, 100);
+
+    return () => window.clearInterval(measurementInterval);
+  }, [isMobile, setHeight]);
 
   return isMobile ? (
     <div
