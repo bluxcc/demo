@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
 Disallow: /custom/
+Disallow: /i/
 
 Sitemap: https://demo.blux.cc/sitemap.xml

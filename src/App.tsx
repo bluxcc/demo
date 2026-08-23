@@ -20,11 +20,16 @@ import { Reset, Share, Swap } from './assets/Icons';
 import { useOutlineResize } from './hooks/useOutlineResize';
 import { handleSpin } from './utils/handleSpinSvg';
 import { animateResetIcon, animateShareIcon } from './utils/animateActionIcon';
+import { createDemoAppearance } from './utils/demoAppearanceApi';
+import { localShareLink } from './utils/shareConfig';
 
 function App() {
   const [isCodeOpen, setIsCodeOpen] = useState(false);
-  const [isShareConfirmationVisible, setIsShareConfirmationVisible] =
-    useState(false);
+  const [shareFeedback, setShareFeedback] = useState<'copied' | 'error' | null>(
+    null,
+  );
+  const [isSharing, setIsSharing] = useState(false);
+  const sharingLock = useRef(false);
   const shareConfirmationTimeout = useRef<number | null>(null);
   const handleOpenCode = () => setIsCodeOpen(!isCodeOpen);
   const {
@@ -72,20 +77,40 @@ function App() {
   };
 
   const handleShare = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    if (sharingLock.current) return;
+    sharingLock.current = true;
     animateShareIcon(event.currentTarget);
+    setIsSharing(true);
 
     try {
-      await navigator.clipboard.writeText(shareUrl);
-      setIsShareConfirmationVisible(true);
+      const result = await createDemoAppearance(shareUrl);
+      const link = localShareLink(result.short_url);
+      if (!link) {
+        throw new Error('Invalid short URL');
+      }
+
+      await navigator.clipboard.writeText(link);
+      setShareFeedback('copied');
 
       if (shareConfirmationTimeout.current) {
         window.clearTimeout(shareConfirmationTimeout.current);
       }
       shareConfirmationTimeout.current = window.setTimeout(() => {
-        setIsShareConfirmationVisible(false);
+        setShareFeedback(null);
       }, 2500);
     } catch (error) {
       console.error('Failed to copy share link:', error);
+      setShareFeedback('error');
+
+      if (shareConfirmationTimeout.current) {
+        window.clearTimeout(shareConfirmationTimeout.current);
+      }
+      shareConfirmationTimeout.current = window.setTimeout(() => {
+        setShareFeedback(null);
+      }, 2500);
+    } finally {
+      sharingLock.current = false;
+      setIsSharing(false);
     }
   };
 
@@ -219,13 +244,15 @@ function App() {
               </BluxProvider>
             </div>
             <div className="relative flex gap-2">
-              {isShareConfirmationVisible && (
+              {shareFeedback && (
                 <div
                   role="status"
                   aria-live="polite"
                   className="absolute px-3 py-2 text-xs -translate-x-1/2 bg-white border shadow-sm bottom-14 left-1/2 whitespace-nowrap border-lightPurple font-manrope-medium text-primary dark:border-darkBorder dark:bg-darkBg dark:text-white"
                 >
-                  Custom Blux configuration link — copied to your clipboard
+                  {shareFeedback === 'copied'
+                    ? 'Custom Blux configuration link — copied to your clipboard'
+                    : "Couldn't create a share link. Try again."}
                 </div>
               )}
 
@@ -260,9 +287,12 @@ function App() {
                 aria-label="share customization"
                 type="button"
                 onClick={handleShare}
-                className="inline-flex h-12 items-center justify-center gap-2 border border-[#CDCEEE] bg-white pl-2 pr-4 text-sm text-primary transition-all duration-300 hover:border-primary mobile:hidden font-manrope-medium dark:border-darkBorder dark:bg-darkBg dark:text-white"
+                disabled={isSharing}
+                aria-busy={isSharing}
+                className="inline-flex h-12 items-center justify-center gap-2 border border-[#CDCEEE] bg-white pl-2 pr-4 text-sm text-primary transition-all duration-300 hover:border-primary mobile:hidden font-manrope-medium disabled:opacity-60 dark:border-darkBorder dark:bg-darkBg dark:text-white"
               >
-                <Share fill={isDarkMode ? 'white' : '#0C1083'} /> Share
+                <Share fill={isDarkMode ? 'white' : '#0C1083'} />{' '}
+                {isSharing ? 'Sharing' : 'Share'}
               </button>
             </div>
           </div>

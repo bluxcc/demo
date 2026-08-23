@@ -33,6 +33,10 @@ type CompactConfig = {
 };
 
 export const DEFAULT_CUSTOM_PATH = '/';
+export const DEMO_APPEARANCE_HOST = 'demo.blux.cc';
+export const DEMO_APPEARANCE_ORIGIN = `https://${DEMO_APPEARANCE_HOST}`;
+export const SHARE_ID_LENGTH = 9;
+
 const CUSTOM_ROUTE = '/custom';
 const DEFAULT_LOGIN_METHODS: LoginMethodType = [
   'wallet',
@@ -57,6 +61,10 @@ const APPEARANCE_KEYS: Array<keyof IAppearance> = [
   'backdropColor',
   'boxShadow',
 ];
+const SHARE_ID_PATTERN = new RegExp(`^[0-9a-z]{${SHARE_ID_LENGTH}}$`);
+const SHORT_LINK_ID_PATH = new RegExp(
+  `^/i/([0-9a-z]{${SHARE_ID_LENGTH}})/?$`,
+);
 
 const toBase64Url = (value: string) => {
   const bytes = new TextEncoder().encode(value);
@@ -85,12 +93,49 @@ const arraysMatch = (first: unknown[], second: unknown[]) =>
   first.length === second.length &&
   first.every((value, index) => value === second[index]);
 
+export const isShareId = (id: string) => SHARE_ID_PATTERN.test(id);
+
+export const isShortLinkPath = (pathname: string) =>
+  pathname === '/i' || pathname.startsWith('/i/');
+
+export const readShareId = (pathname: string): string | null => {
+  const match = pathname.match(SHORT_LINK_ID_PATH);
+  return match?.[1] ?? null;
+};
+
+export const toCanonicalDemoUrl = (sharePath: string) => {
+  const path = sharePath.startsWith('/') ? sharePath : `/${sharePath}`;
+  if (path === '/') return DEMO_APPEARANCE_ORIGIN;
+  return `${DEMO_APPEARANCE_ORIGIN}${path}`;
+};
+
+export const localHrefFromDemoUrl = (url: string): string | null => {
+  try {
+    const parsed = new URL(url);
+    if (parsed.hostname.toLowerCase() !== DEMO_APPEARANCE_HOST) return null;
+    if (parsed.pathname !== '/' && parsed.pathname !== '') return null;
+    return parsed.search ? `/${parsed.search}` : DEFAULT_CUSTOM_PATH;
+  } catch {
+    return null;
+  }
+};
+
+export const localShareLink = (shortUrl: string): string | null => {
+  try {
+    const parsed = new URL(shortUrl);
+    if (parsed.hostname.toLowerCase() !== DEMO_APPEARANCE_HOST) return null;
+    const id = readShareId(parsed.pathname);
+    if (!id) return null;
+    return new URL(`/i/${id}`, window.location.origin).toString();
+  } catch {
+    return null;
+  }
+};
+
 export const createSharePath = (
   config: ShareableConfig,
   systemTheme: 'light' | 'dark' = 'light',
 ) => {
-  // TODO: Persist configurations in the backend and replace the encoded state
-  // with a short, human-friendly `/custom/:slug` route once the API is ready.
   const defaultAppearance = getThemeAppearance(config.theme);
   const appearanceChanges = APPEARANCE_KEYS.flatMap((key, index) => {
     if (key === 'logo' && config.customLogo) return [];
@@ -130,19 +175,24 @@ export const createSharePath = (
     config.theme === systemTheme &&
     !config.themeExplicit;
 
+  // Query string so POST /demos will accept the canonical demo.blux.cc URL.
   return onlyUsesSystemDefaults
     ? DEFAULT_CUSTOM_PATH
-    : `${CUSTOM_ROUTE}/${toBase64Url(JSON.stringify(compact))}`;
+    : `/?s=${toBase64Url(JSON.stringify(compact))}`;
 };
 
-export const readShareableConfig = (
-  pathname: string,
-): ShareableConfig | null => {
+const encodedStateFromLocation = (pathname: string, search: string) => {
+  const query = new URLSearchParams(
+    search.startsWith('?') ? search.slice(1) : search,
+  );
+  const fromQuery = query.get('s');
+  if (fromQuery) return fromQuery;
+
   const match = pathname.match(/\/custom(?:\/([^/]+))?\/?$/);
-  const encodedState = match?.[1];
+  return match?.[1] || null;
+};
 
-  if (!match || !encodedState) return null;
-
+const parseCompactConfig = (encodedState: string): ShareableConfig | null => {
   try {
     const compact = JSON.parse(fromBase64Url(encodedState)) as CompactConfig;
 
@@ -174,7 +224,7 @@ export const readShareableConfig = (
     return {
       version: 1,
       theme,
-      themeExplicit: true,
+      themeExplicit: compact.q === 1,
       customLogo: compact.c ?? '',
       appearance,
       loginMethods: Array.isArray(compact.m)
@@ -186,6 +236,26 @@ export const readShareableConfig = (
       orderWallets: Array.isArray(compact.o) ? compact.o : [],
       promptOnWrongNetwork: compact.p !== 0,
     };
+  } catch {
+    return null;
+  }
+};
+
+export const readShareableConfig = (
+  pathname: string,
+  search = '',
+): ShareableConfig | null => {
+  const encodedState = encodedStateFromLocation(pathname, search);
+  if (!encodedState) return null;
+  return parseCompactConfig(encodedState);
+};
+
+export const readShareableConfigFromHref = (
+  href: string,
+): ShareableConfig | null => {
+  try {
+    const url = new URL(href, DEMO_APPEARANCE_ORIGIN);
+    return readShareableConfig(url.pathname, url.search);
   } catch {
     return null;
   }

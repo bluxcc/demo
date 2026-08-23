@@ -1,4 +1,4 @@
-import { useState, ReactNode, useEffect, useLayoutEffect } from 'react';
+import { useState, ReactNode, useEffect, useLayoutEffect, useCallback } from 'react';
 
 import { IAppearance, IExplorer, LanguageKey, ThemeName } from '../types';
 import { ConfigContext } from './index';
@@ -8,8 +8,17 @@ import { handleLogoColor } from '../utils/handleLogoColor';
 import {
   createSharePath,
   DEFAULT_CUSTOM_PATH,
+  isShortLinkPath,
+  localHrefFromDemoUrl,
   readShareableConfig,
+  readShareableConfigFromHref,
+  readShareId,
+  ShareableConfig,
+  toCanonicalDemoUrl,
 } from '../utils/shareConfig';
+import { fetchDemoAppearance } from '../utils/demoAppearanceApi';
+import NotFound from '../components/NotFound';
+import ResolvingShare from '../components/ResolvingShare';
 
 // Defaults shared between the initial state and resetAppearance so the two
 // can't drift apart.
@@ -27,10 +36,24 @@ const DEFAULT_PROMPT_ON_WRONG_NETWORK = true;
 const getSystemTheme = (): 'light' | 'dark' =>
   window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 
+type RouteStatus = 'ready' | 'resolving' | 'not-found';
+
+const initialRouteStatus = (): RouteStatus => {
+  const { pathname } = window.location;
+  if (!isShortLinkPath(pathname)) return 'ready';
+  return readShareId(pathname) ? 'resolving' : 'not-found';
+};
+
 export const ConfigProvider = ({ children }: { children: ReactNode }) => {
   const [systemTheme] = useState(getSystemTheme);
+  const [incomingShareId] = useState(() =>
+    readShareId(window.location.pathname),
+  );
+  const [routeStatus, setRouteStatus] = useState<RouteStatus>(initialRouteStatus);
   const [sharedConfig] = useState(() =>
-    readShareableConfig(window.location.pathname),
+    incomingShareId
+      ? null
+      : readShareableConfig(window.location.pathname, window.location.search),
   );
   const [theme, setTheme] = useState<ThemeName>(
     sharedConfig?.theme ?? systemTheme,
@@ -82,7 +105,20 @@ export const ConfigProvider = ({ children }: { children: ReactNode }) => {
     },
     systemTheme,
   );
-  const shareUrl = new URL(sharePath, window.location.origin).toString();
+  const shareUrl = toCanonicalDemoUrl(sharePath);
+
+  const applySharedConfig = useCallback((config: ShareableConfig) => {
+    setTheme(config.theme);
+    setThemeExplicit(config.themeExplicit);
+    setCustomLogo(config.customLogo);
+    setAppearance(config.appearance);
+    setLoginMethods(config.loginMethods);
+    setLanguage(config.language);
+    setExplorer(config.explorer);
+    setExcludeWallets(config.excludeWallets);
+    setOrderWallets(config.orderWallets);
+    setPromptOnWrongNetwork(config.promptOnWrongNetwork);
+  }, []);
 
   const updateAppearance = (
     property: keyof IAppearance,
@@ -128,14 +164,49 @@ export const ConfigProvider = ({ children }: { children: ReactNode }) => {
   }, [customLogo, appearance.background]);
 
   useEffect(() => {
+    if (!incomingShareId) return;
+
+    let cancelled = false;
+
+    const resolveShareLink = async () => {
+      try {
+        const result = await fetchDemoAppearance(incomingShareId);
+        if (cancelled) return;
+        if (!result) {
+          setRouteStatus('not-found');
+          return;
+        }
+
+        const href = localHrefFromDemoUrl(result.url);
+        if (!href) {
+          setRouteStatus('not-found');
+          return;
+        }
+
+        const config = readShareableConfigFromHref(href);
+        if (config) applySharedConfig(config);
+        window.history.replaceState(null, '', href);
+        setRouteStatus('ready');
+      } catch {
+        if (!cancelled) setRouteStatus('not-found');
+      }
+    };
+
+    void resolveShareLink();
+    return () => {
+      cancelled = true;
+    };
+  }, [incomingShareId, applySharedConfig]);
+
+  useEffect(() => {
+    if (routeStatus !== 'ready') return;
+
     const timeout = window.setTimeout(() => {
       window.history.replaceState(null, '', sharePath);
     }, 250);
 
     return () => window.clearTimeout(timeout);
-  }, [
-    sharePath,
-  ]);
+  }, [sharePath, routeStatus]);
 
   const updateLoginMethods = (methods: LoginMethodType) => {
     setLoginMethods(methods);
@@ -176,7 +247,13 @@ export const ConfigProvider = ({ children }: { children: ReactNode }) => {
         setPromptOnWrongNetwork,
       }}
     >
-      {children}
+      {routeStatus === 'resolving' ? (
+        <ResolvingShare />
+      ) : routeStatus === 'not-found' ? (
+        <NotFound />
+      ) : (
+        children
+      )}
     </ConfigContext.Provider>
   );
 };
