@@ -37,7 +37,6 @@ export const DEMO_APPEARANCE_HOST = 'demo.blux.cc';
 export const DEMO_APPEARANCE_ORIGIN = `https://${DEMO_APPEARANCE_HOST}`;
 export const SHARE_ID_LENGTH = 9;
 
-const CUSTOM_ROUTE = '/custom';
 const DEFAULT_LOGIN_METHODS: LoginMethodType = [
   'wallet',
   'email',
@@ -62,9 +61,7 @@ const APPEARANCE_KEYS: Array<keyof IAppearance> = [
   'boxShadow',
 ];
 const SHARE_ID_PATTERN = new RegExp(`^[0-9a-z]{${SHARE_ID_LENGTH}}$`);
-const SHORT_LINK_ID_PATH = new RegExp(
-  `^/i/([0-9a-z]{${SHARE_ID_LENGTH}})/?$`,
-);
+const SHORT_LINK_ID_PATH = new RegExp(`^/i/([0-9a-z]{${SHARE_ID_LENGTH}})/?$`);
 
 const toBase64Url = (value: string) => {
   const bytes = new TextEncoder().encode(value);
