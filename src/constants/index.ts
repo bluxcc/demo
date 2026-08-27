@@ -61,6 +61,7 @@ export const LANGUAGES: { name: string; value: string }[] = [
   { name: 'Chinese', value: 'zh' },
   { name: 'Japanese', value: 'ja' },
   { name: 'Korean', value: 'ko' },
+  { name: 'Turkish', value: 'tr' },
 ];
 
 export const EXPLORERS: { name: string; value: string }[] = [
