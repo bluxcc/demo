@@ -37,6 +37,18 @@ const createSections = (loginMethods: LoginMethodType) => {
       ],
     },
     {
+      id: 'sms',
+      title: 'SMS',
+      items: [
+        {
+          id: 'sms',
+          title: 'SMS',
+          checked: loginMethods.includes('sms'),
+          disabled: false,
+        },
+      ],
+    },
+    {
       id: 'google',
       title: 'Google',
       items: [

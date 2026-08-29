@@ -1,4 +1,4 @@
-import { LoginMethodType } from '../constants';
+import { DEFAULT_LOGIN_METHODS, LoginMethodType } from '../constants';
 import { getThemeAppearance } from '../constants/themes';
 import { IAppearance, IExplorer, LanguageKey, ThemeName } from '../types';
 
@@ -37,12 +37,6 @@ export const DEMO_APPEARANCE_HOST = 'demo.blux.cc';
 export const DEMO_APPEARANCE_ORIGIN = `https://${DEMO_APPEARANCE_HOST}`;
 export const SHARE_ID_LENGTH = 9;
 
-const DEFAULT_LOGIN_METHODS: LoginMethodType = [
-  'wallet',
-  'email',
-  'passkey',
-  'google',
-];
 const APPEARANCE_KEYS: Array<keyof IAppearance> = [
   'background',
   'fieldBackground',

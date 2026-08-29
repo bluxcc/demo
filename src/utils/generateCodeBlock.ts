@@ -32,7 +32,9 @@ export const generateCodeBlock = (
     .filter(([, , isDefault]) => !isDefault)
     .map(([key, val]) => `${indent}${key}: "${val}",`);
 
-  const hasEmailLogin = loginMethods.includes('email');
+  const appIdReasons: string[] = [];
+  if (loginMethods.includes('email')) appIdReasons.push('email');
+  if (loginMethods.includes('sms')) appIdReasons.push('SMS');
 
   // Build config safely
   const configLines: string[] = [
@@ -49,9 +51,10 @@ export const generateCodeBlock = (
     `loginMethods: [${loginMethods.map((x) => `"${x}"`).join(', ')}],`,
   );
 
-  if (hasEmailLogin) {
+  if (appIdReasons.length > 0) {
+    const loginLabel = appIdReasons.join(' and ');
     configLines.push(
-      `appId: "YOUR_APP_ID", // Required for email login (get it from dashboard.blux.cc)`,
+      `appId: "YOUR_APP_ID", // Required for ${loginLabel} login (get it from dashboard.blux.cc)`,
     );
   }
 

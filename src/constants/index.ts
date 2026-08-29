@@ -42,6 +42,14 @@ export type LoginMethodType = Array<
   | 'passkey'
 >;
 
+export const DEFAULT_LOGIN_METHODS: LoginMethodType = [
+  'wallet',
+  'email',
+  'sms',
+  'passkey',
+  'google',
+];
+
 export type ColorType =
   | 'background'
   | 'accentColor'

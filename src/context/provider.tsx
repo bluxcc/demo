@@ -2,7 +2,7 @@ import { useState, ReactNode, useEffect, useLayoutEffect, useCallback } from 're
 
 import { IAppearance, IExplorer, LanguageKey, ThemeName } from '../types';
 import { ConfigContext } from './index';
-import { LoginMethodType } from '../constants';
+import { DEFAULT_LOGIN_METHODS, LoginMethodType } from '../constants';
 import { getThemeAppearance } from '../constants/themes';
 import { handleLogoColor } from '../utils/handleLogoColor';
 import {
@@ -22,12 +22,6 @@ import ResolvingShare from '../components/ResolvingShare';
 
 // Defaults shared between the initial state and resetAppearance so the two
 // can't drift apart.
-const DEFAULT_LOGIN_METHODS: LoginMethodType = [
-  'wallet',
-  'email',
-  'passkey',
-  'google',
-];
 const DEFAULT_LANGUAGE: LanguageKey = 'en';
 const DEFAULT_EXPLORER: IExplorer = 'stellarchain';
 const DEFAULT_EXCLUDE_WALLETS: string[] = [];
