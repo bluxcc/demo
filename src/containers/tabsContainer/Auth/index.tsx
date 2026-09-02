@@ -10,6 +10,30 @@ import CheckBoxItem from '../../../components/CheckBoxItem';
 import { useConfigContext } from '../../../hooks/useConfigContext';
 import { LoginMethodType } from '../../../constants';
 
+const SOCIAL_METHODS: Array<{
+  id: LoginMethodType[number];
+  title: string;
+}> = [
+  { id: 'google', title: 'Google' },
+  { id: 'discord', title: 'Discord' },
+  { id: 'github', title: 'GitHub' },
+  { id: 'gitlab', title: 'GitLab' },
+];
+
+const methodIndex = (id: string, loginMethods: LoginMethodType) => {
+  const index = loginMethods.indexOf(id as LoginMethodType[number]);
+  return index === -1 ? Number.POSITIVE_INFINITY : index;
+};
+
+const sectionIndex = (
+  section: { id: string; items: Array<{ id: string }> },
+  loginMethods: LoginMethodType,
+) =>
+  Math.min(
+    methodIndex(section.id, loginMethods),
+    ...section.items.map((item) => methodIndex(item.id, loginMethods)),
+  );
+
 const createSections = (loginMethods: LoginMethodType) => {
   const sections = [
     {
@@ -49,32 +73,25 @@ const createSections = (loginMethods: LoginMethodType) => {
       ],
     },
     {
-      id: 'google',
-      title: 'Google',
-      items: [
-        {
-          id: 'google',
-          title: 'Google',
-          checked: loginMethods.includes('google'),
-          disabled: false,
-        },
-      ],
+      id: 'social',
+      title: 'Social',
+      items: SOCIAL_METHODS.map((method) => ({
+        id: method.id,
+        title: method.title,
+        checked: loginMethods.includes(method.id),
+        disabled: false,
+      })).sort(
+        (first, second) =>
+          methodIndex(first.id, loginMethods) -
+          methodIndex(second.id, loginMethods),
+      ),
     },
   ];
 
-  return sections.sort((first, second) => {
-    const firstIndex = loginMethods.indexOf(
-      first.id as LoginMethodType[number],
-    );
-    const secondIndex = loginMethods.indexOf(
-      second.id as LoginMethodType[number],
-    );
-
-    if (firstIndex === -1 && secondIndex === -1) return 0;
-    if (firstIndex === -1) return 1;
-    if (secondIndex === -1) return -1;
-    return firstIndex - secondIndex;
-  });
+  return sections.sort(
+    (first, second) =>
+      sectionIndex(first, loginMethods) - sectionIndex(second, loginMethods),
+  );
 };
 
 const Auth = () => {

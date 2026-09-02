@@ -39,6 +39,7 @@ export type LoginMethodType = Array<
   | 'twitter'
   | 'discord'
   | 'github'
+  | 'gitlab'
   | 'passkey'
 >;
 
@@ -46,8 +47,11 @@ export const DEFAULT_LOGIN_METHODS: LoginMethodType = [
   'wallet',
   'email',
   'sms',
-  'passkey',
   'google',
+  'discord',
+  'github',
+  'gitlab',
+  'passkey',
 ];
 
 export type ColorType =
