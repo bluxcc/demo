@@ -155,10 +155,10 @@ function App() {
     appId: import.meta.env.VITE_BLUX_APP_ID,
     appName: 'Blux Demo',
     loginMethods: loginMethods,
-    networks: [networks.mainnet],
+    networks: [networks.mainnet, networks.testnet, networks.futurenet],
     lang: language,
     explorer,
-    excludeWallets,
+    // excludeWallets,
     orderWallets,
     promptOnWrongNetwork,
     walletConnect: {
@@ -194,9 +194,8 @@ function App() {
           )}
         </div>
         <div
-          className={`${
-            isCodeOpen && 'desktop:mr-[470px]'
-          } relative h-full overflow-hidden mobile:hidden w-full transition-[margin] duration-[600ms] ease-in-out`}
+          className={`${isCodeOpen && 'desktop:mr-[470px]'
+            } relative h-full overflow-hidden mobile:hidden w-full transition-[margin] duration-[600ms] ease-in-out`}
         >
           <div
             style={{
@@ -212,9 +211,8 @@ function App() {
                     <OpenModal />
                     <div
                       aria-hidden={height === 0}
-                      className={`pointer-events-none relative z-[10000000] transition-[height,opacity] duration-300 ${
-                        height === 0 ? 'opacity-0' : 'opacity-100'
-                      }`}
+                      className={`pointer-events-none relative z-[10000000] transition-[height,opacity] duration-300 ${height === 0 ? 'opacity-0' : 'opacity-100'
+                        }`}
                       style={{
                         height: `${height + 40}px`,
                         width: '400px',
@@ -298,13 +296,11 @@ function App() {
           </div>
         </div>
         <div
-          className={`h-full fixed !w-[470px] ${
-            isDarkMode
-              ? 'bg-darkBg text-white border-darkBorder'
-              : 'bg-white text-black border-lightPurple'
-          } right-0 border-l p-4 transition-transform duration-[600ms] ease-in-out mobile:hidden tablet:hidden ${
-            isCodeOpen ? 'translate-x-0' : 'translate-x-full'
-          }`}
+          className={`h-full fixed !w-[470px] ${isDarkMode
+            ? 'bg-darkBg text-white border-darkBorder'
+            : 'bg-white text-black border-lightPurple'
+            } right-0 border-l p-4 transition-transform duration-[600ms] ease-in-out mobile:hidden tablet:hidden ${isCodeOpen ? 'translate-x-0' : 'translate-x-full'
+            }`}
         >
           <div className="border border-lightPurple dark:border-darkBorder">
             <Highlight
