@@ -46,7 +46,6 @@ export type LoginMethodType = Array<
 export const DEFAULT_LOGIN_METHODS: LoginMethodType = [
   'wallet',
   'email',
-  'sms',
   'google',
   'discord',
   'github',
